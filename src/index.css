@@ -1,0 +1,221 @@
+/* Don't add anything expect tailwind or other config */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gray--color: #a1a8ac;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    background-color: #ffffff;
+  }
+}
+
+#root {
+  margin: 0 auto;
+  max-width: 600px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#page {
+  background-image: url('../assets/images/cny-red.webp');
+  background-size: 100%;
+  min-height: 100vh;
+}
+
+.footer-div {
+  background-image: url('./assets/images/cny-footer.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 250px;
+  z-index: 40;
+  position: relative;
+}
+
+.login-bottom {
+  top: 40vh;
+}
+
+.authform-bottom,
+.signup-authform {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.authform-bottom {
+  top: 190px;
+  z-index: 50;
+}
+
+.spinner-loading-btn {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border: 4px solid transparent;
+  border-top-color: white;
+  border-radius: 50%;
+  animation: button-loading-spinner 1s ease infinite;
+}
+
+.gray-color {
+  color: var(--gray--color);
+}
+
+/* Headings */
+.heading-1 {
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.heading-2 {
+  color: white;
+  font-size: 16px;
+}
+
+.heading-3 {
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 2.5rem;
+  color: white;
+  padding: 12px 0;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.5)
+}
+
+/* AuthForm */
+.auth-form {
+  margin: 0 auto;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* InputField */
+.input-group {
+  width: 100%;
+}
+
+.input-signup {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.input-field {
+  width: 100%;
+  height: 55px;
+  padding: 10px;
+  border: 2px solid #8d8d8d;
+  border-radius: 10px;
+}
+
+/* Phone Prefix */
+.phone-prefix {
+  display: flex;
+  align-items: center;
+  height: 55px;
+  padding: 10px;
+  border: 2px solid #8d8d8d;
+  border-radius: 10px;
+  color: #8d8d8d;
+  background: white;
+}
+
+.input-div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Buttons */
+.button-component {
+  width: 90%;
+  height: 45px;
+  color: #d12031;
+  font-size: 22px;
+  font-weight: 900;
+  background: linear-gradient(120deg, #ffd349 40%, #ffe976 60%, #efb52f 70%, #ffe660 90%);
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 40px;
+}
+
+.blue-button {
+  width: 100%;
+  height: 45px;
+  color: #ffe976;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.2;
+  background: linear-gradient(#4c5589 0%, #1c2365 20%, #0a0a51 40%);
+  cursor: pointer;
+  border-radius: 40px;
+  padding: 0 50px;
+}
+
+.home-button {
+  width: 100%;
+  height: 45px;
+  color: #d12031;
+  font-size: 12px;
+  font-weight: 900;
+  background: linear-gradient(120deg, #ffd349 40%, #ffe976 60%, #efb52f 70%, #ffe660 90%);
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 40px;
+}
+
+/* Login modal */
+.login-slider {
+  background-image: url(/src/assets/images/login-modal.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  width: 100%;
+}
+
+.login-modal-button {
+  background: linear-gradient(90deg, #D8B564 0%, #FDEC91 22%, #DBB663 68%, #FAF2BD 100%);
+  box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.register-text {
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+@media screen and (max-height: 700px) {
+  .login-bottom {
+    top: 38vh;
+  }
+
+  .authform-bottom {
+    margin-top: 4vh;
+  }
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}

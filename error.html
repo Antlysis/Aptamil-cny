@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Page</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .error-container {
+            background-image: url('bk_top.png'), url('bk_bottom.png');
+            background-position: top, bottom;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-color: white;
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            align-items: center;
+        }
+        .error-content {
+            margin-top: 0;
+            height: 100vh;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-top: 15rem;
+        }
+        p {
+            font-size: 1rem;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-content">
+            <h1>Oops!</h1>
+            <p>Sorry, an unexpected error has occurred.</p>
+            <p><i><!-- Error message would be inserted here dynamically --></i></p>
+        </div>
+    </div>
+
+    <script>
+        // This script simulates the error handling logic
+        function getErrorMessage() {
+            // In a real scenario, you'd get this from the server or catch it client-side
+            return "Unknown error";
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const errorMessageElement = document.querySelector('.error-content p i');
+            errorMessageElement.textContent = getErrorMessage();
+        });
+    </script>
+</body>
+</html>

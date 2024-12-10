@@ -1,0 +1,23 @@
+{
+  "structure": [
+    { "name": "*" },
+    {
+      "name": "src",
+      "children": [
+        {
+          "name": "components",
+          "children": [
+            {
+              "name": "{PascalCase}.tsx",
+              "children": [
+                { "name": "index.tsx" },
+                { "name": "style.tsx" },
+                { "name": "*.ts" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
