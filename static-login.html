@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        position: relative;
+      }
+
+      .container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+      
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .logo {
+        position: absolute;
+        z-index: 2;
+        top: 2%;
+        right: 3%;
+        width: 14vw;
+      }
+
+      .animation {
+        position: absolute;
+        width: 100%;
+        min-width: 320px;
+        max-width: 600px;
+        z-index: 0;
+      }
+
+      .background {
+        position: absolute;
+        background-size: cover;
+        background-position: top;
+        width: 100%;
+        margin-top: 90%;
+        z-index: 1;
+      }
+
+      .text {
+        position: absolute;
+        z-index: 2;
+        margin-top: 110%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <img class="logo" src="src/assets/images/svg/aptamilKidLogo.svg" alt="Logo">
+      <img class="animation" src="src/assets/gif/cny-animation.gif" alt="Animation">
+      <img class="background" src="src/assets/images/cny-body.webp" alt="Background">
+      <img class="text" src="src/assets/images/static-login-text.png" alt="Text">
+    </div>
+  </body>
+
+</html>
