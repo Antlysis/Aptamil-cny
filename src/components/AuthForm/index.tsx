@@ -1,5 +1,9 @@
 import React, { FormEvent, ReactNode, useEffect, useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
+
+import { checkUser } from '../../services/authService';
+import { useAppDispatch } from '../../store/hooks';
 import ButtonComponent from '../ButtonComponent';
 import InputField from '../InputField';
 
@@ -28,7 +32,8 @@ interface AuthFormProps {
     [key: string]: boolean;
   };
   buttonFunction?: () => void;
-  navigateTo?: string;
+  // navigateTo?: string;
+  type?: string;
   modal?: {
     logo: string;
     title: string;
@@ -55,7 +60,8 @@ function AuthForm({
   buttonClass,
   checkboxStates,
   buttonFunction,
-  navigateTo,
+  // navigateTo,
+  type,
   modal,
 }: AuthFormProps) {
   const [loading, setLoading] = useState(false);
@@ -64,6 +70,7 @@ function AuthForm({
   const [isFormValid, setIsFormValid] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (formConfig?.fields) {
@@ -99,8 +106,11 @@ function AuthForm({
       ? checkboxStates.terms === true && checkboxStates.marketing === true
       : false;
 
-    setIsFormValid(isValid && areCheckboxesValid);
-  }, [errors, values, formConfig?.fields, checkboxStates]);
+    //   setIsFormValid(isValid && areCheckboxesValid);
+    // }, [errors, values, formConfig?.fields, checkboxStates]);
+
+    setIsFormValid(isValid);
+  }, [errors, values, formConfig?.fields]);
 
   const handleFieldChange = (name: string, value: string, error: string | null) => {
     setValues(prev => ({
@@ -116,28 +126,46 @@ function AuthForm({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isFormValid) return;
+    console.log('Form Values:');
 
     try {
-      setLoading(true);
-      const formData = new FormData(e.target as HTMLFormElement);
-      const data = {
-        ...Object.fromEntries(formData.entries()),
-        ...additionalFields,
-      };
+      if (type === 'checkUser') {
+        setLoading(true);
+        const formData = new FormData(e.target as HTMLFormElement);
+        const data = Object.fromEntries(formData.entries());
 
-      if (buttonFunction) {
-        await buttonFunction();
+        const sendData = {
+          phone: '60' + data.phone,
+          type: 'PHONE',
+        };
+
+        // if (buttonFunction) {
+        //   await buttonFunction();
+        // }
+
+        const res = await checkUser(sendData);
+        console.log('CheckUser Response:', res); // Log the entire response
+        console.log('Response Data:', res?.data);
+        console.log('Identity:', res?.data?.data?.identity);
+
+        if (res) {
+          const dataToPass = {
+            phone: data.phone,
+            identity: res?.data?.data?.identity,
+          };
+
+          if (modal) {
+            setShowModal(true);
+          }
+
+          setLoading(false);
+          navigate('/verify', { state: dataToPass });
+        } else {
+          setLoading(false);
+        }
       }
-
-      // Show modal if it exists
-      if (modal) {
-        setShowModal(true);
-      }
-
-      setLoading(false);
     } catch (error) {
       alert('Error: Failed to submit');
-      console.error(error);
       setLoading(false);
     }
   };
@@ -185,11 +213,15 @@ function AuthForm({
           disabled={!isFormValid}
           buttonClass={buttonClass || 'button-component'}
           buttonFunction={buttonFunction}
-          modal={modal ? {
-            ...modal,
-            show: showModal,
-            onClose: handleModalClose
-          } : undefined}
+          modal={
+            modal
+              ? {
+                  ...modal,
+                  show: showModal,
+                  onClose: handleModalClose,
+                }
+              : undefined
+          }
         />
       </div>
     </form>

@@ -104,17 +104,10 @@ const Login: React.FC = () => {
               params: location.search,
             }}
             buttonText="Login"
+            type="checkUser"
           />
         </div>
-        <div className="footer-div">
-          <p className="text-white text-center relative z-20 pt-[195px]">
-            Not registered yet?
-            <button
-              onClick={() => navigate('/register')}
-              className="underline ml-1"
-            >Sign up</button>
-          </p>
-        </div>
+        <div className="footer-div"></div>
       </div>
     </div>
   );
