@@ -17,11 +17,9 @@ export interface CreateEntry {
 }
 
 export interface Register {
-  data: {
-    success: boolean;
-    token: string;
-    message: string;
-  };
+  success: boolean;
+  token: string;
+  message: string;
 }
 
 export interface RegisterOTP {

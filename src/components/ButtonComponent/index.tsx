@@ -14,16 +14,16 @@ interface ButtonComponentProps {
   disabled?: boolean;
   buttonClass?: string;
   buttonFunction?: () => void;
-  navigateTo?: string;
+  navigateTo?: string | { pathname: string; state?: any };
   modal?: {
     logo: string;
     title: string;
     body: string | React.ReactNode;
     modalButtonText: string;
     modalButtonClass: string;
-    navigateTo?: string;
     show?: boolean;
     onClose?: () => void;
+    modalFunction?: () => void;
   };
 }
 
@@ -44,33 +44,33 @@ function ButtonComponent({
     if (buttonFunction) {
       buttonFunction();
     }
-
-    // Handle modal visibility regardless of button type
     if (modal) {
       setLocalModalVisible(true);
     }
-
-    // Only navigate immediately if it's not a submit button and we have a navigation path
     if (buttonType !== 'submit' && navigateTo) {
-      navigate(navigateTo);
-    }
-  };
-
-  const handleModalClose = () => {
-    if (modal?.onClose) {
-      // If parent provided onClose, use that
-      modal.onClose();
-    } else {
-      // Otherwise use local state
-      setLocalModalVisible(false);
-      // Handle navigation after modal closes
-      if (modal?.navigateTo) {
-        navigate(modal.navigateTo);
+      if (typeof navigateTo === 'string') {
+        navigate(navigateTo);
+      } else {
+        navigate(navigateTo.pathname, { state: navigateTo.state });
       }
     }
   };
 
-  // Determine if modal should be shown based on either local state or parent control
+  const handleModalClose = () => {
+    // Execute modal function if provided
+    if (modal?.modalFunction) {
+      modal.modalFunction();
+    }
+
+    // Handle onClose callback if provided
+    if (modal?.onClose) {
+      modal.onClose();
+    } else {
+      // Otherwise use local state
+      setLocalModalVisible(false);
+    }
+  };
+
   const isModalVisible = modal?.show !== undefined ? modal.show : localModalVisible;
 
   return (
@@ -93,7 +93,6 @@ function ButtonComponent({
           buttonText={modal.modalButtonText}
           buttonClass={modal.modalButtonClass}
           onClose={handleModalClose}
-          navigateTo={modal.navigateTo}
         />
       )}
     </>

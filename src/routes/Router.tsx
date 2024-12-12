@@ -34,11 +34,11 @@ const Router: React.FC = () => {
           <Route path={'/verify'} element={<Verify />} />
           <Route path={'/register'} element={<Register />} />
         </Route>
-        <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
+        {/* <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}> */}
           <Route path={'/join'} element={<Join />} />
           <Route path={'/home'} element={<Home />} />
           <Route path={'/upload'} element={<Upload />} />
-        </Route>
+        {/* </Route> */}
       </Routes>
     </BrowserRouter>
   );

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 
+import cnyTop from '../../assets/gif/cny-animation.gif';
 import cnyBody from '../../assets/images/cny-body.webp';
-import cnyTop from '../../assets/images/cny-top.png';
 import successLogo from '../../assets/images/svg/successLogo.svg';
 import trashLogo from '../../assets/images/svg/trashLogo.svg';
 import uploadLogo from '../../assets/images/svg/uploadLogo.svg';
@@ -105,10 +105,10 @@ const Upload: React.FC = () => {
         <Header previous={true} />
       </div>
       <div className="relative z-[2]">
-        <img src={cnyTop} alt="gif" className="w-full h-full" />
+        <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
       </div>
 
-      <div className="relative -mt-[115px] overflow-hidden z-[3] pb-[73px]">
+      <div className="relative -mt-[125px] overflow-hidden z-[3] pb-[73px]">
         <img
           src={cnyBody}
           alt="main-bg"

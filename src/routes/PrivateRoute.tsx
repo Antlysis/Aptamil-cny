@@ -17,7 +17,6 @@ const PrivateRoute = ({ isAuthenticated }: RouterProps) => {
     if (isAuthenticated && !userDetails) {
       (async () => {
         const res = await getUserDetailsAPI();
-        console.log('get user details');
         if (res) {
           dispatch(setUserDetails(res?.data));
         }

@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+import cnyTop from '../../assets/gif/cny-animation.gif';
 import cnyBody from '../../assets/images/cny-body.webp';
-import cnyTop from '../../assets/images/cny-top.png';
 import successLogo from '../../assets/images/svg/successLogo.svg';
 import AuthForm from '../../components/AuthForm';
 import Checkbox from '../../components/Checkbox';
 import Header from '../../components/Header';
+import { useAppDispatch } from '../../store/hooks';
+import { userLogin } from '../../store/userSlice';
 
 const Register: React.FC = () => {
   const location = useLocation();
   const [termsChecked, setTermsChecked] = useState(false);
   const [marketingChecked, setMarketingChecked] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!location?.state) {
+      navigate('/login');
+    }
+  }, [navigate, location]);
 
   const handleTermsChange = (checked: boolean) => {
     setTermsChecked(checked);
@@ -22,16 +33,20 @@ const Register: React.FC = () => {
     setMarketingChecked(checked);
   };
 
+  const handleModalFunction = () => {
+    dispatch(userLogin());
+  };
+
   return (
     <div id="page" className="overflow-y-auto">
       <div className="absolute flex justify-between w-full">
         <Header />
       </div>
       <div className="relative z-[2]">
-        <img src={cnyTop} alt="gif" className="w-full h-full" />
+        <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
       </div>
 
-      <div className="relative -mt-[115px] overflow-hidden z-[3]">
+      <div className="relative -mt-[125px] overflow-hidden z-[3]">
         <img
           src={cnyBody}
           alt="main-bg"
@@ -66,9 +81,9 @@ const Register: React.FC = () => {
               authFormClass: 'auth-form',
             }}
             additionalFields={{
-              path: location.pathname,
-              params: location.search,
+              state: location.state,
             }}
+            type="register"
             buttonText="REGISTER"
             checkboxStates={{
               terms: termsChecked,
@@ -88,7 +103,7 @@ const Register: React.FC = () => {
               ),
               modalButtonText: 'OK',
               modalButtonClass: 'bg-[#02BC7D] hover:bg-green-700',
-              navigateTo:'/join',
+              modalFunction: handleModalFunction,
             }}
           >
             <div className="mb-4 w-full">

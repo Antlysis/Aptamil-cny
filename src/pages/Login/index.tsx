@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
 
+import cnyTop from '../../assets/gif/cny-animation.gif';
 import cnyBody from '../../assets/images/cny-body.webp';
-import cnyTop from '../../assets/images/cny-top.png';
 import loginSlider1 from '../../assets/images/login-slider-1.png';
 import loginSlider2 from '../../assets/images/login-slider-2.png';
 import loginSlider3 from '../../assets/images/login-slider-3.png';
@@ -67,10 +67,10 @@ const Login: React.FC = () => {
         <Header />
       </div>
       <div className="relative z-[2]">
-        <img src={cnyTop} alt="gif" className="w-full h-full" />
+        <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
       </div>
 
-      <div className="relative -mt-[115px] overflow-hidden z-[3]">
+      <div className="relative -mt-[125px] overflow-hidden z-[3]">
         <img
           src={cnyBody}
           alt="main-bg"
@@ -94,6 +94,7 @@ const Login: React.FC = () => {
                   inputDivClass: 'input-div',
                   inputClass: 'input-field text-center',
                   phonePrefix: true,
+                  required: true,
                 },
               ],
               authFormClass: 'auth-form',
