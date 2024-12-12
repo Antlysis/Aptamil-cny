@@ -177,6 +177,10 @@ body {
   border-radius: 40px;
 }
 
+.disabled-button {
+  color: grey !important;
+}
+
 /* Login modal */
 .login-slider {
   background-image: url(/src/assets/images/login-modal.png);

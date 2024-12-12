@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { useNavigate, useLocation } from 'react-router-dom';
+
+import cnyTop from '../../assets/gif/cny-animation.gif';
 import cnyBody from '../../assets/images/cny-body.webp';
-import cnyTop from '../../assets/images/cny-top.png';
 import grandPrizes from '../../assets/images/grand-prizes.png';
 import guaranteedRewards from '../../assets/images/guaranteed-rewards.png';
 import howToJoin from '../../assets/images/how-to-join.png';
@@ -10,7 +12,30 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 
 const Join: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    if (location.state?.fromHome) {
+      localStorage.removeItem('skipJoinPage');
+    }
+
+    const shouldSkip = localStorage.getItem('skipJoinPage') === 'true';
+    if (shouldSkip) {
+      navigate('/home');
+    }
+  }, [navigate]);
+
+  const handleCheckboxChange = () => {
+    const newValue = !isChecked;
+    setIsChecked(newValue);
+    if (newValue) {
+      localStorage.setItem('skipJoinPage', 'true');
+    } else {
+      localStorage.removeItem('skipJoinPage');
+    }
+  };
 
   return (
     <div id="page" className="overflow-y-auto">
@@ -18,10 +43,10 @@ const Join: React.FC = () => {
         <Header />
       </div>
       <div className="relative z-[2]">
-        <img src={cnyTop} alt="gif" className="w-full h-full" />
+        <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
       </div>
 
-      <div className="relative -mt-[115px] overflow-hidden z-[3] pb-[73px]">
+      <div className="relative -mt-[125px] overflow-hidden z-[3] pb-[73px]">
         <img
           src={cnyBody}
           alt="main-bg"
@@ -39,7 +64,7 @@ const Join: React.FC = () => {
               type="checkbox"
               checked={isChecked}
               className={`mr-2 scale-[1.2] h-6 cursor-pointer`}
-              onChange={() => setIsChecked(!isChecked)}
+              onChange={handleCheckboxChange}
             />
             <p className="relative z-40 text-white text-center">Don't show this again</p>
           </label>
@@ -50,7 +75,7 @@ const Join: React.FC = () => {
               buttonText="LET'S START SSS-LIDING!"
               buttonType="button"
               buttonClass="button-component"
-              navigateTo='/home'
+              navigateTo="/home"
             />
             <p className="text-white pt-1">*T&C apply.</p>
           </div>

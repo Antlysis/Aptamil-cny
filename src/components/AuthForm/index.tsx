@@ -1,9 +1,9 @@
 import React, { FormEvent, ReactNode, useEffect, useState } from 'react';
 
+import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
-import { checkUser } from '../../services/authService';
-import { useAppDispatch } from '../../store/hooks';
+import { checkUser, register } from '../../services/authService';
 import ButtonComponent from '../ButtonComponent';
 import InputField from '../InputField';
 
@@ -32,7 +32,6 @@ interface AuthFormProps {
     [key: string]: boolean;
   };
   buttonFunction?: () => void;
-  // navigateTo?: string;
   type?: string;
   modal?: {
     logo: string;
@@ -40,7 +39,7 @@ interface AuthFormProps {
     body: string | React.ReactNode;
     modalButtonText: string;
     modalButtonClass: string;
-    navigateTo?: string;
+    modalFunction?: () => void;
   };
 }
 
@@ -60,7 +59,6 @@ function AuthForm({
   buttonClass,
   checkboxStates,
   buttonFunction,
-  // navigateTo,
   type,
   modal,
 }: AuthFormProps) {
@@ -70,7 +68,6 @@ function AuthForm({
   const [isFormValid, setIsFormValid] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (formConfig?.fields) {
@@ -106,11 +103,8 @@ function AuthForm({
       ? checkboxStates.terms === true && checkboxStates.marketing === true
       : false;
 
-    //   setIsFormValid(isValid && areCheckboxesValid);
-    // }, [errors, values, formConfig?.fields, checkboxStates]);
-
-    setIsFormValid(isValid);
-  }, [errors, values, formConfig?.fields]);
+    setIsFormValid(isValid && (type === 'register' ? areCheckboxesValid : true));
+  }, [errors, values, formConfig?.fields, checkboxStates]);
 
   const handleFieldChange = (name: string, value: string, error: string | null) => {
     setValues(prev => ({
@@ -126,56 +120,60 @@ function AuthForm({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isFormValid) return;
-    console.log('Form Values:');
-
     try {
       if (type === 'checkUser') {
         setLoading(true);
         const formData = new FormData(e.target as HTMLFormElement);
         const data = Object.fromEntries(formData.entries());
-
         const sendData = {
           phone: '60' + data.phone,
           type: 'PHONE',
         };
-
-        // if (buttonFunction) {
-        //   await buttonFunction();
-        // }
-
+        if (buttonFunction) {
+          await buttonFunction();
+        }
         const res = await checkUser(sendData);
-        console.log('CheckUser Response:', res);
-        console.log('Response Data:', res?.data);
-        console.log('Identity:', res?.data?.identity);
-
         if (res) {
           const dataToPass = {
             phone: data.phone,
             identity: res?.data?.identity,
           };
-
           if (modal) {
             setShowModal(true);
           }
-
           setLoading(false);
           navigate('/verify', { state: dataToPass });
         } else {
           setLoading(false);
         }
+      } else if (type === 'register') {
+        setLoading(true);
+        const formData = new FormData(e.target as HTMLFormElement);
+        const data = Object.fromEntries(formData.entries());
+        const registerData = {
+          name: data.name as string,
+          phone: '60' + additionalFields?.state?.phone,
+          email: data.email as string,
+          type: 'PHONE',
+        };
+
+        const res = await register(registerData);
+        if (res) {
+          Cookies.set('user-token', res?.data?.token);
+          setShowModal(true);
+          setLoading(false);
+        } else {
+          setLoading(false);
+        }
       }
     } catch (error) {
-      alert('Error: Failed to submit');
+      alert('Failed to Submit Data');
       setLoading(false);
     }
   };
 
   const handleModalClose = () => {
     setShowModal(false);
-    // Navigate after modal closes if navigateTo is specified in modal
-    if (modal?.navigateTo) {
-      navigate(modal.navigateTo);
-    }
   };
 
   if (!formConfig?.fields) {

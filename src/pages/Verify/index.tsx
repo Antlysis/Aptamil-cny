@@ -4,8 +4,8 @@ import Cookies from 'js-cookie';
 import OtpInput from 'react-otp-input';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import cnyTop from '../../assets/gif/cny-animation.gif';
 import cnyBody from '../../assets/images/cny-body.webp';
-import cnyTop from '../../assets/images/cny-top.png';
 import ButtonComponent from '../../components/ButtonComponent';
 import Header from '../../components/Header';
 import { resendOtp, verifyToken } from '../../services/authService';
@@ -100,7 +100,9 @@ const Verify: React.FC = () => {
       const res = await verifyToken(sendData);
       if (res) {
         if (location?.state?.identity === 'LOGIN') {
-          Cookies.set('user-token', res?.data?.data?.token);
+          Cookies.set('user-token', res?.data?.token);
+          console.log(res);
+
           dispatch(userLogin());
           navigate('/home');
         } else {
@@ -128,10 +130,10 @@ const Verify: React.FC = () => {
         <Header />
       </div>
       <div className="relative z-[2]">
-        <img src={cnyTop} alt="gif" className="w-full h-full" />
+        <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
       </div>
 
-      <div className="relative -mt-[115px] overflow-hidden z-[3]">
+      <div className="relative -mt-[125px] overflow-hidden z-[3]">
         <img
           src={cnyBody}
           alt="main-bg"
