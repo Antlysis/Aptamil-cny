@@ -44,10 +44,8 @@ export interface Token {
 }
 
 export interface VerifyToken {
-  data: {
-    success: boolean;
-    token: string;
-  };
+  success: boolean;
+  token: string;
 }
 
 export interface OTP {
