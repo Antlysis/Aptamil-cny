@@ -1,22 +1,124 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import Cookies from 'js-cookie';
 import OtpInput from 'react-otp-input';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import cnyBody from '../../assets/images/cny-body.webp';
 import cnyTop from '../../assets/images/cny-top.png';
 import ButtonComponent from '../../components/ButtonComponent';
 import Header from '../../components/Header';
+import { resendOtp, verifyToken } from '../../services/authService';
+import { useAppDispatch } from '../../store/hooks';
+import { userLogin } from '../../store/userSlice';
 
 const Verify: React.FC = () => {
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
-  const handleSubmit = () => {
+  const [resend, setResend] = useState(false);
+  const [timer, setTimer] = useState(0);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+
+  // Redirect to Login if not logged in when navigate/location change
+  useEffect(() => {
+    if (!location?.state) {
+      navigate('/login');
+    }
+  }, [navigate, location]);
+
+  // Set timer in localstorage
+  useEffect(() => {
+    const localStorageTimer = Number(localStorage.getItem('timer'));
+    if (localStorageTimer && localStorageTimer > 0) {
+      // if timer exists, enable resend and set timer to value
+      setResend(true);
+      setTimer(Number(localStorageTimer));
+    } else {
+      // if timer does not exist, disable resend and reset timer
+      setResend(false);
+      setTimer(60);
+    }
+  }, []);
+
+  // Timer management
+  useEffect(() => {
+    let interval: number;
+    if (resend) {
+      interval = window.setInterval(() => {
+        setTimer(prevTimer => {
+          if (prevTimer === 0) {
+            clearInterval(interval);
+            setResend(false);
+            localStorage.setItem('timer', '0');
+            return 0;
+          }
+          localStorage.setItem('timer', String(prevTimer - 1));
+          return prevTimer - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [resend]);
+
+  const handleResendOTP = async () => {
+    if (timer > 0 && resend) {
+      return;
+    }
+    try {
+      const sendData = {
+        recipient: '60' + location?.state?.phone,
+        tokenAction: location?.state?.identity,
+        tokenType: 'PHONE',
+      };
+      const res = await resendOtp(sendData);
+
+      if (res && res.data) {
+        setResend(true);
+        setTimer(60);
+      } else {
+        setLoading(false);
+      }
+    } catch (error) {
+      alert('Failed to resend OTP');
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async () => {
     setLoading(true);
     try {
-      console.log(otp);
+      const sendData = {
+        token: otp,
+        recipient: '60' + location?.state?.phone,
+        tokenAction: location?.state?.identity,
+        tokenType: 'PHONE',
+        degenerate: true,
+      };
+      console.log(sendData);
+      const res = await verifyToken(sendData);
+      if (res) {
+        if (location?.state?.identity === 'LOGIN') {
+          Cookies.set('user-token', res?.data?.data?.token);
+          dispatch(userLogin());
+          navigate('/home');
+        } else {
+          navigate('/register', {
+            state: {
+              otp,
+              phone: location?.state?.phone,
+              identity: location.state?.identity,
+              ...location?.state,
+            },
+          });
+        }
+      } else {
+        setLoading(false);
+      }
     } catch (error) {
-      console.log(error);
-      alert('Failed to');
+      alert('Failed to submit');
+      setLoading(false);
     }
   };
 
@@ -42,7 +144,7 @@ const Verify: React.FC = () => {
           <p className="heading-2 p-4 text-center">
             Please enter the verification code sent to
             <br />
-            <strong>0123456789</strong>
+            <strong>0{location?.state?.phone}</strong>
           </p>
           <div className="pb-3">
             <OtpInput
@@ -57,8 +159,14 @@ const Verify: React.FC = () => {
               inputStyle="bg-transparent border-b-[3px] border-b-[#FFFFFF] !w-[62px] h-[58px] gotham-bold text-white text-[32px]"
             />
           </div>
-          <p className="text-[16px] text-white">00:45</p>
-          <p className="text-[16px] text-white">Resend OTP</p>
+          {resend ? (
+            <p className="text-[16px] text-white">
+              00:{timer.toString().padStart(2, '0')}
+            </p>
+          ) : null}
+          <p className="text-[16px] text-white" onClick={() => handleResendOTP()}>
+            Resend OTP
+          </p>
         </div>
         <div className="footer-div">
           <div className="absolute z-40 w-full mx-auto text-center top-[140px]">
@@ -67,6 +175,7 @@ const Verify: React.FC = () => {
               buttonType="submit"
               loading={loading}
               buttonFunction={() => handleSubmit()}
+              disabled={otp.length < 4}
               buttonClass="button-component"
             />
           </div>
