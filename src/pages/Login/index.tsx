@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import cnyBody from '../../assets/images/cny-body.webp';
 import cnyTop from '../../assets/images/cny-top.png';
@@ -13,7 +13,6 @@ import LoginModal from '../../components/LoginModal';
 
 const Login: React.FC = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   const handleCloseModal = () => {
@@ -55,7 +54,7 @@ const Login: React.FC = () => {
               text: (
                 <>
                   Complete a simple mini-game and stand a chance to win
-                  <strong>GRAND PRIZES!</strong>
+                  <strong> GRAND PRIZES!</strong>
                 </>
               ),
               footNote: true,

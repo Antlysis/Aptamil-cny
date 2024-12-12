@@ -1,6 +1,8 @@
 import { useState } from 'react';
+
 import { Button } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
+
 import Modal from '../Modal';
 import Spinner from '../Spinner';
 
@@ -47,13 +49,13 @@ function ButtonComponent({
     if (modal) {
       setLocalModalVisible(true);
     }
-    
+
     // Only navigate immediately if it's not a submit button and we have a navigation path
     if (buttonType !== 'submit' && navigateTo) {
       navigate(navigateTo);
     }
   };
-  
+
   const handleModalClose = () => {
     if (modal?.onClose) {
       // If parent provided onClose, use that
@@ -75,7 +77,7 @@ function ButtonComponent({
     <>
       <Button
         type={buttonType}
-        className={`${buttonClass || ''}`}
+        className={`${buttonClass || ''} ${loading || disabled ? 'disabled-button' : ''}`}
         disabled={loading || disabled}
         onClick={handleButtonClick}
       >
