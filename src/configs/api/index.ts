@@ -15,7 +15,7 @@ const api = <DataType>({
     'x-company-id': import.meta.env.VITE_APP_COMPANY_ID_MY,
     'x-secret': import.meta.env.VITE_APP_SLEEKFLOW_SECRET,
   };
-  const token = Cookies.get('token');
+  const token = Cookies.get('user-token');
   const { apiURL, apiHeaders } = getEndpoint(route);
   const authorizationHeader = token ? { Authorization: `Bearer ${token}` } : {};
 
