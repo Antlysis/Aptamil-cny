@@ -21,7 +21,7 @@ export interface Register {
     success: boolean;
     token: string;
     message: string;
-  }
+  };
 }
 
 export interface RegisterOTP {
@@ -42,26 +42,26 @@ export interface RBRegisterOTP {
 export interface Token {
   data: {
     success: boolean;
-  }
+  };
 }
 
 export interface VerifyToken {
   data: {
     success: boolean;
     token: string;
-  }
+  };
 }
 
 export interface OTP {
   data: {
     message: string;
-  }
+  };
 }
 
 export interface Login {
   data: {
     token: string;
-  }
+  };
 }
 
 export interface LoginOTP {
@@ -74,13 +74,13 @@ export interface LoginOTP {
 export interface LoginPhone {
   data: {
     token: string;
-  }
+  };
 }
 
 export interface SetPass {
   data: {
     success: boolean;
-  }
+  };
 }
 
 export interface ResetPass {
@@ -101,11 +101,8 @@ export interface CheckQR {
   };
 }
 
-
 export interface CheckUser {
-  data: {
-    identity: string;
-  }
+  identity: string;
 }
 
 export interface RegisterData {
@@ -211,13 +208,13 @@ export interface CheckUserData {
 
 export interface getUserDetailsOutput {
   data: {
-    addressInfo: [],
+    addressInfo: [];
     personalInfo: {
       name: string;
       phone: string;
       email: string;
       totalUnitsBalance: number;
-    },
-    success: boolean
-  }
+    };
+    success: boolean;
+  };
 }

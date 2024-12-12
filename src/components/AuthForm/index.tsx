@@ -144,14 +144,14 @@ function AuthForm({
         // }
 
         const res = await checkUser(sendData);
-        console.log('CheckUser Response:', res); // Log the entire response
+        console.log('CheckUser Response:', res);
         console.log('Response Data:', res?.data);
-        console.log('Identity:', res?.data?.data?.identity);
+        console.log('Identity:', res?.data?.identity);
 
         if (res) {
           const dataToPass = {
             phone: data.phone,
-            identity: res?.data?.data?.identity,
+            identity: res?.data?.identity,
           };
 
           if (modal) {
