@@ -75,7 +75,7 @@ function ButtonComponent({
 
   const isModalVisible = modal?.show !== undefined ? modal.show : localModalVisible;
   const isButtonDisabled =
-    loading || disabled || (buttonType === 'submit' && !filePresent);
+    loading || disabled || (buttonText === 'SUBMIT RECEIPT' && !filePresent);
 
   return (
     <>
