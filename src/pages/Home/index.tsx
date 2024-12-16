@@ -5,6 +5,7 @@ import playRedeem from '../../assets/images/play-and-redeem.png';
 import ButtonComponent from '../../components/ButtonComponent';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
+import HotLineButton from '../../components/HotlineButton';
 
 const Home: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const Home: React.FC = () => {
       <div className="absolute flex justify-between w-full">
         <Header />
       </div>
+      <HotLineButton></HotLineButton>
       <div className="relative z-[2]">
         <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
       </div>

@@ -11,6 +11,7 @@ import Header from '../../components/Header';
 import { resendOtp, verifyToken } from '../../services/authService';
 import { useAppDispatch } from '../../store/hooks';
 import { userLogin } from '../../store/userSlice';
+import HotLineButton from '../../components/HotlineButton';
 
 const Verify: React.FC = () => {
   const [otp, setOtp] = useState('');
@@ -129,6 +130,7 @@ const Verify: React.FC = () => {
       <div className="absolute flex justify-between w-full">
         <Header />
       </div>
+      <HotLineButton></HotLineButton>
       <div className="relative z-[2]">
         <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
       </div>

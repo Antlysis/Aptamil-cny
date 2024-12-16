@@ -13,7 +13,7 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Modal from '../../components/Modal';
 import { checkValidity, createEntry, uploadImage } from '../../services/index';
-
+import HotLineButton from '../../components/HotlineButton';
 interface ImageData {
   name: string;
   size: string;
@@ -132,6 +132,7 @@ const Upload = () => {
       <div className="absolute flex justify-between w-full">
         <Header previous={true} />
       </div>
+      <HotLineButton></HotLineButton>
       <div className="relative z-[2]">
         <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
       </div>

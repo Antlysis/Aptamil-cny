@@ -204,6 +204,13 @@ body {
   margin-top: 10px;
 }
 
+.hotline-background {
+  background-size: cover;
+  background-position: center;
+  background-image: url('./assets/images/svg/whatsappLogo.svg');
+  margin: 0;
+}
+
 @media screen and (max-height: 700px) {
   .login-bottom {
     top: 38vh;

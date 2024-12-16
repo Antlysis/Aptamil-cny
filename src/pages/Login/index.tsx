@@ -10,6 +10,7 @@ import loginSlider3 from '../../assets/images/login-slider-3.png';
 import AuthForm from '../../components/AuthForm';
 import Header from '../../components/Header';
 import LoginModal from '../../components/LoginModal';
+import HotLineButton from '../../components/HotlineButton';
 
 const Login: React.FC = () => {
   const location = useLocation();
@@ -66,6 +67,7 @@ const Login: React.FC = () => {
       <div className="absolute flex justify-between w-full">
         <Header />
       </div>
+      <HotLineButton></HotLineButton>
       <div className="relative z-[2]">
         <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
       </div>

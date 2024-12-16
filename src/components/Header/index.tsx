@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+
 import aptamilKidLogo from '../../assets/images/svg/aptamilKidLogo.svg';
 
 interface HeaderProps {
@@ -7,9 +8,9 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ previous = false }) => {
   const navigate = useNavigate();
-  
+
   return (
-    <div className="flex h-16 w-full items-center justify-between m-4 relative z-20">
+    <div className="flex h-16 w-full items-center justify-between p-4 relative z-20">
       {previous && (
         <div
           onClick={() => {
@@ -30,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ previous = false }) => {
           </svg>
         </div>
       )}
-      {!previous && <div className="w-5" />} 
+      {!previous && <div className="w-5" />}
       <img src={aptamilKidLogo} alt="Aptamil Kid Logo" />
     </div>
   );

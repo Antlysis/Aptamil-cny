@@ -10,6 +10,7 @@ import Checkbox from '../../components/Checkbox';
 import Header from '../../components/Header';
 import { useAppDispatch } from '../../store/hooks';
 import { userLogin } from '../../store/userSlice';
+import HotLineButton from '../../components/HotlineButton';
 
 const Register: React.FC = () => {
   const location = useLocation();
@@ -42,6 +43,7 @@ const Register: React.FC = () => {
       <div className="absolute flex justify-between w-full">
         <Header />
       </div>
+      <HotLineButton></HotLineButton>
       <div className="relative z-[2]">
         <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
       </div>
