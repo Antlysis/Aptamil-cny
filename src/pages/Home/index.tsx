@@ -75,7 +75,13 @@ const Home: React.FC = () => {
                   buttonType="button"
                   buttonClass="home-button"
                 />
-                <p className="text-white underline mt-2">Terms & Conditions</p>
+                <a
+                  href="https://www.aptamilkid.com.my/footer-navigation/terms-and-conditions.html"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <p className="text-white underline mt-2">Terms & Conditions</p>
+                </a>
               </div>
             </div>
             <div className="relative">
@@ -89,7 +95,13 @@ const Home: React.FC = () => {
                     state: { fromHome: true },
                   }}
                 />
-                <p className="text-white underline mt-2">Privacy Policy</p>
+                <a
+                  href="https://www.aptamilkid.com.my/footer-navigation/privacy-policy.html"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <p className="text-white underline mt-2">Privacy Policy</p>
+                </a>
               </div>
             </div>
           </div>

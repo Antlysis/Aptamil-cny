@@ -1,7 +1,7 @@
 // api
 // import {AxiosResponse} from "axios";
-import api from '../configs/api';
-import { CheckValidity, CreateEntry, UploadImage } from './auth/types';
+import api from '../../configs/api';
+import { CheckValidity, CreateEntry, UploadImage } from '../auth/types';
 
 const campaignId = import.meta.env.VITE_APP_CAMPAIGN_ID;
 
@@ -24,18 +24,22 @@ export const receiptAPI = {
     await api<CheckValidity>({
       method: 'get',
       route: uploadReceiptEndpoint.validity,
+      
     }),
-  uploadImage: async (data: object) =>
+
+  uploadImage: async (data: FormData) =>
     await api<UploadImage>({
       method: 'post',
       route: uploadReceiptEndpoint.uploadImage,
-      ...data,
+      data: data,
+      headers: {'Content-Type': 'multipart/form-data'},
     }),
   createEntry: async (data: object) =>
     await api<CreateEntry>({
       method: 'post',
       route: uploadReceiptEndpoint.entry,
-      ...data,
+      data: { ...data },
+      headers: { 'accept-version': '~2' },
     }),
 };
 

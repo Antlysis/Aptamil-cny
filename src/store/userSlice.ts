@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
 import * as authTypes from '../apis/auth/types';
-import * as userTypes from '../apis/user/types';
+import * as userTypes from '../apis/user';
 import { createAppSlice } from './utils';
 
 export interface UserSliceState {

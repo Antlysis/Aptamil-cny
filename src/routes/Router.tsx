@@ -18,7 +18,8 @@ import PublicRoute from './PublicRoute';
 
 const Router: React.FC = () => {
   const dispatch = useAppDispatch();
-  const isAuthenticated = useAppSelector(getIsAuthenticated);
+  const isAuthenticated =
+    useAppSelector(getIsAuthenticated) || Cookies.get('user-token') ? true : false;
   useEffect(() => {
     const auth = Cookies.get('user-token') ? true : false;
     if (auth) {

@@ -1,6 +1,7 @@
 export interface CheckValidity {
   data: {
     isValid: boolean;
+    rewards: [];
   };
 }
 
@@ -11,9 +12,8 @@ export interface UploadImage {
   };
 }
 export interface CreateEntry {
-  data: {
-    status?: string;
-  };
+  status?: string;
+  id: string;
 }
 
 export interface Register {

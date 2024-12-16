@@ -115,6 +115,8 @@ const authApi = {
       method: 'get',
       route: endpoints.getUserDetails,
     }),
+
+  
 };
 
 export default authApi;

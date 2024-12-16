@@ -6,7 +6,7 @@ import rewardLogoFooter from '../../assets/images/svg/rewardLogoFooter.svg';
 
 const Footer = () => {
   return (
-    <div className="fixed bottom-0 flex h-[73px] w-full max-w-[600px] items-center justify-around bg-white pt-1 z-40">
+    <div className="fixed bottom-0 flex h-[73px] w-full max-w-[600px] items-center justify-around bg-white pt-1 z-50">
       <NavLink to="/homepage">
         <div className="grid h-full grid-rows-2">
           <div className="flex items-center justify-center">

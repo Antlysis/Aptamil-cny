@@ -25,6 +25,7 @@ interface ButtonComponentProps {
     onClose?: () => void;
     modalFunction?: () => void;
   };
+  filePresent?: boolean;
 }
 
 function ButtonComponent({
@@ -36,6 +37,7 @@ function ButtonComponent({
   buttonFunction,
   navigateTo,
   modal,
+  filePresent = false,
 }: ButtonComponentProps) {
   const [localModalVisible, setLocalModalVisible] = useState(false);
   const navigate = useNavigate();
@@ -72,13 +74,15 @@ function ButtonComponent({
   };
 
   const isModalVisible = modal?.show !== undefined ? modal.show : localModalVisible;
+  const isButtonDisabled =
+    loading || disabled || (buttonType === 'submit' && !filePresent);
 
   return (
     <>
       <Button
         type={buttonType}
-        className={`${buttonClass || ''} ${loading || disabled ? 'disabled-button' : ''}`}
-        disabled={loading || disabled}
+        className={`${buttonClass || ''} ${isButtonDisabled ? 'disabled-button' : ''}`}
+        disabled={isButtonDisabled}
         onClick={handleButtonClick}
       >
         {buttonText}

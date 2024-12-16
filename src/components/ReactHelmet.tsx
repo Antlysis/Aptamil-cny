@@ -18,7 +18,7 @@ const ReactHelmet = () => {
           default-src 'self' ${driveApiUrl};
           script-src 'self';
           style-src 'self';
-          img-src 'self' data:;
+          img-src 'self' data: blob:;
           font-src 'self';
           connect-src 'self' ${driveApiUrl};
           frame-ancestors 'none';
