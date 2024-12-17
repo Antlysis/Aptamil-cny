@@ -1,7 +1,7 @@
 // api
 // import {AxiosResponse} from "axios";
 import api from '../../configs/api';
-import { CheckValidity, CreateEntry, UploadImage } from '../auth/types';
+import { CheckValidity, CreateEntry, UploadImage, GameReward } from '../auth/types';
 
 const campaignId = import.meta.env.VITE_APP_CAMPAIGN_ID;
 
@@ -42,6 +42,15 @@ export const receiptAPI = {
       headers: { 'accept-version': '~2' },
     }),
 };
+
+export const gameAPI = {
+  gameReward: async (data: object) =>
+    await api<GameReward>({
+      method: 'post',
+      route: `/game/start`,
+      data: { ...data },
+    }),
+}
 
 // export const shopItemsAPI = {
 //     getShopItems: async (): Promise<AxiosResponse<any>> => await api.get(shopItemsEndpoint.shopItems)

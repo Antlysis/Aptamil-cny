@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { getIsAuthenticated, userLogin } from '../store/userSlice';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import PlayAndRedeem from '../pages/PlayAndRedeem';
 
 const Router: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -39,6 +40,7 @@ const Router: React.FC = () => {
           <Route path={'/join'} element={<Join />} />
           <Route path={'/home'} element={<Home />} />
           <Route path={'/upload'} element={<Upload />} />
+          <Route path={'/playandredeem'} element={<PlayAndRedeem />} />
         </Route>
       </Routes>
     </BrowserRouter>

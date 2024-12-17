@@ -69,8 +69,8 @@ const Upload = () => {
       try {
         const result = await checkValidity();
         if (result) {
-          setIsValid(result?.data?.isValid);
-          setRewardOptionId(result?.data?.rewards.map((item: { id: string }) => item.id));
+          setIsValid(result?.isValid);
+          // setRewardOptionId(result?.rewards.map((item: { id: string }) => item.id));
         }
       } catch (error) {
         console.log(error);

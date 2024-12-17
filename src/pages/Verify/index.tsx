@@ -97,7 +97,6 @@ const Verify: React.FC = () => {
         tokenType: 'PHONE',
         degenerate: true,
       };
-      console.log(sendData);
       const res = await verifyToken(sendData);
       if (res) {
         if (location?.state?.identity === 'LOGIN') {

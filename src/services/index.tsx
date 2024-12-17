@@ -1,4 +1,4 @@
-import { receiptAPI } from '../apis/campaign';
+import { gameAPI, receiptAPI } from '../apis/campaign';
 import { apiErrorHandling } from './errorHandling';
 
 export const checkValidity = async () => {
@@ -17,6 +17,13 @@ export const uploadImage = async (data: FormData) => {
 
 export const createEntry = async (data: object) => {
   const res = await apiErrorHandling({ dataCall: receiptAPI.createEntry, data });
+  if (res) {
+    return res;
+  }
+};
+
+export const gameReward = async (data: object) => {
+  const res = await apiErrorHandling({ dataCall: gameAPI.gameReward, data });
   if (res) {
     return res;
   }
