@@ -13,11 +13,11 @@ import { checkValidity, gameReward } from '../../services/index';
 
 const PlayAndRedeem = () => {
   const [isValid, setIsValid] = useState(false);
-  const [rewardOptionId, setRewardOptionId] = useState(['']);
   const [showRewardPopup, setShowRewardPopup] = useState(false);
   const [reward, setReward] = useState(null);
 
   const campaignId = import.meta.env.VITE_APP_GAMES_CAMPAIGN_ID;
+  const rewardId = import.meta.env.VITE_APP_REWARD_ID;
 
   useEffect(() => {
     const fetchValidity = async () => {
@@ -45,7 +45,7 @@ const PlayAndRedeem = () => {
 
         console.log('Full response:', response);
         if (response) {
-          setReward(response);
+          setReward(rewardId);
           setShowRewardPopup(true);
         }
       } catch (error) {

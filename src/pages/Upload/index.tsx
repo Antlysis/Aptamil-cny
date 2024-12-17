@@ -27,10 +27,10 @@ const Upload = () => {
   const [loading, setLoading] = useState(false);
   const [imageData, setImageData] = useState<ImageData | null>(null);
   const [isValid, setIsValid] = useState(false);
-  const [rewardOptionId, setRewardOptionId] = useState(['']);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const campaignId = import.meta.env.VITE_APP_CAMPAIGN_ID;
+  const rewardId = import.meta.env.VITE_APP_REWARD_ID;
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFile = e.target.files ? e.target.files[0] : '';
@@ -70,7 +70,6 @@ const Upload = () => {
         const result = await checkValidity();
         if (result) {
           setIsValid(result?.isValid);
-          // setRewardOptionId(result?.rewards.map((item: { id: string }) => item.id));
         }
       } catch (error) {
         console.log(error);
@@ -93,7 +92,7 @@ const Upload = () => {
           let entryData = {
             campaignId: campaignId,
             type: 'RECEIPT',
-            selectedRewardIds: [],
+            selectedRewardIds: [rewardId],
             data: {
               imageData: {
                 url: uploadImageResponse.data?.data.url,
