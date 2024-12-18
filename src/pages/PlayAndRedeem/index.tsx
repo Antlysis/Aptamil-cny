@@ -1,14 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import slideGif from '../../assets/gif/gatcha-slide.gif';
 import gatchaGif from '../../assets/gif/gatcha.gif';
+import capsule0 from '../../assets/images/capsule-0.png';
 import capsule from '../../assets/images/capsule.png';
+import checkmark from '../../assets/images/checkmark.png';
 import gatchaBackground from '../../assets/images/gatcha-background.webp';
 import gatchaGame from '../../assets/images/gatcha-game.png';
 import slide from '../../assets/images/gatcha-slide.png';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import HotLineButton from '../../components/HotlineButton';
+import Modal from '../../components/Modal';
 import RewardModal from '../../components/RewardModal';
 import { checkValidity, gameReward } from '../../services/index';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -18,6 +21,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   const dispatch = useAppDispatch();
   const [isValid, setIsValid] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isNoTokenModalOpen, setIsNoTokenModalOpen] = useState(false);
   const [reward, setReward] = useState<string>('');
   const [currentTokenBalance, setCurrentTokenBalance] = useState(0);
   const [showSlideGif, setShowSlideGif] = useState(true);
@@ -28,7 +32,6 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   const campaignId = import.meta.env.VITE_APP_GAMES_CAMPAIGN_ID;
   const userDetails = useAppSelector(getUserDetails);
   const tokenBalance = userDetails?.data?.personalInfo?.totalTokenBalance || 0;
-  const gifRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     setCurrentTokenBalance(tokenBalance);
@@ -88,6 +91,11 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   };
 
   const handleClick = () => {
+    if (currentTokenBalance === 0) {
+      setIsNoTokenModalOpen(true);
+      return;
+    }
+
     if (isValid && !isClickDisabled) {
       handleGatchaGif();
     }
@@ -96,6 +104,10 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   const handleCloseModal = () => {
     setIsOpen(false);
     setIsClickDisabled(false);
+  };
+
+  const handleCloseNoTokenModal = () => {
+    setIsNoTokenModalOpen(false);
   };
 
   return (
@@ -145,7 +157,11 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
           <div className="z-[4] mt-[110px] absolute flex column align-center gap-2 font-bold text-2xl">
             <p className="text-white">CAPSULE:</p>
             <div className="relative flex items-center">
-              <img src={capsule} className="w-[30px] h-[30px]"></img>
+              {currentTokenBalance === 0 ? (
+                <img src={capsule0} className="w-[30px] h-[30px]" />
+              ) : (
+                <img src={capsule} className="w-[30px] h-[30px]" />
+              )}
               <p className="z-[5] text-[#161E4F] inset-0 absolute flex items-center justify-center">
                 {currentTokenBalance}
               </p>
@@ -155,6 +171,18 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
         <Footer />
       </div>
       <RewardModal reward={reward} isOpen={isOpen} onClose={handleCloseModal} />
+
+      {isNoTokenModalOpen && (
+        <Modal
+          logo={checkmark}
+          title="Sorry.."
+          body="You don't have any valid entry yet. Submit your receipt now to get your guaranteed rewards!"
+          buttonText="UPLOAD RECEIPT NOW"
+          buttonClass="bg-[#001489] hover:bg-blue-700"
+          onClose={handleCloseNoTokenModal}
+          navigateTo="/upload"
+        />
+      )}
     </div>
   );
 };
