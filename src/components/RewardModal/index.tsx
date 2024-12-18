@@ -2,6 +2,8 @@ import reward688 from '../../assets/images/reward-6.88.png';
 import reward1888 from '../../assets/images/reward-18.88.png';
 import reward3888 from '../../assets/images/reward-38.88.png';
 import reward8888 from '../../assets/images/reward-88.88.png';
+import viewReward from '../../assets/images/view-reward.png';
+import { useNavigate } from 'react-router-dom';
 
 interface RewardModalProps {
   reward: string;
@@ -10,6 +12,8 @@ interface RewardModalProps {
 }
 
 function RewardModal({ reward, isOpen, onClose }: RewardModalProps) {
+  const navigate = useNavigate();
+
   if (!isOpen) return null;
 
   const getRewardImage = () => {
@@ -35,9 +39,10 @@ function RewardModal({ reward, isOpen, onClose }: RewardModalProps) {
           className="w-full h-auto"
         ></img>
         <div
-          className="absolute rounded-3xl w-[12vw] h-[12vw] top-[1vw] right-[5vw] z-50"
+          className="absolute rounded-3xl w-[12vw] h-[12vw] top-[1vw] right-[5vw] z-60"
           onClick={onClose}
         ></div>
+        <img src={viewReward} className="absolute w-[60%] left-1/2 -translate-x-1/2 bottom-[60px] z-50" onClick={() => navigate('/home')}></img>
       </div>
     </div>
   );

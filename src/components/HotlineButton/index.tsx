@@ -38,7 +38,7 @@ const HotLineButton: React.FC<HotLineButtonProps> = ({ top }) => {
       <img
         src={hotline}
         alt="hotline"
-        className={`absolute right-0 z-[100] size-[50px] ${top || 'top-1/2'}`}
+        className={`absolute right-0 z-[50] size-[50px] ${top || 'top-1/2'}`}
       />
     </Draggable>
   );
