@@ -8,10 +8,10 @@ import cnyTop from '../../assets/gif/cny-animation.gif';
 import cnyBody from '../../assets/images/cny-body.webp';
 import ButtonComponent from '../../components/ButtonComponent';
 import Header from '../../components/Header';
+import HotLineButton from '../../components/HotlineButton';
 import { resendOtp, verifyToken } from '../../services/authService';
 import { useAppDispatch } from '../../store/hooks';
 import { userLogin } from '../../store/userSlice';
-import HotLineButton from '../../components/HotlineButton';
 
 const Verify: React.FC = () => {
   const [otp, setOtp] = useState('');
@@ -25,7 +25,7 @@ const Verify: React.FC = () => {
   // Redirect to Login if not logged in when navigate/location change
   useEffect(() => {
     if (!location?.state) {
-      navigate('/login');
+      navigate('/contest/login');
     }
   }, [navigate, location]);
 
@@ -104,9 +104,9 @@ const Verify: React.FC = () => {
           console.log(res);
 
           dispatch(userLogin());
-          navigate('/home');
+          navigate('/contest/home');
         } else {
-          navigate('/register', {
+          navigate('/contest/register', {
             state: {
               otp,
               phone: location?.state?.phone,

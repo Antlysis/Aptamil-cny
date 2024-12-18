@@ -23,7 +23,7 @@ const PrivateRoute = ({ isAuthenticated }: RouterProps) => {
       })();
     }
   }, []);
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/contest/login" />;
 };
 
 export default PrivateRoute;

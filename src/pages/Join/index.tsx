@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import cnyTop from '../../assets/gif/cny-animation.gif';
 import cnyBody from '../../assets/images/cny-body.webp';
@@ -24,7 +24,7 @@ const Join: React.FC = () => {
 
     const shouldSkip = localStorage.getItem('skipJoinPage') === 'true';
     if (shouldSkip) {
-      navigate('/home');
+      navigate('/contest/home');
     }
   }, [navigate]);
 
@@ -77,7 +77,7 @@ const Join: React.FC = () => {
               buttonText="LET'S START SSS-LIDING!"
               buttonType="button"
               buttonClass="button-component"
-              navigateTo="/home"
+              navigateTo="/contest/home"
             />
             <p className="text-white pt-1">*T&C apply.</p>
           </div>

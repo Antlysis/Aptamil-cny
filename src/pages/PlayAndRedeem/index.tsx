@@ -180,7 +180,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
           buttonText="UPLOAD RECEIPT NOW"
           buttonClass="bg-[#001489] hover:bg-blue-700"
           onClose={handleCloseNoTokenModal}
-          navigateTo="/upload"
+          navigateTo="/contest/upload"
         />
       )}
     </div>
