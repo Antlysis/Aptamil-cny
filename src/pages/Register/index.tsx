@@ -8,9 +8,9 @@ import successLogo from '../../assets/images/svg/successLogo.svg';
 import AuthForm from '../../components/AuthForm';
 import Checkbox from '../../components/Checkbox';
 import Header from '../../components/Header';
+import HotLineButton from '../../components/HotlineButton';
 import { useAppDispatch } from '../../store/hooks';
 import { userLogin } from '../../store/userSlice';
-import HotLineButton from '../../components/HotlineButton';
 
 const Register: React.FC = () => {
   const location = useLocation();
@@ -113,7 +113,12 @@ const Register: React.FC = () => {
                 label={
                   <div>
                     <span>By submitting this form, I hereby agree to the </span>
-                    <a href="/terms" className="underline font-bold">
+                    <a
+                      href="https://www.aptamilkid.com.my/footer-navigation/terms-and-conditions.html"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline font-bold"
+                    >
                       Terms and Conditions
                     </a>
                     <span>
@@ -122,7 +127,12 @@ const Register: React.FC = () => {
                       Danone Specialized Nutrition (Malaysia) Sdn. Bhd. in accordance with
                       the ​
                     </span>
-                    <a href="/privacy" className="underline font-bold">
+                    <a
+                      href="https://www.aptamilkid.com.my/footer-navigation/privacy-policy.html"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline font-bold"
+                    >
                       Privacy Policy
                     </a>
                   </div>

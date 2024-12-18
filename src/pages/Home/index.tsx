@@ -48,6 +48,7 @@ const Home: React.FC = () => {
                   buttonText="GUARANTEED REWARDS"
                   buttonType="button"
                   buttonClass="blue-button"
+                  navigateTo={'/playandredeem'}
                 />
               </div>
             </div>

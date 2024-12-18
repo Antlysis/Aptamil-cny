@@ -31,9 +31,10 @@ const api = <DataType>({
     params: method === 'get' ? data : {},
     data: method === 'post' || method === 'put' ? data : undefined,
   };
-  console.log(config);
   return axios(config)
-    .then(response => response)
+    .then(response => {
+      return response;
+    })
     .catch(error => {
       throw error;
     });

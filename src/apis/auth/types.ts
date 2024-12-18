@@ -1,8 +1,6 @@
 export interface CheckValidity {
-  data: {
-    isValid: boolean;
-    rewards: [];
-  };
+  isValid: boolean;
+  rewards: [];
 }
 
 export interface UploadImage {
@@ -210,7 +208,17 @@ export interface getUserDetailsOutput {
       phone: string;
       email: string;
       totalUnitsBalance: number;
+      totalTokenBalance: number;
     };
     success: boolean;
+  };
+}
+
+export interface GameReward {
+  data: {
+    campaignId: string;
+    rewards: {
+      rewardValue: string;
+    }[];
   };
 }
