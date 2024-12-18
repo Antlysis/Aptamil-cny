@@ -9,15 +9,20 @@ import gatchapongSlider from '../../assets/images/gatcha-slide.png';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import HotLineButton from '../../components/HotlineButton';
+import RewardModal from '../../components/RewardModal';
 import { checkValidity, gameReward } from '../../services/index';
+import { useAppSelector } from '../../store/hooks';
+import { getUserDetails } from '../../store/userSlice';
 
 const PlayAndRedeem = () => {
   const [isValid, setIsValid] = useState(false);
-  const [showRewardPopup, setShowRewardPopup] = useState(false);
-  const [reward, setReward] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [reward, setReward] = useState<string>('');
 
   const campaignId = import.meta.env.VITE_APP_GAMES_CAMPAIGN_ID;
-  const rewardId = import.meta.env.VITE_APP_REWARD_ID;
+
+  const userDetails = useAppSelector(getUserDetails);
+  const tokenBalance = userDetails?.data?.personalInfo?.totalTokenBalance || 0;
 
   useEffect(() => {
     const fetchValidity = async () => {
@@ -37,26 +42,25 @@ const PlayAndRedeem = () => {
   const handleClick = async () => {
     if (isValid) {
       try {
-        console.log('Campaign ID being sent:', campaignId);
-
         const response = await gameReward({
           campaignId: campaignId,
         });
-
-        console.log('Full response:', response);
         if (response) {
-          setReward(rewardId);
-          setShowRewardPopup(true);
+          const reward = response?.data?.data?.rewards[0].rewardValue;
+          console.log('Reward Value:', reward);
+          setReward(reward);
+          setIsOpen(true);
+        } else {
+          console.error('No rewards found in the response');
         }
       } catch (error) {
-        console.log(error);
+        console.error('Game reward error:', error);
       }
     }
   };
 
-  const closeRewardPopup = () => {
-    setShowRewardPopup(false);
-    setReward(null);
+  const handleCloseModal = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -74,8 +78,7 @@ const PlayAndRedeem = () => {
         <img src={gatchapongSlider} className="absolute z-[3] w-[60%] mt-[130vw]"></img>
       </div>
 
-      <HotLineButton></HotLineButton>
-
+      <HotLineButton top="top-3/4" />
       <div className="relative overflow-hidden z-[3]">
         <div className="footer-gatcha">
           <Button
@@ -90,13 +93,14 @@ const PlayAndRedeem = () => {
             <div className="relative flex items-center justify-center">
               <img src={capsule} className="w-[30px] h-[30px]"></img>
               <p className="z-[5] text-[#161E4F] inset-0 absolute flex items-center justify-center">
-                1
+                {tokenBalance}
               </p>
             </div>
           </div>
         </div>
         <Footer />
       </div>
+      <RewardModal reward={reward} isOpen={isOpen} onClose={handleCloseModal} />
     </div>
   );
 };

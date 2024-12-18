@@ -208,6 +208,7 @@ export interface getUserDetailsOutput {
       phone: string;
       email: string;
       totalUnitsBalance: number;
+      totalTokenBalance: number;
     };
     success: boolean;
   };
@@ -216,5 +217,8 @@ export interface getUserDetailsOutput {
 export interface GameReward {
   data: {
     campaignId: string;
+    rewards: {
+      rewardValue: string;
+    }[];
   };
 }

@@ -4,16 +4,21 @@ import Draggable from 'react-draggable';
 
 import hotline from '../../assets/images/svg/whatsappLogo.svg';
 
-interface positionType {
+interface PositionType {
   x: number;
   y: number;
 }
 
-const HotLineButton = () => {
-  const dragStartPositionXYRef = useRef<positionType>({
+interface HotLineButtonProps {
+  top?: string;
+}
+
+const HotLineButton: React.FC<HotLineButtonProps> = ({ top }) => {
+  const dragStartPositionXYRef = useRef<PositionType>({
     x: 0,
     y: 0,
   });
+
   return (
     <Draggable
       bounds="parent"
@@ -33,8 +38,8 @@ const HotLineButton = () => {
       <img
         src={hotline}
         alt="hotline"
-        className="absolute right-0 top-1/2 z-[100] size-[50px]"
-      ></img>
+        className={`absolute right-0 z-[100] size-[50px] ${top || 'top-1/2'}`}
+      />
     </Draggable>
   );
 };

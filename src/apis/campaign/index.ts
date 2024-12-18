@@ -34,6 +34,7 @@ export const receiptAPI = {
       data: data,
       headers: {'Content-Type': 'multipart/form-data'},
     }),
+    
   createEntry: async (data: object) =>
     await api<CreateEntry>({
       method: 'post',
