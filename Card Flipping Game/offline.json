@@ -1,0 +1,33 @@
+{
+  "version": 1733719879805,
+  "fileList": [
+    "scripts/main.js",
+    "scripts/c3runtime.js",
+    "scripts/objRefTable.js",
+    "scripts/c3main.js",
+    "scripts/dispatchworker.js",
+    "scripts/jobworker.js",
+    "workermain.js",
+    "data.json",
+    "scripts/modernjscheck.js",
+    "scripts/supportcheck.js",
+    "scripts/offlineclient.js",
+    "scripts/opus.wasm.js",
+    "scripts/opus.wasm.wasm",
+    "icons/icon-16.png",
+    "icons/icon-32.png",
+    "icons/icon-64.png",
+    "icons/icon-128.png",
+    "icons/icon-256.png",
+    "icons/icon-512.png",
+    "icons/loading-logo.png",
+    "media/Star Collect.webm",
+    "media/card_single_flip_02.webm",
+    "media/card_single_flip_03.webm",
+    "media/Puzzle Event 2.webm",
+    "style.css",
+    "images/shared-0-sheet0.png",
+    "images/shared-0-sheet1.png",
+    "scripts/register-sw.js"
+  ]
+}

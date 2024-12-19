@@ -8,7 +8,8 @@ import ReactHelmet from '../components/ReactHelmet';
 import Home from '../pages/Home';
 import Join from '../pages/Join';
 import Login from '../pages/Login';
-import MatchAndWin from '../pages/MatchAndWin';
+import MiniGame from '../pages/Minigame/minigame';
+import MinigameResult from '../pages/Minigame/index';
 import PlayAndRedeem from '../pages/PlayAndRedeem';
 import Register from '../pages/Register';
 import Upload from '../pages/Upload';
@@ -42,7 +43,8 @@ const Router: React.FC = () => {
           <Route path={'/home'} element={<Home />} />
           <Route path={'/upload'} element={<Upload />} />
           <Route path={'/playandredeem'} element={<PlayAndRedeem />} />
-          <Route path={'/matchandwin'} element={<MatchAndWin />} />
+          <Route path={'/minigame'} element={<MiniGame />} />
+          <Route path={'/minigame/result'} element={<MinigameResult />} />
         </Route>
       </Routes>
     </BrowserRouter>

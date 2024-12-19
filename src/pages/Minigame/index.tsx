@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { useLocation } from 'react-router-dom';
 
 import gameBackground from '../../assets/images/game-background.webp';
 import howTo from '../../assets/images/how-to-match.png';
@@ -9,8 +11,25 @@ import Header from '../../components/Header';
 import HotLineButton from '../../components/HotlineButton';
 import MatchModal from '../../components/MatchModal';
 
-const MatchAndWin: React.FC = () => {
+const MinigameResult: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const [timeTaken, setTimeTaken] = useState('');
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const secondsParam = params.get('time');
+    const totalSeconds = parseInt(secondsParam || '0', 10);
+
+    if (!isNaN(totalSeconds)) {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+
+      const minSec = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      setTimeTaken(minSec);
+    }
+  }, [location.search]);
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -21,7 +40,7 @@ const MatchAndWin: React.FC = () => {
 
   return (
     <div id="page" className="overflow-y-auto">
-      {isModalOpen && <MatchModal onClose={handleCloseModal} />}
+      {isModalOpen && <MatchModal time={timeTaken} onClose={handleCloseModal} />}
       <div className="absolute flex justify-between w-full">
         <Header previous={true} />
       </div>
@@ -91,4 +110,4 @@ const MatchAndWin: React.FC = () => {
   );
 };
 
-export default MatchAndWin;
+export default MinigameResult;
