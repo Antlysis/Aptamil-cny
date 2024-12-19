@@ -48,7 +48,7 @@ const Home: React.FC = () => {
                   buttonText="GUARANTEED REWARDS"
                   buttonType="button"
                   buttonClass="blue-button"
-                  navigateTo={'/contest/playandredeem'}
+                  navigateTo={'/playandredeem'}
                 />
               </div>
             </div>
@@ -58,6 +58,7 @@ const Home: React.FC = () => {
                   buttonText="GRAND PRIZES"
                   buttonType="button"
                   buttonClass="blue-button"
+                  navigateTo={'/matchandwin'}
                 />
               </div>
             </div>
@@ -67,7 +68,7 @@ const Home: React.FC = () => {
               buttonText="UPLOAD RECEIPT"
               buttonType="button"
               buttonClass="button-component"
-              navigateTo="/contest/upload"
+              navigateTo="/upload"
             />
           </div>
           <div className="grid flex-grid grid-cols-2 gap-2 w-[90%] mx-auto">
@@ -95,7 +96,7 @@ const Home: React.FC = () => {
                   buttonType="button"
                   buttonClass="home-button"
                   navigateTo={{
-                    pathname: '/contest/join',
+                    pathname: '/join',
                     state: { fromHome: true },
                   }}
                 />

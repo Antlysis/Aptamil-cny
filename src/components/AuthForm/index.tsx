@@ -142,7 +142,7 @@ function AuthForm({
             setShowModal(true);
           }
           setLoading(false);
-          navigate('/contest/verify', { state: dataToPass });
+          navigate('/verify', { state: dataToPass });
         } else {
           setLoading(false);
         }

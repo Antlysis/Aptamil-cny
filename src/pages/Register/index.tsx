@@ -22,7 +22,7 @@ const Register: React.FC = () => {
 
   useEffect(() => {
     if (!location?.state) {
-      navigate('/contest/login');
+      navigate('/login');
     }
   }, [navigate, location]);
 
