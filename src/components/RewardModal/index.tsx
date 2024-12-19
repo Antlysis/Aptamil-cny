@@ -32,7 +32,7 @@ function RewardModal({ reward, isOpen, onClose }: RewardModalProps) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 pb-[73px]">
-      <div className="fixed inset-0 bg-black bg-opacity-50"></div>
+      <div className="fixed inset-0 bg-black bg-opacity-50" onClick={onClose}></div>
       <div className="relative w-full max-w-lg">
         <img
           src={getRewardImage()}
