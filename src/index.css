@@ -32,7 +32,7 @@ body {
 }
 
 #gatchapage{
-  background-image: url('./assets/images/gatcha-background.webp');
+  background-image: url('./assets/images/game-background.webp');
   background-size: cover;
   background-position: top;
   height: 100vh;
@@ -233,6 +233,19 @@ body {
   background-image: url('./assets/images/svg/whatsappLogo.svg');
   margin: 0;
 }
+
+/* Match and Win modal */
+.match-background {
+  background-image: url(/src/assets/images/match-modal.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  width: 100%;
+}
+
 
 @media screen and (max-height: 700px) {
   .login-bottom {

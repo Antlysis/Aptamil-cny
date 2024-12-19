@@ -9,8 +9,8 @@ import loginSlider2 from '../../assets/images/login-slider-2.png';
 import loginSlider3 from '../../assets/images/login-slider-3.png';
 import AuthForm from '../../components/AuthForm';
 import Header from '../../components/Header';
-import LoginModal from '../../components/LoginModal';
 import HotLineButton from '../../components/HotlineButton';
+import LoginModal from '../../components/LoginModal';
 
 const Login: React.FC = () => {
   const location = useLocation();
@@ -64,6 +64,7 @@ const Login: React.FC = () => {
           onClose={handleCloseModal}
         />
       )}
+
       <div className="absolute flex justify-between w-full">
         <Header />
       </div>

@@ -5,7 +5,7 @@ import gatchaGif from '../../assets/gif/gatcha.gif';
 import capsule0 from '../../assets/images/capsule-0.png';
 import capsule from '../../assets/images/capsule.png';
 import checkmark from '../../assets/images/checkmark.png';
-import gatchaBackground from '../../assets/images/gatcha-background.webp';
+import gameBackground from '../../assets/images/game-background.webp';
 import gatchaGame from '../../assets/images/gatcha-game.png';
 import slide from '../../assets/images/gatcha-slide.png';
 import Footer from '../../components/Footer';
@@ -115,8 +115,8 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
       {showGatchaGif && (
         <div className="absolute z-[60] w-full h-full flex items-center justify-center">
           <img
-            src={gatchaBackground}
-            alt="Gatcha Background"
+            src={gameBackground}
+            alt="Game Background"
             className="absolute z-[55] w-full h-full object-cover"
           />
 
@@ -180,7 +180,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
           buttonText="UPLOAD RECEIPT NOW"
           buttonClass="bg-[#001489] hover:bg-blue-700"
           onClose={handleCloseNoTokenModal}
-          navigateTo="/contest/upload"
+          navigateTo="/upload"
         />
       )}
     </div>
