@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ previous = false }) => {
       {previous && (
         <div
           onClick={() => {
-            navigate(-1);
+            navigate('/home');
           }}
         >
           <svg

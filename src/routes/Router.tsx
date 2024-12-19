@@ -8,6 +8,9 @@ import ReactHelmet from '../components/ReactHelmet';
 import Home from '../pages/Home';
 import Join from '../pages/Join';
 import Login from '../pages/Login';
+import MiniGame from '../pages/Minigame/minigame';
+import MinigameResult from '../pages/Minigame/index';
+import PlayAndRedeem from '../pages/PlayAndRedeem';
 import Register from '../pages/Register';
 import Upload from '../pages/Upload';
 import Verify from '../pages/Verify';
@@ -15,7 +18,6 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { getIsAuthenticated, userLogin } from '../store/userSlice';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
-import PlayAndRedeem from '../pages/PlayAndRedeem';
 
 const Router: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -28,19 +30,21 @@ const Router: React.FC = () => {
     }
   }, []);
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/contest'>
       <ReactHelmet />
       <Routes>
         <Route element={<PublicRoute isAuthenticated={isAuthenticated} />}>
-          <Route path={'/contest/login'} element={<Login />} />
-          <Route path={'/contest/verify'} element={<Verify />} />
-          <Route path={'/contest/register'} element={<Register />} />
+          <Route path={'/login'} element={<Login />} />
+          <Route path={'/verify'} element={<Verify />} />
+          <Route path={'/register'} element={<Register />} />
         </Route>
         <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
-          <Route path={'/contest/join'} element={<Join />} />
-          <Route path={'/contest/home'} element={<Home />} />
-          <Route path={'/contest/upload'} element={<Upload />} />
-          <Route path={'/contest/playandredeem'} element={<PlayAndRedeem />} />
+          <Route path={'/join'} element={<Join />} />
+          <Route path={'/home'} element={<Home />} />
+          <Route path={'/upload'} element={<Upload />} />
+          <Route path={'/playandredeem'} element={<PlayAndRedeem />} />
+          <Route path={'/minigame'} element={<MiniGame />} />
+          <Route path={'/minigame/result'} element={<MinigameResult />} />
         </Route>
       </Routes>
     </BrowserRouter>
