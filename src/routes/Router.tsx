@@ -32,15 +32,15 @@ const Router: React.FC = () => {
       <ReactHelmet />
       <Routes>
         <Route element={<PublicRoute isAuthenticated={isAuthenticated} />}>
-          <Route path={'/login'} element={<Login />} />
-          <Route path={'/verify'} element={<Verify />} />
-          <Route path={'/register'} element={<Register />} />
+          <Route path={'/contest/login'} element={<Login />} />
+          <Route path={'/contest/verify'} element={<Verify />} />
+          <Route path={'/contest/register'} element={<Register />} />
         </Route>
         <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
-          <Route path={'/join'} element={<Join />} />
-          <Route path={'/home'} element={<Home />} />
-          <Route path={'/upload'} element={<Upload />} />
-          <Route path={'/playandredeem'} element={<PlayAndRedeem />} />
+          <Route path={'/contest/join'} element={<Join />} />
+          <Route path={'/contest/home'} element={<Home />} />
+          <Route path={'/contest/upload'} element={<Upload />} />
+          <Route path={'/contest/playandredeem'} element={<PlayAndRedeem />} />
         </Route>
       </Routes>
     </BrowserRouter>

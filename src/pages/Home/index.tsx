@@ -48,7 +48,7 @@ const Home: React.FC = () => {
                   buttonText="GUARANTEED REWARDS"
                   buttonType="button"
                   buttonClass="blue-button"
-                  navigateTo={'/playandredeem'}
+                  navigateTo={'/contest/playandredeem'}
                 />
               </div>
             </div>
@@ -67,7 +67,7 @@ const Home: React.FC = () => {
               buttonText="UPLOAD RECEIPT"
               buttonType="button"
               buttonClass="button-component"
-              navigateTo="/upload"
+              navigateTo="/contest/upload"
             />
           </div>
           <div className="grid flex-grid grid-cols-2 gap-2 w-[90%] mx-auto">
@@ -77,6 +77,7 @@ const Home: React.FC = () => {
                   buttonText="TRACK MY SUBMISSION"
                   buttonType="button"
                   buttonClass="home-button"
+                  navigateTo={'/profile/history'}
                 />
                 <a
                   href="https://www.aptamilkid.com.my/footer-navigation/terms-and-conditions.html"
@@ -94,7 +95,7 @@ const Home: React.FC = () => {
                   buttonType="button"
                   buttonClass="home-button"
                   navigateTo={{
-                    pathname: '/join',
+                    pathname: '/contest/join',
                     state: { fromHome: true },
                   }}
                 />
