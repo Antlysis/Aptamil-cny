@@ -25,7 +25,7 @@ const Verify: React.FC = () => {
   // Redirect to Login if not logged in when navigate/location change
   useEffect(() => {
     if (!location?.state) {
-      navigate('/contest/login');
+      navigate('/login');
     }
   }, [navigate, location]);
 
@@ -104,9 +104,9 @@ const Verify: React.FC = () => {
           console.log(res);
 
           dispatch(userLogin());
-          navigate('/contest/home');
+          navigate('/home');
         } else {
-          navigate('/contest/register', {
+          navigate('/register', {
             state: {
               otp,
               phone: location?.state?.phone,

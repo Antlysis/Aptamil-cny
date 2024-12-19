@@ -24,7 +24,7 @@ const Join: React.FC = () => {
 
     const shouldSkip = localStorage.getItem('skipJoinPage') === 'true';
     if (shouldSkip) {
-      navigate('/contest/home');
+      navigate('/home');
     }
   }, [navigate]);
 
@@ -77,7 +77,7 @@ const Join: React.FC = () => {
               buttonText="LET'S START SSS-LIDING!"
               buttonType="button"
               buttonClass="button-component"
-              navigateTo="/contest/home"
+              navigateTo="/home"
             />
             <p className="text-white pt-1">*T&C apply.</p>
           </div>
