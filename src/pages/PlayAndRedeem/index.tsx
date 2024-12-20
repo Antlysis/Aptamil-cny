@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import slideGif from '../../assets/gif/gatcha-slide.gif';
 import gatchaGif from '../../assets/gif/gatcha.gif';
@@ -7,7 +7,7 @@ import capsule from '../../assets/images/capsule.png';
 import checkmark from '../../assets/images/checkmark.png';
 import gameBackground from '../../assets/images/game-background.webp';
 import gatchaGame from '../../assets/images/gatcha-game.png';
-import slide from '../../assets/images/gatcha-slide.png';
+import DraggableSlider from '../../components/DraggableSlider';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import HotLineButton from '../../components/HotlineButton';
@@ -27,6 +27,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   const [showGatchaGif, setShowGatchaGif] = useState(false);
   const [gifStatus, setGifStatus] = useState<'playing' | 'stopped'>('stopped');
   const [isClickDisabled, setIsClickDisabled] = useState(false);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   const campaignId = import.meta.env.VITE_APP_GAMES_CAMPAIGN_ID;
   const userDetails = useAppSelector(getUserDetails);
@@ -51,7 +52,9 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   }, []);
 
   const handleScreenClick = () => {
-    setShowSlideGif(false);
+    if (!isOpen && !isNoTokenModalOpen) {
+      setShowSlideGif(false);
+    }
   };
 
   const handleGatchaGif = async () => {
@@ -89,7 +92,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
     }
   };
 
-  const handleClick = () => {
+  const handleSliderComplete = () => {
     if (currentTokenBalance === 0) {
       setIsNoTokenModalOpen(true);
       return;
@@ -103,10 +106,38 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   const handleCloseModal = () => {
     setIsOpen(false);
     setIsClickDisabled(false);
+    setTimeout(() => setShowSlideGif(true), 0);
   };
 
   const handleCloseNoTokenModal = () => {
     setIsNoTokenModalOpen(false);
+    setTimeout(() => setShowSlideGif(true), 0);
+  };
+
+  const handlePointerDown = (event: React.PointerEvent) => {
+    if (currentTokenBalance === 0) {
+      event.preventDefault();
+      setIsNoTokenModalOpen(true);
+      return;
+    }
+
+    if (!isOpen && !isNoTokenModalOpen) {
+      setShowSlideGif(false);
+    }
+  };
+
+  const handlePointerUp = () => {
+    if (!isOpen && !isNoTokenModalOpen) {
+      setShowSlideGif(true);
+    }
+  };
+
+  const handleSliderAreaInteraction = (event: React.MouseEvent | React.TouchEvent) => {
+    if (currentTokenBalance === 0) {
+      event.preventDefault();
+      event.stopPropagation();
+      setIsNoTokenModalOpen(true);
+    }
   };
 
   return (
@@ -135,19 +166,30 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
         <Header previous={true} />
       </div>
       <div className="relative z-[2] flex justify-center pt-[50px]">
-        <img
-          src={gatchaGame}
-          alt={gatchaGame}
-          className="h-auto w-4/5 object-contain"
-        ></img>
-        <img
-          src={slide}
-          className="absolute z-[3] mt-[125vw] w-3/5"
-          onClick={handleClick}
-        ></img>
-        {showSlideGif && (
-          <img src={slideGif} className="absolute z-[3] mt-[115vw] w-full"></img>
-        )}
+        <img src={gatchaGame} alt={gatchaGame} className="h-auto w-4/5 object-contain" />
+        <div
+          className="absolute bottom-[10%] h-[100px] w-full"
+          ref={sliderRef}
+          onMouseDown={handleSliderAreaInteraction}
+          onTouchStart={handleSliderAreaInteraction}
+        >
+          <div className="relative mx-auto flex h-[130px] w-[90%] items-center justify-center">
+            {showSlideGif && (
+              <img
+                src={slideGif}
+                className="pointer-events-none absolute top-0 z-[5] h-[90%] w-[96%]"
+              />
+            )}
+            <div className="absolute top-[30%] z-[4] w-3/5">
+              <DraggableSlider
+                handleTrigger={handleSliderComplete}
+                canPlay={isValid && currentTokenBalance > 0 && !isClickDisabled}
+                handleDown={handlePointerDown}
+                handleUp2={handlePointerUp}
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
       <HotLineButton top="top-3/4" />
