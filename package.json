@@ -12,7 +12,6 @@
     "format": "prettier -uw --cache --ignore-path .gitignore .",
     "preview": "vite preview"
   },
-  "homepage": "/contest",
   "dependencies": {
     "@headlessui/react": "^2.1.2",
     "@reduxjs/toolkit": "^2.2.5",

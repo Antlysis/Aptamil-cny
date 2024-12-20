@@ -8,8 +8,8 @@ import ReactHelmet from '../components/ReactHelmet';
 import Home from '../pages/Home';
 import Join from '../pages/Join';
 import Login from '../pages/Login';
-import MiniGame from '../pages/Minigame/minigame';
 import MinigameResult from '../pages/Minigame/index';
+import MiniGame from '../pages/Minigame/minigame';
 import PlayAndRedeem from '../pages/PlayAndRedeem';
 import Register from '../pages/Register';
 import Upload from '../pages/Upload';
@@ -30,7 +30,7 @@ const Router: React.FC = () => {
     }
   }, []);
   return (
-    <BrowserRouter basename='/contest'>
+    <BrowserRouter>
       <ReactHelmet />
       <Routes>
         <Route element={<PublicRoute isAuthenticated={isAuthenticated} />}>
