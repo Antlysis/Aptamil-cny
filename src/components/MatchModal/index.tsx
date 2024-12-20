@@ -1,5 +1,5 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import replay from '../../assets/images/replay.png';
 import TimeBg from '../../assets/images/time-background.png';
 import WinAptamil from '../../assets/images/win-aptamil.png';
@@ -14,19 +14,19 @@ function MatchModal({ time, onClose }: ModalProps) {
   const navigate = useNavigate();
 
   return (
-    <div className="absolute inset-0 overflow-y-auto bg-[rgba(0,0,0,0.5)] z-[80]">
-      <div className="flex items-center justify-center min-h-screen z-[90]">
-        <div className="match-background relative flex flex-col py-[4rem] px-[3rem] box-border z-[100]">
-          <div className="flex flex-col justify-center items-center w-[80%] mt-[3rem]">
+    <div className="absolute inset-0 z-[80] overflow-y-auto bg-[rgba(0,0,0,0.5)]">
+      <div className="z-[90] flex min-h-screen items-center justify-center">
+        <div className="match-background relative z-[100] box-border flex flex-col px-12 py-16">
+          <div className="mt-12 flex w-4/5 flex-col items-center justify-center">
             <img src={YouWin} alt="You Win" />
-            <p className="text-[#A11A20] font-bold text-base mt-3 mb-0.5">TIME</p>
-            <div className="flex flex-col justify-center items-center">
+            <p className="mb-0.5 mt-3 text-base font-bold text-[#A11A20]">TIME</p>
+            <div className="flex flex-col items-center justify-center">
               <img src={TimeBg}></img>
-              <p className="text-[#A11A20] font-bold text-[32px] absolute">{time}</p>
+              <p className="absolute text-[32px] font-bold text-[#A11A20]">{time}</p>
             </div>
-            <img src={WinAptamil} className="w-[80%] mt-4"></img>
+            <img src={WinAptamil} className="mt-4 w-4/5"></img>
           </div>
-          <p className="text-sm text-center my-4 w-[90%] leading-4">
+          <p className="my-4 w-[90%] text-center text-sm leading-4">
             Aptamil<sup>TM</sup> KID products are formulated with <strong>Synbio</strong>,
             a combination of{' '}
             <strong>
@@ -37,15 +37,22 @@ function MatchModal({ time, onClose }: ModalProps) {
             development
           </p>
 
-          <div className="text-center text-xs pb-4">
+          <div className="pb-4 text-center text-xs">
             <p>
               *Sphingomyelin, Omega 3, 6, 9, Vitamin B12, <br /> Tryptophan, DHA are found
               in the brain
             </p>
           </div>
 
-          <div className="flex flex-col items-center justify-center w-full">
-            <img src={replay} className="w-[18%]" onClick={()=>{navigate('/minigame'); onClose();}}></img>
+          <div className="flex w-full flex-col items-center justify-center">
+            <img
+              src={replay}
+              className="w-[18%]"
+              onClick={() => {
+                navigate('/minigame');
+                onClose();
+              }}
+            ></img>
           </div>
         </div>
       </div>
