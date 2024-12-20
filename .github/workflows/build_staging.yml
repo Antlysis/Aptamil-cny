@@ -1,0 +1,114 @@
+name: Build on Staging
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20' # Specify the Node.js version you're using
+
+      - name: Setup Node.js
+        run: echo node -v
+
+      - name: Set up environment variables
+        run: |
+          echo "VITE_API_DOMAIN_URL=${{ vars.VITE_API_SB_DOMAIN_URL }}" >> .env
+          echo "VITE_APP_COMPANY_ID_MY=${{ vars.VITE_APP_COMPANY_ID_MY }}" >> .env
+          echo "VITE_APP_CAMPAIGN_ID=${{ vars.VITE_APP_CAMPAIGN_ID }}" >> .env
+          echo "VITE_APP_GAMES_CAMPAIGN_ID=${{ vars.VITE_APP_GAMES_CAMPAIGN_ID }}" >> .env
+          echo "VITE_APP_REWARD_ID=${{ vars.VITE_APP_REWARD_ID }}" >> .env
+          echo "VITE_ENV=development" >> .env
+
+      - name: Determine package manager
+        id: pkg-manager
+        run: |
+          if [ -f "${{ github.workspace }}/yarn.lock" ]; then
+            echo "manager=yarn" >> $GITHUB_OUTPUT
+            echo "lockfile=yarn.lock" >> $GITHUB_OUTPUT
+          else
+            echo "manager=npm" >> $GITHUB_OUTPUT
+            echo "lockfile=package-lock.json" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        if: steps.pkg-manager.outputs.manager == 'npm'
+        run: npm ci
+
+      - name: Install dependencies
+        if: steps.pkg-manager.outputs.manager == 'yarn'
+        run: yarn install --frozen-lockfile
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # - name: Backup current S3 bucket contents to hidden folder
+      #   run: |
+      #     TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
+      #     aws s3 sync s3://${{ vars.S3_BUCKET_SB }} s3://${{ vars.S3_BUCKET_SB }}/.backup/$TIMESTAMP
+
+      - name: Run build
+        run: ${{ steps.pkg-manager.outputs.manager }} run build
+
+      - name: Deploy static site to S3 bucket
+        run: aws s3 sync ./dist/ s3://${{ vars.S3_BUCKET_SB }} --delete
+
+      - name: Wait for Deployment
+        run: sleep 30
+
+      - name: Check if page is live
+        id: check_status # Add an ID to reference the result later
+        run: |
+          # Replace with your actual deployed URL
+          URL="https://${{ vars.S3_BUCKET_SB }}"
+
+          # Use curl to check if the page loads successfully (status 200)
+          HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}" $URL)
+
+          if [ $HTTP_STATUS -eq 200 ]; then
+            echo "Page loaded successfully with status code $HTTP_STATUS."
+            echo "success" > status.txt
+            echo "Page loaded successfully with status code $HTTP_STATUS." > message.txt
+          else
+            echo "Page failed to load. HTTP Status code: $HTTP_STATUS"
+            echo "failure" > status.txt
+            echo "Page failed to load. HTTP Status code: $HTTP_STATUS" > message.txt
+            exit 1
+          fi
+
+      - name: Set deployment result as environment variable
+        run: |
+          echo "STATUS=$(cat status.txt)" >> $GITHUB_ENV
+          echo "MESSAGE=$(cat message.txt)" >> $GITHUB_ENV
+
+      - name: Send Result to Discord
+        uses: tsickert/discord-webhook@v6.0.0
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          username: 'Github-Action'
+          content: |
+            `Project: ${{ vars.S3_BUCKET_SB }}`
+            ```Deployment Result: ${{ env.STATUS }}
+            Message: ${{ env.MESSAGE }}```
