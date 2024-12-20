@@ -14,11 +14,10 @@ import HotLineButton from '../../components/HotlineButton';
 import Modal from '../../components/Modal';
 import RewardModal from '../../components/RewardModal';
 import { checkValidity, gameReward } from '../../services/index';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '../../store/hooks';
 import { getUserDetails } from '../../store/userSlice';
 
 const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
-  const dispatch = useAppDispatch();
   const [isValid, setIsValid] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isNoTokenModalOpen, setIsNoTokenModalOpen] = useState(false);
@@ -113,17 +112,17 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   return (
     <div id="gatchapage" className="overflow-y-auto" onClick={handleScreenClick}>
       {showGatchaGif && (
-        <div className="absolute z-[60] w-full h-full flex items-center justify-center">
+        <div className="absolute z-[60] flex size-full items-center justify-center">
           <img
             src={gameBackground}
             alt="Game Background"
-            className="absolute z-[55] w-full h-full object-cover"
+            className="absolute z-[55] size-full object-cover"
           />
 
           {gifStatus === 'playing' && (
             <img
               src={gatchaGif}
-              className="absolute z-[65] w-full h-full object-contain transition-opacity duration-3000 ease-in-out"
+              className="duration-3000 absolute z-[65] size-full object-contain transition-opacity ease-in-out"
               style={{
                 animationIterationCount: 1,
                 pointerEvents: 'none',
@@ -132,37 +131,37 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
           )}
         </div>
       )}
-      <div className="absolute flex justify-between w-full">
+      <div className="absolute flex w-full justify-between">
         <Header previous={true} />
       </div>
       <div className="relative z-[2] flex justify-center pt-[50px]">
         <img
           src={gatchaGame}
           alt={gatchaGame}
-          className="w-[80%] h-auto object-contain"
+          className="h-auto w-4/5 object-contain"
         ></img>
         <img
           src={slide}
-          className="absolute z-[3] w-[60%] mt-[125vw]"
+          className="absolute z-[3] mt-[125vw] w-3/5"
           onClick={handleClick}
         ></img>
         {showSlideGif && (
-          <img src={slideGif} className="absolute z-[3] w-full mt-[115vw]"></img>
+          <img src={slideGif} className="absolute z-[3] mt-[115vw] w-full"></img>
         )}
       </div>
 
       <HotLineButton top="top-3/4" />
-      <div className="relative overflow-hidden z-[3]">
+      <div className="relative z-[3] overflow-hidden">
         <div className="footer-gatcha">
-          <div className="z-[4] mt-[110px] absolute flex column align-center gap-2 font-bold text-2xl">
+          <div className="column align-center absolute z-[4] mt-[110px] flex gap-2 text-2xl font-bold">
             <p className="text-white">CAPSULE:</p>
             <div className="relative flex items-center">
               {currentTokenBalance === 0 ? (
-                <img src={capsule0} className="w-[30px] h-[30px]" />
+                <img src={capsule0} className="size-[30px]" />
               ) : (
-                <img src={capsule} className="w-[30px] h-[30px]" />
+                <img src={capsule} className="size-[30px]" />
               )}
-              <p className="z-[5] text-[#161E4F] inset-0 absolute flex items-center justify-center">
+              <p className="absolute inset-0 z-[5] flex items-center justify-center text-[#161E4F]">
                 {currentTokenBalance}
               </p>
             </div>
