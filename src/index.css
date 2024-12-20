@@ -221,6 +221,21 @@ body {
   box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+.handle::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: var(--handle--position);
+  background: linear-gradient(
+    94.93deg,
+    #ffd349 42.92%,
+    #ffe976 64.28%,
+    #efb52f 77.48%,
+    #ffe660 92.62%
+  );
+  border-radius: 25px;
+}
+
 .register-text {
   color: white;
   font-size: 16px;
