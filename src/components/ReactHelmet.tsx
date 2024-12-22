@@ -11,9 +11,9 @@ const ReactHelmet = () => {
         httpEquiv="Content-Security-Policy"
         content={`
           default-src 'self' ${driveApiUrl};
-          script-src 'self';
+          script-src 'self' 'unsafe-inline';
           style-src 'self';
-          img-src *;
+          img-src 'self' data: blob: *;
           font-src 'self';
           connect-src 'self' ${driveApiUrl} https://cdn.simplelocalize.io;
           frame-ancestors 'none';
