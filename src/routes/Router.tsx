@@ -2,9 +2,9 @@ import React from 'react';
 import { useEffect } from 'react';
 
 import Cookies from 'js-cookie';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-import ReactHelmet from '../components/ReactHelmet';
+// import ReactHelmet from '../components/ReactHelmet';
 import Home from '../pages/Home';
 import Join from '../pages/Join';
 import Login from '../pages/Login';
@@ -30,8 +30,8 @@ const Router: React.FC = () => {
     }
   }, []);
   return (
-    <BrowserRouter>
-      <ReactHelmet />
+    <BrowserRouter basename="/contest">
+      {/* <ReactHelmet /> */}
       <Routes>
         <Route element={<PublicRoute isAuthenticated={isAuthenticated} />}>
           <Route path={'/login'} element={<Login />} />
@@ -46,6 +46,8 @@ const Router: React.FC = () => {
           <Route path={'/minigame'} element={<MiniGame />} />
           <Route path={'/minigame/result'} element={<MinigameResult />} />
         </Route>
+
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
   );
