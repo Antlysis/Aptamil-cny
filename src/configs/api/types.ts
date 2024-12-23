@@ -13,6 +13,6 @@ export interface ApiParams {
   data?:
     | FormData
     | {
-        [key: string]: string | number | boolean | null | string[];
+        [key: string]: any;
       };
 }

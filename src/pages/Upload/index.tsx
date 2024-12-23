@@ -143,11 +143,11 @@ const Upload = () => {
 
         <div className="relative mx-auto flex w-4/5 flex-col items-center justify-between pt-[110px]">
           <p className="pt-3 text-[26px] font-bold text-white">Upload Receipt</p>
-          <p className="heading-2 text-center">Upload photos of your receipt</p>
+          <p className="heading-2 text-center">Upload a photo of your receipt</p>
 
           <form className="w-full text-center" onSubmit={handleSubmit}>
             <div
-              className="inset-0 mt-4 h-[150px] cursor-pointer content-center rounded-[10px] border-2 border-dashed text-center"
+              className="inset-0 mt-4 h-[170px] cursor-pointer content-center rounded-[10px] border-2 border-dashed text-center"
               style={{ backgroundColor: '#7D1A21' }}
             >
               <input

@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import cnyTop from '../../assets/gif/cny-animation.gif';
 import cnyBody from '../../assets/images/cny-body.webp';
 import matchWin from '../../assets/images/match-and-win.png';
@@ -6,8 +8,24 @@ import ButtonComponent from '../../components/ButtonComponent';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import HotLineButton from '../../components/HotlineButton';
+import { getUserDetailsAPI } from '../../services/authService';
+import { useAppDispatch } from '../../store/hooks';
+import { setUserDetails } from '../../store/userSlice';
 
 const Home: React.FC = () => {
+  const aptamilCampaign = import.meta.env.VITE_APP_APTAMIL;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const getUserDetails = async () => {
+      const res = await getUserDetailsAPI();
+      if (res) {
+        dispatch(setUserDetails(res?.data));
+      }
+    };
+    getUserDetails();
+  }, []);
+
   return (
     <div id="page" className="overflow-y-auto">
       <div className="absolute flex justify-between w-full">
@@ -78,7 +96,7 @@ const Home: React.FC = () => {
                   buttonText="TRACK MY SUBMISSION"
                   buttonType="button"
                   buttonClass="home-button"
-                  navigateTo={'/profile/history'}
+                  navigateTo={`${aptamilCampaign}/profile/history`}
                 />
                 <a
                   href="https://www.aptamilkid.com.my/footer-navigation/terms-and-conditions.html"

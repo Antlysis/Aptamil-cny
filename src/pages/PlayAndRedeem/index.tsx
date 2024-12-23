@@ -20,6 +20,7 @@ import { getUserDetails } from '../../store/userSlice';
 const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   const [isValid, setIsValid] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalClosing, setIsModalClosing] = useState(false);
   const [isNoTokenModalOpen, setIsNoTokenModalOpen] = useState(false);
   const [reward, setReward] = useState<string>('');
   const [currentTokenBalance, setCurrentTokenBalance] = useState(0);
@@ -35,7 +36,20 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
 
   useEffect(() => {
     setCurrentTokenBalance(tokenBalance);
+    if (tokenBalance === 0) {
+      setIsNoTokenModalOpen(true);
+      setShowSlideGif(false);
+    } else {
+      setIsNoTokenModalOpen(false);
+      setShowSlideGif(true);
+    }
   }, [tokenBalance]);
+
+  useEffect(() => {
+    if (!isOpen && isModalClosing) {
+      setIsModalClosing(false);
+    }
+  }, [isOpen, isModalClosing, currentTokenBalance]);
 
   useEffect(() => {
     const fetchValidity = async () => {
@@ -74,7 +88,6 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
 
         if (response) {
           const reward = response?.data?.data?.rewards[0].rewardValue;
-          console.log('Reward Value:', reward);
           setReward(reward);
           setShowGatchaGif(false);
           setIsOpen(true);
@@ -104,14 +117,19 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   };
 
   const handleCloseModal = () => {
+    setIsModalClosing(true);
     setIsOpen(false);
     setIsClickDisabled(false);
-    setTimeout(() => setShowSlideGif(true), 0);
+    if (currentTokenBalance === 0) {
+      setIsNoTokenModalOpen(true);
+    }
   };
 
   const handleCloseNoTokenModal = () => {
     setIsNoTokenModalOpen(false);
-    setTimeout(() => setShowSlideGif(true), 0);
+    if (currentTokenBalance > 0) {
+      setTimeout(() => setShowSlideGif(true), 0);
+    }
   };
 
   const handlePointerDown = (event: React.PointerEvent) => {
@@ -213,7 +231,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
       </div>
       <RewardModal reward={reward} isOpen={isOpen} onClose={handleCloseModal} />
 
-      {isNoTokenModalOpen && (
+      {!isModalClosing && isNoTokenModalOpen && (
         <Modal
           logo={checkmark}
           title="Sorry.."

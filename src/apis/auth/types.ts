@@ -209,6 +209,12 @@ export interface getUserDetailsOutput {
       email: string;
       totalUnitsBalance: number;
       totalTokenBalance: number;
+      extendedFields: {
+        minigame: Array<{
+          date: string;
+          timer: number;
+        }>
+      };
     };
     success: boolean;
   };
@@ -220,5 +226,29 @@ export interface GameReward {
     rewards: {
       rewardValue: string;
     }[];
+  };
+}
+
+export interface UpdateProfileData {
+  values: {
+    extendedFields: {
+      minigame: Array<{
+        date: string;
+        timer: number;
+      }>;
+    };
+  };
+}
+
+export interface UpdateProfileOutput {
+  success: boolean;
+  message: string;
+  updatedUser: {
+    extendedFields: {
+      minigame: Array<{
+        date: string;
+        timer: number;
+      }>;
+    };
   };
 }
