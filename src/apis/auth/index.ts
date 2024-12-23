@@ -16,6 +16,7 @@ const endpoints = {
   checkQR: '/auth/check-qr',
   checkUser: '/auth/check-user',
   getUserDetails: '/users/details',
+  updateProfile: '/profile/update',
 };
 
 const authApi = {
@@ -116,6 +117,12 @@ const authApi = {
       route: endpoints.getUserDetails,
     }),
 
+  updateProfile: async (data: types.UpdateProfileData) => 
+    await api<types.UpdateProfileOutput>({
+      method: 'post',
+      route: endpoints.updateProfile,
+      data: { ...data},
+    }),
   
 };
 

@@ -15,6 +15,7 @@ const MinigameResult: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [timeTaken, setTimeTaken] = useState('');
   const location = useLocation();
+  const aptamilCampaign = import.meta.env.VITE_APP_APTAMIL;
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -71,7 +72,7 @@ const MinigameResult: React.FC = () => {
                   buttonText="TRACK MY SUBMISSION"
                   buttonType="button"
                   buttonClass="home-button"
-                  navigateTo={'/profile/history'}
+                  navigateTo={`${aptamilCampaign}/profile/history`}
                 />
                 <a
                   href="https://www.aptamilkid.com.my/footer-navigation/terms-and-conditions.html"

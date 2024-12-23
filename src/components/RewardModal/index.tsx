@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router-dom';
-
 import reward688 from '../../assets/images/reward-6.88.png';
 import reward1888 from '../../assets/images/reward-18.88.png';
 import reward3888 from '../../assets/images/reward-38.88.png';
@@ -13,10 +11,7 @@ interface RewardModalProps {
 }
 
 function RewardModal({ reward, isOpen, onClose }: RewardModalProps) {
-  const navigate = useNavigate();
-
   if (!isOpen) return null;
-
   const getRewardImage = () => {
     switch (reward) {
       case '6.88':
@@ -29,6 +24,11 @@ function RewardModal({ reward, isOpen, onClose }: RewardModalProps) {
         return reward8888;
     }
   };
+
+  const handleNavigation = (path: string) => {
+    window.location.href = path;
+  };
+  const aptamilCampaign = import.meta.env.VITE_APP_APTAMIL;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 pb-[73px]">
@@ -46,7 +46,7 @@ function RewardModal({ reward, isOpen, onClose }: RewardModalProps) {
         <img
           src={viewReward}
           className="absolute w-[60%] left-1/2 -translate-x-1/2 bottom-[60px] z-50"
-          onClick={() => navigate('/rewards')}
+          onClick={() => handleNavigation(`${aptamilCampaign}/rewards`)}
         ></img>
       </div>
     </div>

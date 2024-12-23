@@ -31,7 +31,7 @@ function Modal({
   };
 
   return (
-    <div className="fixed z-50 inset-0 overflow-y-auto bg-[rgba(0,0,0,0.5)]">
+    <div className="fixed z-50 inset-0 overflow-y-auto bg-[rgba(0,0,0,0.5)]" onClick={handleClick}>
       <div className="flex items-center justify-center min-h-screen">
         <div className="w-[90%] mx-auto bg-white rounded-[10px] p-8 shadow-md">
           <div className="flex justify-center">

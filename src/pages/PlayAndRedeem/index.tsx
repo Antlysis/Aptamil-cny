@@ -88,7 +88,6 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
 
         if (response) {
           const reward = response?.data?.data?.rewards[0].rewardValue;
-          console.log('Reward Value:', reward);
           setReward(reward);
           setShowGatchaGif(false);
           setIsOpen(true);

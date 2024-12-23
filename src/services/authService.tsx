@@ -26,3 +26,8 @@ export const getUserDetailsAPI = async () => {
   const res = await apiErrorHandling({ noDataCall: authApi.getUserDetails });
   return res;
 };
+
+export const updateProfileOutput = async (data: types.UpdateProfileData) => {
+  const res = await apiErrorHandling({ dataCall: authApi.updateProfile, data });
+  return res;
+}
