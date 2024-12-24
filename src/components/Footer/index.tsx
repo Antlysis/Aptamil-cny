@@ -9,38 +9,34 @@ const Footer = () => {
   const aptamilCampaign = import.meta.env.VITE_APP_APTAMIL;
 
   return (
-    <div className="fixed bottom-0 flex h-[73px] w-full max-w-[600px] items-center justify-around bg-white pt-1 z-50">
-      <div
-        onClick={() => handleNavigation(`${aptamilCampaign}/homepage`)}
-        className="cursor-pointer"
-      >
-        <div className="grid h-full grid-rows-2">
+    <div className="fixed bottom-0 flex h-[73px] w-full max-w-[600px] items-center justify-center bg-white pt-1 z-50">
+      <div className="flex w-full justify-evenly">
+        <div
+          onClick={() => handleNavigation(`${aptamilCampaign}/homepage`)}
+          className="cursor-pointer flex flex-col items-center"
+        >
           <div className="flex items-center justify-center">
-            <img src={homeLogoFooter} alt="Home" />
+            <img src={homeLogoFooter} alt="Home" className="mx-auto" />
           </div>
-          <p className="gray-color gotham-font">HOME</p>
+          <p className="gray-color gotham-book text-sm text-center">HOME</p>
         </div>
-      </div>
-      <div
-        onClick={() => handleNavigation(`${aptamilCampaign}/rewards`)}
-        className="cursor-pointer"
-      >
-        <div className="grid h-full grid-rows-2">
+        <div
+          onClick={() => handleNavigation(`${aptamilCampaign}/rewards`)}
+          className="cursor-pointer flex flex-col items-center"
+        >
           <div className="flex items-center justify-center">
-            <img src={rewardLogoFooter} alt="Rewards" />
+            <img src={rewardLogoFooter} alt="Rewards" className="mx-auto mt-1 mb-1.5" />
           </div>
-          <p className="gray-color gotham-font">REWARDS</p>
+          <p className="gray-color gotham-book text-sm text-center">REWARDS</p>
         </div>
-      </div>
-      <div
-        onClick={() => handleNavigation(`${aptamilCampaign}/profile`)}
-        className="cursor-pointer"
-      >
-        <div className="grid h-full grid-rows-2">
+        <div
+          onClick={() => handleNavigation(`${aptamilCampaign}/profile`)}
+          className="cursor-pointer flex flex-col items-center"
+        >
           <div className="flex items-center justify-center">
-            <img src={profileLogoFooter} alt="Profile" />
+            <img src={profileLogoFooter} alt="Profile" className="mx-auto" />
           </div>
-          <p className="gray-color gotham-font">PROFILE</p>
+          <p className="gray-color gotham-book text-sm text-center">PROFILE</p>
         </div>
       </div>
     </div>

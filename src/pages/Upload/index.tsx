@@ -157,10 +157,10 @@ const Upload = () => {
                 accept="image/jpeg,image/jpg,image/png,application/pdf"
               />
               <img src={uploadLogo} className="mx-auto" alt="Upload" />
-              <p className="mx-auto my-2 text-[16px] font-bold text-white underline">
+              <p className="mx-auto my-2 text-base font-bold text-white underline">
                 Click to Upload
               </p>
-              <p className="mx-auto text-[12px] text-white">
+              <p className="mx-auto text-xs text-white gotham-book">
                 *Supported formats: PDF, JPEG, JPG, PNG only
               </p>
             </div>

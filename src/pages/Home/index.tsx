@@ -72,7 +72,7 @@ const Home: React.FC = () => {
                   buttonText="GUARANTEED REWARDS"
                   buttonType="button"
                   buttonClass="blue-button"
-                  navigateTo={'/playandredeem'}
+                  navigateTo="/playandredeem"
                 />
               </div>
             </div>
@@ -82,7 +82,7 @@ const Home: React.FC = () => {
                   buttonText="GRAND PRIZES"
                   buttonType="button"
                   buttonClass="blue-button"
-                  navigateTo={'/minigame'}
+                  navigateTo="/minigame"
                 />
               </div>
             </div>
@@ -109,7 +109,7 @@ const Home: React.FC = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <p className="text-white underline mt-2">Terms & Conditions</p>
+                  <p className="text-white underline mt-2 text-sm gotham-light">Terms & Conditions</p>
                 </a>
               </div>
             </div>
@@ -129,7 +129,7 @@ const Home: React.FC = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <p className="text-white underline mt-2">Privacy Policy</p>
+                  <p className="text-white underline mt-2 text-sm gotham-light">Privacy Policy</p>
                 </a>
               </div>
             </div>

@@ -37,7 +37,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         className={`mr-2 scale-[1.2] h-6 cursor-pointer`}
       />
       <label 
-        className={`select-none text-white`}
+        className={`select-none text-white text-xs`}
       >
         {label}
       </label>

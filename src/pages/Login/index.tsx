@@ -95,7 +95,7 @@ const Login: React.FC = () => {
                   placeholder: 'Phone Number',
                   inputGroupClass: 'input-group',
                   inputDivClass: 'input-div',
-                  inputClass: 'input-field text-center',
+                  inputClass: 'input-field text-center gotham-book',
                   phonePrefix: true,
                   required: true,
                 },

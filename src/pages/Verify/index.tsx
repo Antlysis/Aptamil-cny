@@ -163,11 +163,11 @@ const Verify: React.FC = () => {
             />
           </div>
           {resend ? (
-            <p className="text-[16px] text-white">
+            <p className="text-base text-white">
               00:{timer.toString().padStart(2, '0')}
             </p>
           ) : null}
-          <p className="text-[16px] text-white" onClick={() => handleResendOTP()}>
+          <p className="text-base text-white" onClick={() => handleResendOTP()}>
             Resend OTP
           </p>
         </div>
