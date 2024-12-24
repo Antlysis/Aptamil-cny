@@ -1,7 +1,7 @@
 /* font.css */
 @font-face {
   font-family: 'Gotham Book';
-  src: url('/fonts/Gotham Book.otf') format('opentype'); /* Adjust the path as needed */
+  src: url('./Gotham Book.otf') format('opentype'); /* Adjust the path as needed */
   font-weight: normal;
   font-style: normal;
 }

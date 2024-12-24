@@ -17,6 +17,7 @@ const Register: React.FC = () => {
   const [termsChecked, setTermsChecked] = useState(false);
   const [marketingChecked, setMarketingChecked] = useState(false);
   const dispatch = useAppDispatch();
+  const channel = localStorage.getItem('channel');
 
   const navigate = useNavigate();
 
@@ -84,6 +85,8 @@ const Register: React.FC = () => {
             }}
             additionalFields={{
               state: location.state,
+              params: location.search,
+              channel: channel,
             }}
             type="register"
             buttonText="REGISTER"

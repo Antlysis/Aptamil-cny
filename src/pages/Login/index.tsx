@@ -15,6 +15,8 @@ import LoginModal from '../../components/LoginModal';
 const Login: React.FC = () => {
   const location = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const searchParams = new URLSearchParams(location.search);
+  const channel = searchParams.get('channel');
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -105,6 +107,7 @@ const Login: React.FC = () => {
             additionalFields={{
               path: location.pathname,
               params: location.search,
+              channel: channel,
             }}
             buttonText="Login"
             type="checkUser"
