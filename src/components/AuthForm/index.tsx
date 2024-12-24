@@ -137,6 +137,7 @@ function AuthForm({
           const dataToPass = {
             phone: data.phone,
             identity: res?.data?.identity,
+            channel: additionalFields?.channel,
           };
           if (modal) {
             setShowModal(true);
@@ -155,8 +156,8 @@ function AuthForm({
           phone: '60' + additionalFields?.state?.phone,
           email: data.email as string,
           type: 'PHONE',
+          channel: additionalFields?.channel,
         };
-
         const res = await register(registerData);
         if (res) {
           Cookies.set('user-token', res?.data?.token);
