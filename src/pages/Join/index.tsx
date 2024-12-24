@@ -18,13 +18,11 @@ const Join: React.FC = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
-    if (location.state?.fromHome) {
-      localStorage.removeItem('skipJoinPage');
-    }
-
-    const shouldSkip = localStorage.getItem('skipJoinPage') === 'true';
-    if (shouldSkip) {
-      navigate('/home');
+    if (!location.state?.fromHome) {
+      const shouldSkip = localStorage.getItem('skipJoinPage') === 'true';
+      if (shouldSkip) {
+        navigate('/home');
+      }
     }
   }, [navigate]);
 
@@ -61,15 +59,19 @@ const Join: React.FC = () => {
           <p className="heading-3">PRIZES</p>
           <img src={guaranteedRewards}></img>
           <img src={grandPrizes} className="mt-4"></img>
-          <label className="cursor-pointer flex mt-4">
-            <input
-              type="checkbox"
-              checked={isChecked}
-              className={`mr-2 scale-[1.2] h-6 cursor-pointer`}
-              onChange={handleCheckboxChange}
-            />
-            <p className="relative z-40 text-white text-center">Don't show this again</p>
-          </label>
+          {!location.state?.fromHome && (
+            <label className="cursor-pointer flex mt-4">
+              <input
+                type="checkbox"
+                checked={isChecked}
+                className="mr-2 scale-[1.2] h-6 cursor-pointer"
+                onChange={handleCheckboxChange}
+              />
+              <p className="relative z-40 text-white text-center">
+                Don't show this again
+              </p>
+            </label>
+          )}
         </div>
         <div className="footer-div">
           <div className="absolute z-40 w-full mx-auto text-center top-[140px]">
@@ -79,7 +81,9 @@ const Join: React.FC = () => {
               buttonClass="button-component"
               navigateTo="/home"
             />
-            <p className="text-white pt-1">*T&C apply.</p>
+            {!location.state?.fromHome && (
+              <p className="text-white pt-1">*T&C apply.</p>
+            )}
           </div>
         </div>
       </div>
