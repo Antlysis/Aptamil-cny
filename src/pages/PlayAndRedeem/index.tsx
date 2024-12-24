@@ -210,7 +210,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
         </div>
       </div>
 
-      <HotLineButton top="top-3/4" />
+      <HotLineButton top="top-[78%]" />
       <div className="relative z-[3] overflow-hidden">
         <div className="footer-gatcha">
           <div className="column align-center absolute z-[4] mt-[110px] flex gap-2 text-2xl font-bold">

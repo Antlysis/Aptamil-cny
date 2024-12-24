@@ -8,9 +8,13 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ previous = false }) => {
   const navigate = useNavigate();
+  const handleNavigation = (path: string) => {
+    window.location.href = path;
+  };
+  const aptamilCampaign = import.meta.env.VITE_APP_APTAMIL;
 
   return (
-    <div className="flex h-16 w-full items-center justify-between m-4 relative z-20">
+    <div className="flex h-16 w-full items-center justify-between p-4 relative z-20">
       {previous && (
         <div
           onClick={() => {
@@ -32,7 +36,11 @@ const Header: React.FC<HeaderProps> = ({ previous = false }) => {
         </div>
       )}
       {!previous && <div className="w-5" />}
-      <img src={aptamilKidLogo} alt="Aptamil Kid Logo" />
+      <img
+        src={aptamilKidLogo}
+        alt="Aptamil Kid Logo"
+        onClick={() => handleNavigation(`${aptamilCampaign}/homepage`)}
+      />
     </div>
   );
 };

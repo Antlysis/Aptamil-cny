@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import cnyTop from '../../assets/gif/cny-animation.gif';
 import cnyBody from '../../assets/images/cny-body.webp';
 import matchWin from '../../assets/images/match-and-win.png';
@@ -15,6 +17,7 @@ import { setUserDetails } from '../../store/userSlice';
 const Home: React.FC = () => {
   const aptamilCampaign = import.meta.env.VITE_APP_APTAMIL;
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUserDetails = async () => {
@@ -44,13 +47,16 @@ const Home: React.FC = () => {
         />
         <div className="pt-[130px] pb-[20px] flex flex-col items-center justify-between relative z-[2]">
           <div className="grid flex-grid grid-cols-2 gap-2 h-[170px] w-[90%] mx-auto">
-            <div className="relative h-full w-full">
+            <div
+              className="relative h-full w-full"
+              onClick={() => navigate('/playandredeem')}
+            >
               <img
                 src={playRedeem}
                 className="h-full w-auto mx-auto object-contain absolute inset-0"
               ></img>
             </div>
-            <div className="relative h-full w-full">
+            <div className="relative h-full w-full" onClick={() => navigate('/minigame')}>
               <img
                 src={matchWin}
                 className="h-full w-auto mx-auto object-contain absolute inset-0"
