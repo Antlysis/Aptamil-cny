@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -18,95 +18,149 @@ const MiniGame: React.FC = () => {
   const navigate = useNavigate();
   const userDetails = useAppSelector(getUserDetails);
   const dispatch = useAppDispatch();
+  const myIframe = useRef<HTMLIFrameElement>(null);
   const aptamilCampaign = import.meta.env.VITE_APP_APTAMIL;
 
   useEffect(() => {
     let processing = false;
 
     const handleGameMessage = async (event: MessageEvent) => {
-      if (!processing) {
+      if (!processing && event.data.action === 'gameCompleted') {
         processing = true;
-        if (event.data.action === 'gameCompleted') {
-          try {
-            const existingMinigame =
-              userDetails?.data?.personalInfo?.extendedFields?.minigame || [];
+        console.log('processed from message event');
+        try {
+          const existingMinigame =
+            userDetails?.data?.personalInfo?.extendedFields?.minigame || [];
 
-            const updatedMinigame = [
-              ...existingMinigame,
-              {
-                date: new Date().toLocaleString('en-GB'),
-                timer: event.data.data,
-              },
-            ];
+          const updatedMinigame = [
+            ...existingMinigame,
+            {
+              date: new Date().toLocaleString('en-GB'),
+              timer: event.data.data,
+            },
+          ];
 
-            const updateData = {
-              values: {
-                extendedFields: {
-                  minigame: updatedMinigame,
-                },
+          const updateData = {
+            values: {
+              extendedFields: {
+                minigame: updatedMinigame,
               },
-            };
-            console.log('Update Payload:', JSON.stringify(updateData, null, 2));
-            console.log('updated');
-            await updateProfileOutput(updateData);
-            const res = await getUserDetailsAPI();
-            if (res) {
-              dispatch(setUserDetails(res?.data));
-            }
-            navigate(`/minigame/result?time=${event.data.data}`);
-          } catch (error) {
-            navigate(`/minigame/result?time=${event.data.data}`);
+            },
+          };
+
+          await updateProfileOutput(updateData);
+          const res = await getUserDetailsAPI();
+          if (res) {
+            dispatch(setUserDetails(res?.data));
           }
+          navigate(`/minigame/result?time=${event.data.data}`);
+        } catch (error) {
+          navigate(`/minigame/result?time=${event.data.data}`);
         }
       }
     };
 
     // fallback function if window message event is not triggered
     const storageEventListener = async (event: StorageEvent) => {
-      if (!processing) {
+      if (!processing && event.key === 'gameCompleted') {
         processing = true;
-        if (event.key === 'gameCompleted') {
-          const timer = parseInt(event.newValue || '0');
-          try {
-            const existingMinigame =
-              userDetails?.data?.personalInfo?.extendedFields?.minigame || [];
+        console.log('processed from storage event');
+        const timer = parseInt(event.newValue || '0');
+        try {
+          const existingMinigame =
+            userDetails?.data?.personalInfo?.extendedFields?.minigame || [];
 
-            const updatedMinigame = [
-              ...existingMinigame,
-              {
-                date: new Date().toLocaleString('en-GB'),
-                timer,
+          const updatedMinigame = [
+            ...existingMinigame,
+            {
+              date: new Date().toLocaleString('en-GB'),
+              timer,
+            },
+          ];
+
+          const updateData = {
+            values: {
+              extendedFields: {
+                minigame: updatedMinigame,
               },
-            ];
+            },
+          };
 
-            const updateData = {
-              values: {
-                extendedFields: {
-                  minigame: updatedMinigame,
-                },
-              },
-            };
-
-            await updateProfileOutput(updateData);
-            const res = await getUserDetailsAPI();
-            if (res) {
-              dispatch(setUserDetails(res?.data));
-            }
-            navigate(`/minigame/result?time=${timer}`);
-          } catch (error) {
-            navigate(`/minigame/result?time=${timer}`);
+          await updateProfileOutput(updateData);
+          const res = await getUserDetailsAPI();
+          if (res) {
+            dispatch(setUserDetails(res?.data));
           }
+          navigate(`/minigame/result?time=${timer}`);
+        } catch (error) {
+          navigate(`/minigame/result?time=${timer}`);
         }
       }
     };
+
+    const checkInterval = setInterval(async () => {
+      if (!processing) {
+        const iframe = myIframe.current;
+        if (iframe) {
+          const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+
+          const gameCompleteDiv = iframeDoc?.querySelector('#game-complete');
+
+          if (gameCompleteDiv) {
+            const divDisplay = (gameCompleteDiv as HTMLElement).style.display;
+
+            if (divDisplay === 'block') {
+              clearInterval(checkInterval);
+              processing = true;
+              console.log('processed from interval');
+              const timer = parseInt(
+                (gameCompleteDiv as HTMLElement).getAttribute('data-time') || '0'
+              );
+
+              try {
+                const existingMinigame =
+                  userDetails?.data?.personalInfo?.extendedFields?.minigame || [];
+
+                const updatedMinigame = [
+                  ...existingMinigame,
+                  {
+                    date: new Date().toLocaleString('en-GB'),
+                    timer,
+                  },
+                ];
+
+                const updateData = {
+                  values: {
+                    extendedFields: {
+                      minigame: updatedMinigame,
+                    },
+                  },
+                };
+
+                await updateProfileOutput(updateData);
+                const res = await getUserDetailsAPI();
+                if (res) {
+                  dispatch(setUserDetails(res?.data));
+                }
+                navigate(`/minigame/result?time=${timer}`);
+              } catch (error) {
+                navigate(`/minigame/result?time=${timer}`);
+              }
+            }
+          }
+        }
+      }
+    }, 10);
 
     window.addEventListener('message', handleGameMessage);
     window.addEventListener('storage', storageEventListener);
     return () => {
       window.removeEventListener('message', handleGameMessage);
       window.removeEventListener('storage', storageEventListener);
+
+      clearInterval(checkInterval);
     };
-  }, [navigate]);
+  }, []);
 
   return (
     <div id="page" className="overflow-y-auto">
@@ -125,6 +179,7 @@ const MiniGame: React.FC = () => {
             src="./game/index.html"
             title="Game"
             className="h-[402px] w-full"
+            ref={myIframe}
           ></iframe>
           <img src={howTo} alt="How To" className="pt-5" />
         </div>
