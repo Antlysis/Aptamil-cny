@@ -97,7 +97,7 @@ const Register: React.FC = () => {
               body: (
                 <>
                   Welcome! You're now part of our <br />
-                  Aptamil<sup>TM</sup> KID Mini Program
+                  Aptamil<sup>TM</sup> KID Mini Program and have just received 100 pts.
                   <br />
                   <br />
                   Stay tuned for more exciting rewards!

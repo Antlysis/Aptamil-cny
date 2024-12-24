@@ -54,9 +54,9 @@ const Join: React.FC = () => {
         />
 
         <div className="pt-[110px] flex flex-col items-center justify-between relative w-[80%] mx-auto">
-          <p className="heading-3">HOW TO JOIN</p>
+          <p className="heading-3 gotham-bold">HOW TO JOIN</p>
           <img src={howToJoin}></img>
-          <p className="heading-3">PRIZES</p>
+          <p className="heading-3 gotham-bold">PRIZES</p>
           <img src={guaranteedRewards}></img>
           <img src={grandPrizes} className="mt-4"></img>
           {!location.state?.fromHome && (

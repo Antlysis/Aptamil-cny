@@ -12,6 +12,46 @@
   }
 }
 
+@font-face {
+  font-family: 'gotham-bold';
+  src: url('./assets/fonts/Gotham-Bold.otf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'gotham-black';
+  src: url('./assets/fonts/Gotham-Black-Regular.ttf');
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'gotham-book';
+  src: url('./assets/fonts/Gotham-Book.otf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'gotham-light';
+  src: url('./assets/fonts/Gotham-Light.otf');
+  font-weight: 350;
+}
+
+.gotham-light {
+  font-family: 'gotham-light', sans-serif;
+}
+
+.gotham-bold {
+  font-family: 'gotham-bold', sans-serif;
+}
+
+.gotham-black {
+  font-family: 'gotham-black', sans-serif;
+}
+
+.gotham-book {
+  font-family: 'gotham-book', sans-serif;
+}
+
 #root {
   margin: 0 auto;
   max-width: 600px;
@@ -31,7 +71,7 @@ body {
   min-height: 100vh;
 }
 
-#gatchapage{
+#gatchapage {
   background-image: url('./assets/images/game-background.webp');
   background-size: cover;
   background-position: top;
@@ -100,21 +140,22 @@ body {
   color: white;
   font-size: 32px;
   font-weight: bold;
+  font-family: 'Gotham Book', sans-serif;
 }
 
 .heading-2 {
   color: white;
   font-size: 16px;
+  font-family: 'gotham-book', sans-serif;
 }
 
 .heading-3 {
-  font-weight: bold;
-  font-size: 36px;
+  font-size: 32px;
   line-height: 2.5rem;
   color: white;
   padding: 12px 0;
   letter-spacing: 1px;
-  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.5)
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 /* AuthForm */
@@ -167,7 +208,7 @@ body {
   height: 45px;
   color: #d12031;
   font-size: 22px;
-  font-weight: 900;
+  font-family: 'gotham-black', sans-serif;
   background: linear-gradient(120deg, #ffd349 40%, #ffe976 60%, #efb52f 70%, #ffe660 90%);
   margin-top: 10px;
   cursor: pointer;
@@ -179,12 +220,15 @@ body {
   height: 45px;
   color: #ffe976;
   font-size: 12px;
-  font-weight: 900;
-  line-height: 1.2;
+  font-family: 'gotham-black', sans-serif;
+  line-height: 1;
   background: linear-gradient(#4c5589 0%, #1c2365 20%, #0a0a51 40%);
   cursor: pointer;
   border-radius: 40px;
   padding: 0 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .home-button {
@@ -217,8 +261,8 @@ body {
 }
 
 .login-modal-button {
-  background: linear-gradient(90deg, #D8B564 0%, #FDEC91 22%, #DBB663 68%, #FAF2BD 100%);
-  box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(90deg, #d8b564 0%, #fdec91 22%, #dbb663 68%, #faf2bd 100%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .handle::before {
@@ -260,7 +304,6 @@ body {
   height: 90vh;
   width: 100%;
 }
-
 
 @media screen and (max-height: 700px) {
   .login-bottom {

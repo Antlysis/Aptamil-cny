@@ -37,7 +37,7 @@ function Modal({
           <div className="flex justify-center">
             <img src={logo} alt="Success" className="h-16 w-16 text-green-500" />
           </div>
-          <h2 className="text-2xl font-bold text-center mt-4">{title}</h2>
+          <h2 className="text-[22px] font-bold text-center mt-4">{title}</h2>
           <p className="text-center mt-2">{body}</p>
           <div className="flex justify-center mt-6">
             <button

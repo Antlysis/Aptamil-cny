@@ -83,13 +83,13 @@ function LoginModal({ slides, onClose }: ModalProps) {
           </div>
 
           {slides[currentSlide].termsText && (
-            <div className="text-center text-sm">
+            <div className="gotham-book text-center text-base">
               <p>*T&C apply.</p>
             </div>
           )}
 
           {slides[currentSlide].footNote && (
-            <div className="text-center text-[10px]">
+            <div className="gotham-book text-center text-[10px]">
               <p>*All images are for illustration purposes only.</p>
             </div>
           )}
