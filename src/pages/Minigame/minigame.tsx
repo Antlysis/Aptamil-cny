@@ -80,7 +80,7 @@ const MiniGame: React.FC = () => {
           ></iframe>
           <img src={howTo} alt="How To" className="pt-5" />
         </div>
-        <HotLineButton top="top-1/2" />
+        <HotLineButton top="top-[80%]" />
         <div className="footer-div">
           <div className="relative z-40 w-full mx-auto text-center my-3">
             <ButtonComponent

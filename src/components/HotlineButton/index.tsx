@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Draggable from 'react-draggable';
 
@@ -14,27 +14,49 @@ interface HotLineButtonProps {
 }
 
 const HotLineButton: React.FC<HotLineButtonProps> = ({ top }) => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
   const dragStartPositionXYRef = useRef<PositionType>({
     x: 0,
     y: 0,
   });
-  
+
+  const bounds = {
+    top: -(window.innerHeight / 2) + 64,
+    bottom: window.innerHeight / 2 - 123,
+    left: -window.innerWidth + 50,
+    right: 0,
+  };
+
+  useEffect(() => {
+    setPosition({ x: 0, y: 0 }); // Start at right side
+  }, []);
+
+  const handleDragStop = (_: any, data: any) => {
+    const THRESHOLD = 2;
+    const { x, y } = dragStartPositionXYRef.current;
+    const wasDragged =
+      Math.abs(data.x - x) > THRESHOLD && Math.abs(data.y - y) > THRESHOLD;
+
+    if (!wasDragged) {
+      window.open('https://wa.me/+60149700341', '_blank');
+      return;
+    }
+
+    // Determine which side to snap to based on screen width
+    const screenMiddle = -window.innerWidth / 2;
+    const newX = data.x < screenMiddle ? -window.innerWidth + 50 : 0;
+
+    setPosition({ x: newX, y: data.y });
+  };
 
   return (
     <Draggable
-      bounds="parent"
+      position={position}
+      bounds={bounds}
       onStart={(_, data) => {
         dragStartPositionXYRef.current = { x: data.x, y: data.y };
       }}
-      onStop={(_, data) => {
-        const THRESHOLD = 2;
-        const { x, y } = dragStartPositionXYRef.current ?? { x: 0, y: 0 };
-        const wasDragged =
-          Math.abs(data.x - x) > THRESHOLD && Math.abs(data.y - y) > THRESHOLD;
-        if (!wasDragged) {
-          window.open('https://wa.me/+60149700341', '_blank');
-        }
-      }}
+      onStop={handleDragStop}
     >
       <img
         src={hotline}
