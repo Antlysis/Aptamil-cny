@@ -147,6 +147,44 @@ const MiniGame: React.FC = () => {
                 navigate(`/minigame/result?time=${timer}`);
               }
             }
+          } else {
+            const iframeUrl = iframe.contentWindow?.location.href;
+            if (iframeUrl?.includes('/minigame/result?time=')) {
+              clearInterval(checkInterval);
+              processing = true;
+
+              const timer = parseInt(iframeUrl.split('=')[1] || '0');
+
+              try {
+                const existingMinigame =
+                  userDetails?.data?.personalInfo?.extendedFields?.minigame || [];
+
+                const updatedMinigame = [
+                  ...existingMinigame,
+                  {
+                    date: new Date().toLocaleString('en-GB'),
+                    timer,
+                  },
+                ];
+
+                const updateData = {
+                  values: {
+                    extendedFields: {
+                      minigame: updatedMinigame,
+                    },
+                  },
+                };
+
+                await updateProfileOutput(updateData);
+                const res = await getUserDetailsAPI();
+                if (res) {
+                  dispatch(setUserDetails(res?.data));
+                }
+                navigate(`/minigame/result?time=${timer}`);
+              } catch (error) {
+                navigate(`/minigame/result?time=${timer}`);
+              }
+            }
           }
         }
       }
@@ -175,7 +213,7 @@ const MiniGame: React.FC = () => {
         />
         <div className="relative z-[2] mx-auto flex w-[90%] flex-col pt-[100px] ">
           <iframe
-            // src="../../../contest/Card Flipping Game/index.html"
+            // src="../../../contest/game/index.html"
             src="./game/index.html"
             title="Game"
             className="h-[402px] w-full"
