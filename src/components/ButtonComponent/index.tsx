@@ -51,7 +51,11 @@ function ButtonComponent({
     }
     if (buttonType !== 'submit' && navigateTo) {
       if (typeof navigateTo === 'string') {
-        navigate(navigateTo);
+        if (navigateTo.startsWith('http://') || navigateTo.startsWith('https://')) {
+          window.location.href = navigateTo;
+        } else {
+          navigate(navigateTo);
+        }
       } else {
         navigate(navigateTo.pathname, { state: navigateTo.state });
       }
@@ -59,7 +63,6 @@ function ButtonComponent({
   };
 
   const handleModalClose = () => {
-    // Execute modal function if provided
     if (modal?.modalFunction) {
       modal.modalFunction();
     }

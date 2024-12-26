@@ -1,26 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import slideGif from '../../assets/gif/gatcha-slide.gif';
 import gatchaGif from '../../assets/gif/gatcha.gif';
 import capsule0 from '../../assets/images/capsule-0.png';
 import capsule from '../../assets/images/capsule.png';
 import checkmark from '../../assets/images/checkmark.png';
-import gatchaBackground from '../../assets/images/gatcha-background.webp';
+import gameBackground from '../../assets/images/game-background.webp';
 import gatchaGame from '../../assets/images/gatcha-game.png';
-import slide from '../../assets/images/gatcha-slide.png';
+import DraggableSlider from '../../components/DraggableSlider';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import HotLineButton from '../../components/HotlineButton';
 import Modal from '../../components/Modal';
 import RewardModal from '../../components/RewardModal';
 import { checkValidity, gameReward } from '../../services/index';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '../../store/hooks';
 import { getUserDetails } from '../../store/userSlice';
 
 const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
-  const dispatch = useAppDispatch();
   const [isValid, setIsValid] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalClosing, setIsModalClosing] = useState(false);
   const [isNoTokenModalOpen, setIsNoTokenModalOpen] = useState(false);
   const [reward, setReward] = useState<string>('');
   const [currentTokenBalance, setCurrentTokenBalance] = useState(0);
@@ -28,6 +28,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   const [showGatchaGif, setShowGatchaGif] = useState(false);
   const [gifStatus, setGifStatus] = useState<'playing' | 'stopped'>('stopped');
   const [isClickDisabled, setIsClickDisabled] = useState(false);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   const campaignId = import.meta.env.VITE_APP_GAMES_CAMPAIGN_ID;
   const userDetails = useAppSelector(getUserDetails);
@@ -35,7 +36,20 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
 
   useEffect(() => {
     setCurrentTokenBalance(tokenBalance);
+    if (tokenBalance === 0) {
+      setIsNoTokenModalOpen(true);
+      setShowSlideGif(false);
+    } else {
+      setIsNoTokenModalOpen(false);
+      setShowSlideGif(true);
+    }
   }, [tokenBalance]);
+
+  useEffect(() => {
+    if (!isOpen && isModalClosing) {
+      setIsModalClosing(false);
+    }
+  }, [isOpen, isModalClosing, currentTokenBalance]);
 
   useEffect(() => {
     const fetchValidity = async () => {
@@ -52,7 +66,9 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   }, []);
 
   const handleScreenClick = () => {
-    setShowSlideGif(false);
+    if (!isOpen && !isNoTokenModalOpen) {
+      setShowSlideGif(false);
+    }
   };
 
   const handleGatchaGif = async () => {
@@ -72,7 +88,6 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
 
         if (response) {
           const reward = response?.data?.data?.rewards[0].rewardValue;
-          console.log('Reward Value:', reward);
           setReward(reward);
           setShowGatchaGif(false);
           setIsOpen(true);
@@ -90,7 +105,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
     }
   };
 
-  const handleClick = () => {
+  const handleSliderComplete = () => {
     if (currentTokenBalance === 0) {
       setIsNoTokenModalOpen(true);
       return;
@@ -102,28 +117,61 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   };
 
   const handleCloseModal = () => {
+    setIsModalClosing(true);
     setIsOpen(false);
     setIsClickDisabled(false);
+    if (currentTokenBalance === 0) {
+      setIsNoTokenModalOpen(true);
+    }
   };
 
   const handleCloseNoTokenModal = () => {
     setIsNoTokenModalOpen(false);
+    if (currentTokenBalance > 0) {
+      setTimeout(() => setShowSlideGif(true), 0);
+    }
+  };
+
+  const handlePointerDown = (event: React.PointerEvent) => {
+    if (currentTokenBalance === 0) {
+      event.preventDefault();
+      setIsNoTokenModalOpen(true);
+      return;
+    }
+
+    if (!isOpen && !isNoTokenModalOpen) {
+      setShowSlideGif(false);
+    }
+  };
+
+  const handlePointerUp = () => {
+    if (!isOpen && !isNoTokenModalOpen) {
+      setShowSlideGif(true);
+    }
+  };
+
+  const handleSliderAreaInteraction = (event: React.MouseEvent | React.TouchEvent) => {
+    if (currentTokenBalance === 0) {
+      event.preventDefault();
+      event.stopPropagation();
+      setIsNoTokenModalOpen(true);
+    }
   };
 
   return (
     <div id="gatchapage" className="overflow-y-auto" onClick={handleScreenClick}>
       {showGatchaGif && (
-        <div className="absolute z-[60] w-full h-full flex items-center justify-center">
+        <div className="absolute z-[60] flex size-full items-center justify-center">
           <img
-            src={gatchaBackground}
-            alt="Gatcha Background"
-            className="absolute z-[55] w-full h-full object-cover"
+            src={gameBackground}
+            alt="Game Background"
+            className="absolute z-[55] size-full object-cover"
           />
 
           {gifStatus === 'playing' && (
             <img
               src={gatchaGif}
-              className="absolute z-[65] w-full h-full object-contain transition-opacity duration-3000 ease-in-out"
+              className="duration-3000 absolute z-[65] size-full object-contain transition-opacity ease-in-out"
               style={{
                 animationIterationCount: 1,
                 pointerEvents: 'none',
@@ -132,37 +180,48 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
           )}
         </div>
       )}
-      <div className="absolute flex justify-between w-full">
+      <div className="absolute flex w-full justify-between">
         <Header previous={true} />
       </div>
       <div className="relative z-[2] flex justify-center pt-[50px]">
-        <img
-          src={gatchaGame}
-          alt={gatchaGame}
-          className="w-[80%] h-auto object-contain"
-        ></img>
-        <img
-          src={slide}
-          className="absolute z-[3] w-[60%] mt-[125vw]"
-          onClick={handleClick}
-        ></img>
-        {showSlideGif && (
-          <img src={slideGif} className="absolute z-[3] w-full mt-[115vw]"></img>
-        )}
+        <img src={gatchaGame} alt={gatchaGame} className="h-auto w-4/5 object-contain" />
+        <div
+          className="absolute bottom-[10%] h-[100px] w-full"
+          ref={sliderRef}
+          onMouseDown={handleSliderAreaInteraction}
+          onTouchStart={handleSliderAreaInteraction}
+        >
+          <div className="relative mx-auto flex h-[130px] w-[90%] items-center justify-center">
+            {showSlideGif && (
+              <img
+                src={slideGif}
+                className="pointer-events-none absolute top-0 z-[5] h-[90%] w-[96%]"
+              />
+            )}
+            <div className="absolute top-[30%] z-[4] w-3/5">
+              <DraggableSlider
+                handleTrigger={handleSliderComplete}
+                canPlay={isValid && currentTokenBalance > 0 && !isClickDisabled}
+                handleDown={handlePointerDown}
+                handleUp2={handlePointerUp}
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
-      <HotLineButton top="top-3/4" />
-      <div className="relative overflow-hidden z-[3]">
+      <HotLineButton top="top-[78%]" />
+      <div className="relative z-[3] overflow-hidden">
         <div className="footer-gatcha">
-          <div className="z-[4] mt-[110px] absolute flex column align-center gap-2 font-bold text-2xl">
+          <div className="column align-center absolute z-[4] mt-[110px] flex gap-2 text-2xl font-bold">
             <p className="text-white">CAPSULE:</p>
             <div className="relative flex items-center">
               {currentTokenBalance === 0 ? (
-                <img src={capsule0} className="w-[30px] h-[30px]" />
+                <img src={capsule0} className="size-[30px]" />
               ) : (
-                <img src={capsule} className="w-[30px] h-[30px]" />
+                <img src={capsule} className="size-[30px]" />
               )}
-              <p className="z-[5] text-[#161E4F] inset-0 absolute flex items-center justify-center">
+              <p className="absolute inset-0 z-[5] flex items-center justify-center text-[#161E4F]">
                 {currentTokenBalance}
               </p>
             </div>
@@ -172,7 +231,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
       </div>
       <RewardModal reward={reward} isOpen={isOpen} onClose={handleCloseModal} />
 
-      {isNoTokenModalOpen && (
+      {!isModalClosing && isNoTokenModalOpen && (
         <Modal
           logo={checkmark}
           title="Sorry.."
@@ -180,7 +239,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
           buttonText="UPLOAD RECEIPT NOW"
           buttonClass="bg-[#001489] hover:bg-blue-700"
           onClose={handleCloseNoTokenModal}
-          navigateTo="/contest/upload"
+          navigateTo="/upload"
         />
       )}
     </div>

@@ -43,13 +43,13 @@ function LoginModal({ slides, onClose }: ModalProps) {
 
   return (
     <div
-      className="absolute z-30 inset-0 overflow-y-auto bg-[rgba(0,0,0,0.5)]"
+      className="absolute inset-0 overflow-y-auto bg-[rgba(0,0,0,0.5)] z-[80]"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="login-slider relative flex flex-col p-[4rem] box-border">
+      <div className="flex items-center justify-center min-h-screen z-[90]">
+        <div className="login-slider relative flex flex-col p-[4rem] box-border z-[100]">
           <div className="flex justify-center w-full h-[45%]">
             <img
               src={slides[currentSlide].image}
@@ -57,7 +57,7 @@ function LoginModal({ slides, onClose }: ModalProps) {
               className="h-full object-contain"
             />
           </div>
-          <p className="text-base text-center mt-2 w-[85%]">
+          <p className="text-base text-center leading-tight mt-2 w-[85%]">
             {slides[currentSlide].text}
           </p>
 
@@ -83,13 +83,13 @@ function LoginModal({ slides, onClose }: ModalProps) {
           </div>
 
           {slides[currentSlide].termsText && (
-            <div className="text-center text-sm">
+            <div className="gotham-book text-center text-base">
               <p>*T&C apply.</p>
             </div>
           )}
 
           {slides[currentSlide].footNote && (
-            <div className="text-center text-[10px]">
+            <div className="gotham-book text-center text-[10px]">
               <p>*All images are for illustration purposes only.</p>
             </div>
           )}

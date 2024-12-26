@@ -9,12 +9,14 @@ import loginSlider2 from '../../assets/images/login-slider-2.png';
 import loginSlider3 from '../../assets/images/login-slider-3.png';
 import AuthForm from '../../components/AuthForm';
 import Header from '../../components/Header';
-import LoginModal from '../../components/LoginModal';
 import HotLineButton from '../../components/HotlineButton';
+import LoginModal from '../../components/LoginModal';
 
 const Login: React.FC = () => {
   const location = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const searchParams = new URLSearchParams(location.search);
+  const channel = searchParams.get('channel');
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -64,6 +66,7 @@ const Login: React.FC = () => {
           onClose={handleCloseModal}
         />
       )}
+
       <div className="absolute flex justify-between w-full">
         <Header />
       </div>
@@ -94,7 +97,7 @@ const Login: React.FC = () => {
                   placeholder: 'Phone Number',
                   inputGroupClass: 'input-group',
                   inputDivClass: 'input-div',
-                  inputClass: 'input-field text-center',
+                  inputClass: 'input-field text-center gotham-book',
                   phonePrefix: true,
                   required: true,
                 },
@@ -104,6 +107,7 @@ const Login: React.FC = () => {
             additionalFields={{
               path: location.pathname,
               params: location.search,
+              channel: channel,
             }}
             buttonText="Login"
             type="checkUser"

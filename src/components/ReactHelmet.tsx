@@ -1,26 +1,21 @@
 import { Helmet } from 'react-helmet';
 
 const ReactHelmet = () => {
-  const driveApiUrl =
-    import.meta.env.MODE === 'production'
-      ? import.meta.env.VITE_APP_DRIVE_API
-      : import.meta.env.VITE_APP_DRIVE_API_SB;
+  const driveApiUrl = import.meta.env.VITE_API_DOMAIN_URL;
 
   return (
     <Helmet>
       <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
-      <meta httpEquiv="X-Frame-Options" content="DENY" />
       <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
-      <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
       <meta
         httpEquiv="Content-Security-Policy"
         content={`
           default-src 'self' ${driveApiUrl};
-          script-src 'self';
+          script-src 'self' 'unsafe-inline';
           style-src 'self';
-          img-src 'self' data: blob:;
+          img-src 'self' data: blob: *;
           font-src 'self';
-          connect-src 'self' ${driveApiUrl};
+          connect-src 'self' ${driveApiUrl} https://cdn.simplelocalize.io;
           frame-ancestors 'none';
         `}
       />

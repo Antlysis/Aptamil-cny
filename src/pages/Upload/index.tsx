@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
-
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 import cnyTop from '../../assets/gif/cny-animation.gif';
 import pdfIcon from '../../assets/images/PDFicon.png';
@@ -11,9 +9,10 @@ import uploadLogo from '../../assets/images/svg/uploadLogo.svg';
 import ButtonComponent from '../../components/ButtonComponent';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import Modal from '../../components/Modal';
-import { checkValidity, createEntry, uploadImage } from '../../services/index';
 import HotLineButton from '../../components/HotlineButton';
+import Modal from '../../components/Modal';
+import { createEntry, uploadImage } from '../../services/index';
+
 interface ImageData {
   name: string;
   size: string;
@@ -22,11 +21,10 @@ interface ImageData {
 }
 
 const Upload = () => {
-  const navigate = useNavigate();
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [imageData, setImageData] = useState<ImageData | null>(null);
-  const [isValid, setIsValid] = useState(false);
+  // const [isValid, setIsValid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const campaignId = import.meta.env.VITE_APP_CAMPAIGN_ID;
@@ -64,19 +62,19 @@ const Upload = () => {
     setImageData(null);
   };
 
-  useEffect(() => {
-    const fetchValidity = async () => {
-      try {
-        const result = await checkValidity();
-        if (result) {
-          setIsValid(result?.isValid);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchValidity();
-  }, []);
+  // useEffect(() => {
+  //   const fetchValidity = async () => {
+  //     try {
+  //       const result = await checkValidity();
+  //       if (result) {
+  //         setIsValid(result?.isValid);
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchValidity();
+  // }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -89,7 +87,7 @@ const Upload = () => {
       try {
         const uploadImageResponse = await uploadImage(data);
         if (uploadImageResponse && uploadImageResponse.data?.data.url) {
-          let entryData = {
+          const entryData = {
             campaignId: campaignId,
             type: 'RECEIPT',
             selectedRewardIds: [rewardId],
@@ -128,48 +126,48 @@ const Upload = () => {
 
   return (
     <div id="page" className="overflow-y-auto">
-      <div className="absolute flex justify-between w-full">
+      <div className="absolute flex w-full justify-between">
         <Header previous={true} />
       </div>
       <HotLineButton></HotLineButton>
       <div className="relative z-[2]">
-        <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
+        <img src={cnyTop} alt="gif" className="relative bottom-7 flex size-full" />
       </div>
 
-      <div className="relative -mt-[125px] overflow-hidden z-[3] pb-[73px]">
+      <div className="relative z-[3] -mt-[125px] overflow-hidden pb-[73px]">
         <img
           src={cnyBody}
           alt="main-bg"
-          className="absolute w-full min-h-screen top-0 left-0"
+          className="absolute left-0 top-0 min-h-screen w-full"
         />
 
-        <div className="pt-[110px] flex flex-col items-center justify-between relative w-[80%] mx-auto">
-          <p className="text-white text-[26px] font-bold pt-3">Upload Receipt</p>
-          <p className="heading-2 text-center">Upload photos of your receipt</p>
+        <div className="relative mx-auto flex w-4/5 flex-col items-center justify-between pt-[110px]">
+          <p className="pt-3 text-[26px] font-bold text-white">Upload Receipt</p>
+          <p className="heading-2 text-center">Upload a photo of your receipt</p>
 
-          <form className="text-center w-full" onSubmit={handleSubmit}>
+          <form className="w-full text-center" onSubmit={handleSubmit}>
             <div
-              className="h-[150px] mt-4 border-dashed border-2 rounded-[10px] content-center text-center cursor-pointer inset-0"
+              className="inset-0 mt-4 h-[170px] cursor-pointer content-center rounded-[10px] border-2 border-dashed text-center"
               style={{ backgroundColor: '#7D1A21' }}
             >
               <input
                 type="file"
-                className="absolute inset-0 h-[150px] opacity-0 mt-[200px]"
+                className="absolute inset-0 mt-[200px] h-[150px] opacity-0"
                 onChange={handleUpload}
                 accept="image/jpeg,image/jpg,image/png,application/pdf"
               />
               <img src={uploadLogo} className="mx-auto" alt="Upload" />
-              <p className="my-2 mx-auto text-white font-bold underline text-[16px]">
+              <p className="mx-auto my-2 text-base font-bold text-white underline">
                 Click to Upload
               </p>
-              <p className="mx-auto text-white text-[12px]">
+              <p className="mx-auto text-xs text-white gotham-book">
                 *Supported formats: PDF, JPEG, JPG, PNG only
               </p>
             </div>
             <div className="upload details">
               {file && imageData ? (
-                <div className="bg-white flex w-full h-20 my-5 rounded-md overflow-hidden">
-                  <div className="w-[20vw] h-full bg-gray-300 flex justify-center items-center mr-2">
+                <div className="my-5 flex h-20 w-full overflow-hidden rounded-md bg-white">
+                  <div className="mr-2 flex h-full w-[20vw] items-center justify-center bg-gray-300">
                     <img
                       src={
                         imageData.fileType === 'application/pdf'
@@ -177,19 +175,19 @@ const Upload = () => {
                           : imageData.data
                       }
                       alt="receipt"
-                      className="max-w-full max-h-full m-auto"
+                      className="m-auto max-h-full max-w-full"
                     />
                   </div>
-                  <div className="flex flex-col items-start justify-center flex-1 w-full">
-                    <p className="font-bold text-left w-full">{imageData.name}</p>
-                    <p className="font-light text-gray-400 text-left w-full">
+                  <div className="flex w-full flex-1 flex-col items-start justify-center">
+                    <p className="w-full text-left font-bold">{imageData.name}</p>
+                    <p className="w-full text-left font-light text-gray-400">
                       {imageData.size}
                     </p>
                   </div>
 
                   <button
                     type="button"
-                    className="w-[15vw] h-full flex justify-center items-center"
+                    className="flex h-full w-[15vw] items-center justify-center"
                     onClick={deleteImage}
                   >
                     <img src={trashLogo} alt="trash" />
@@ -208,7 +206,7 @@ const Upload = () => {
         </div>
 
         <div className="footer-div">
-          <div className="absolute z-40 w-full mx-auto text-center top-[140px]"></div>
+          <div className="absolute top-[140px] z-40 mx-auto w-full text-center"></div>
         </div>
         <Footer />
 
