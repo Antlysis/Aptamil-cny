@@ -40,6 +40,7 @@ interface AuthFormProps {
     modalButtonText: string;
     modalButtonClass: string;
     modalFunction?: () => void;
+    navigateTo?: string;
   };
 }
 
@@ -137,6 +138,7 @@ function AuthForm({
           const dataToPass = {
             phone: data.phone,
             identity: res?.data?.identity,
+            channel: additionalFields?.channel,
           };
           if (modal) {
             setShowModal(true);
@@ -155,8 +157,11 @@ function AuthForm({
           phone: '60' + additionalFields?.state?.phone,
           email: data.email as string,
           type: 'PHONE',
+          registerSource: {
+            channel: additionalFields?.state?.channel,
+            project: 'Aptamil CNY 2025',
+          },
         };
-
         const res = await register(registerData);
         if (res) {
           Cookies.set('user-token', res?.data?.token);

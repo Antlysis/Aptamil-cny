@@ -101,7 +101,6 @@ const Verify: React.FC = () => {
       if (res) {
         if (location?.state?.identity === 'LOGIN') {
           Cookies.set('user-token', res?.data?.token);
-          console.log(res);
 
           dispatch(userLogin());
           navigate('/home');
@@ -163,9 +162,7 @@ const Verify: React.FC = () => {
             />
           </div>
           {resend ? (
-            <p className="text-base text-white">
-              00:{timer.toString().padStart(2, '0')}
-            </p>
+            <p className="text-base text-white">00:{timer.toString().padStart(2, '0')}</p>
           ) : null}
           <p className="text-base text-white" onClick={() => handleResendOTP()}>
             Resend OTP
