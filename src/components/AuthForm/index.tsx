@@ -157,6 +157,7 @@ function AuthForm({
           email: data.email as string,
           type: 'PHONE',
           channel: additionalFields?.channel,
+          project: 'Aptamil CNY 2025',
         };
         const res = await register(registerData);
         if (res) {
