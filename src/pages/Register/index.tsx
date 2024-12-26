@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import cnyTop from '../../assets/gif/cny-animation.gif';
 import cnyBody from '../../assets/images/cny-body.webp';
 import successLogo from '../../assets/images/svg/successLogo.svg';
+import TnCPDF from '../../assets/pdf/TnC.pdf';
 import AuthForm from '../../components/AuthForm';
 import Checkbox from '../../components/Checkbox';
 import Header from '../../components/Header';
@@ -17,7 +18,6 @@ const Register: React.FC = () => {
   const [termsChecked, setTermsChecked] = useState(false);
   const [marketingChecked, setMarketingChecked] = useState(false);
   const dispatch = useAppDispatch();
-  const channel = localStorage.getItem('channel');
 
   const navigate = useNavigate();
 
@@ -86,7 +86,6 @@ const Register: React.FC = () => {
             additionalFields={{
               state: location.state,
               params: location.search,
-              channel: channel,
             }}
             type="register"
             buttonText="REGISTER"
@@ -117,7 +116,7 @@ const Register: React.FC = () => {
                   <div>
                     <span>By submitting this form, I hereby agree to the </span>
                     <a
-                      href="https://www.aptamilkid.com.my/footer-navigation/terms-and-conditions.html"
+                      href={TnCPDF}
                       target="_blank"
                       rel="noreferrer"
                       className="underline font-bold"

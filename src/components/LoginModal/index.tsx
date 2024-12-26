@@ -57,7 +57,7 @@ function LoginModal({ slides, onClose }: ModalProps) {
               className="h-full object-contain"
             />
           </div>
-          <p className="text-base text-center mt-2 w-[85%]">
+          <p className="text-base text-center leading-tight mt-2 w-[85%]">
             {slides[currentSlide].text}
           </p>
 

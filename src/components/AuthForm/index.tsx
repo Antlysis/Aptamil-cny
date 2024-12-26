@@ -40,6 +40,7 @@ interface AuthFormProps {
     modalButtonText: string;
     modalButtonClass: string;
     modalFunction?: () => void;
+    navigateTo?: string;
   };
 }
 
@@ -156,8 +157,10 @@ function AuthForm({
           phone: '60' + additionalFields?.state?.phone,
           email: data.email as string,
           type: 'PHONE',
-          channel: additionalFields?.channel,
-          project: 'Aptamil CNY 2025',
+          registerSource: {
+            channel: additionalFields?.state?.channel,
+            project: 'Aptamil CNY 2025',
+          },
         };
         const res = await register(registerData);
         if (res) {
