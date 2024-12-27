@@ -14,12 +14,13 @@ const Header: React.FC<HeaderProps> = ({ previous = false }) => {
   const aptamilCampaign = import.meta.env.VITE_APP_APTAMIL;
 
   return (
-    <div className="flex h-16 w-full items-center justify-between p-4 relative z-20">
+    <div className="flex h-16 w-full items-center justify-between p-4 relative z-20 max-w-[600px]">
       {previous && (
         <div
           onClick={() => {
             navigate('/home');
           }}
+          className="cursor-pointer"
         >
           <svg
             width="20"
@@ -36,11 +37,13 @@ const Header: React.FC<HeaderProps> = ({ previous = false }) => {
         </div>
       )}
       {!previous && <div className="w-5" />}
-      <img
-        src={aptamilKidLogo}
-        alt="Aptamil Kid Logo"
-        onClick={() => handleNavigation(`${aptamilCampaign}/homepage`)}
-      />
+      <div className="cursor-pointer">
+        <img
+          src={aptamilKidLogo}
+          alt="Aptamil Kid Logo"
+          onClick={() => handleNavigation(`${aptamilCampaign}/homepage`)}
+        />
+      </div>
     </div>
   );
 };
