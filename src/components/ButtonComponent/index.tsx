@@ -79,13 +79,14 @@ function ButtonComponent({
   const isModalVisible = modal?.show !== undefined ? modal.show : localModalVisible;
   const isButtonDisabled =
     loading || disabled || (buttonText === 'SUBMIT RECEIPT' && !filePresent);
+  const isRewardDisabled = disabled;
 
   return (
     <>
       <Button
         type={buttonType}
-        className={`${buttonClass || ''} ${isButtonDisabled ? 'disabled-button' : ''}`}
-        disabled={isButtonDisabled}
+        className={`${buttonClass || ''} ${isButtonDisabled ? 'disabled-button' : ''} ${isRewardDisabled ? 'rewards-disabled' : ''}`}
+        disabled={isButtonDisabled || isRewardDisabled}
         onClick={handleButtonClick}
       >
         {buttonText}
