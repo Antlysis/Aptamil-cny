@@ -125,7 +125,7 @@ const Verify: React.FC = () => {
 
   return (
     <div id="page" className="overflow-y-auto">
-      <div className="absolute flex justify-between w-full">
+      <div className="fixed flex justify-between w-full z-50">
         <Header />
       </div>
       <HotLineButton></HotLineButton>

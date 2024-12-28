@@ -38,7 +38,7 @@ const Join: React.FC = () => {
 
   return (
     <div id="page" className="overflow-y-auto">
-      <div className="absolute flex justify-between w-full">
+      <div className="fixed flex justify-between w-full z-50">
         <Header />
       </div>
       <HotLineButton></HotLineButton>
@@ -81,9 +81,7 @@ const Join: React.FC = () => {
               buttonClass="button-component"
               navigateTo="/home"
             />
-            {!location.state?.fromHome && (
-              <p className="text-white pt-1">*T&C apply.</p>
-            )}
+            {!location.state?.fromHome && <p className="text-white pt-1">*T&C apply.</p>}
           </div>
         </div>
       </div>

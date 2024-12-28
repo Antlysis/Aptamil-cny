@@ -28,3 +28,11 @@ export const gameReward = async (data: object) => {
     return res;
   }
 };
+
+export const getRewardStock = async (data: string[]) => {
+  console.log('services: ', data);
+  const res = await apiErrorHandling({ dataCall: gameAPI.getRewardStock, data });
+  if (res) {
+    return res;
+  }
+};

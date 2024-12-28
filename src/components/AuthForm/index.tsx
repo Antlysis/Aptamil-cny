@@ -69,6 +69,7 @@ function AuthForm({
   const [isFormValid, setIsFormValid] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+  const projectID = import.meta.env.VITE_APP_PROJECT_ID;
 
   useEffect(() => {
     if (formConfig?.fields) {
@@ -161,6 +162,7 @@ function AuthForm({
             channel: additionalFields?.state?.channel,
             project: 'Aptamil CNY 2025',
           },
+          projectId: projectID,
         };
         const res = await register(registerData);
         if (res) {
