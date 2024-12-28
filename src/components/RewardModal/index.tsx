@@ -45,7 +45,7 @@ function RewardModal({ reward, isOpen, onClose }: RewardModalProps) {
         ></div>
         <img
           src={viewReward}
-          className="absolute w-[60%] left-1/2 -translate-x-1/2 bottom-[60px] z-50"
+          className="absolute w-[60%] left-1/2 -translate-x-1/2 bottom-[60px] z-50 cursor-pointer"
           onClick={() => handleNavigation(`${aptamilCampaign}/rewards`)}
         ></img>
       </div>

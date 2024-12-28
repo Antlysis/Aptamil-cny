@@ -16,7 +16,7 @@ function MatchModal({ time, onClose }: ModalProps) {
   return (
     <div className="absolute inset-0 z-[80] overflow-y-auto bg-[rgba(0,0,0,0.5)]">
       <div className="z-[90] flex min-h-screen items-center justify-center">
-        <div className="match-background relative z-[100] box-border flex flex-col px-12 py-16">
+        <div className="match-background relative z-[100] box-border flex flex-col px-12 py-16 max-w-[600px]">
           <div className="mt-12 flex w-4/5 flex-col items-center justify-center">
             <img src={YouWin} alt="You Win" />
             <p className="mb-0.5 mt-3 text-base font-bold text-[#A11A20]">TIME</p>
@@ -37,9 +37,9 @@ function MatchModal({ time, onClose }: ModalProps) {
             development
           </p>
 
-          <div className="pb-4 text-center text-xs">
+          <div className="pb-4 text-center text-xs px-3">
             <p>
-              *Sphingomyelin, Omega 3, 6, 9, Vitamin B12, <br /> Tryptophan, DHA are found
+              *Sphingomyelin, Omega 3, 6, 9, Vitamin B12, Tryptophan, DHA are found
               in the brain
             </p>
           </div>
@@ -47,7 +47,7 @@ function MatchModal({ time, onClose }: ModalProps) {
           <div className="flex w-full flex-col items-center justify-center">
             <img
               src={replay}
-              className="w-[18%]"
+              className="w-[18%] cursor-pointer"
               onClick={() => {
                 navigate('/minigame');
                 onClose();

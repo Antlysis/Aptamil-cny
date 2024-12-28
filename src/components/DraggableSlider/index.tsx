@@ -103,7 +103,7 @@ const DraggableSlider = ({
       <div
         ref={handle}
         onPointerDown={canPlay ? handlePointerDown : () => {}}
-        className={`relative size-[1.5rem] touch-none rounded-[50%] ${canPlay ? 'bg-[#7D1A21]' : 'bg-gray-500'}`}
+        className={`relative size-[1.5rem] touch-none rounded-[50%] cursor-pointer ${canPlay ? 'bg-[#7D1A21]' : 'bg-gray-500'}`}
       ></div>
     </div>
   );
