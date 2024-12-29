@@ -62,9 +62,15 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   useEffect(() => {
     const checkStock = async () => {
       const gotStock = await getRewardStock(rewardIdsList);
-      if (!gotStock) {
-        setIsNoTokenModalOpen(true);
-        setShowSlideGif(false);
+      if (gotStock) {
+        const outOfStock = (gotStock.data as { isValid: boolean }[]).every(
+          (item: { isValid?: boolean }) => !item.isValid
+        );
+
+        if (outOfStock) {
+          setIsNoTokenModalOpen(true);
+          setShowSlideGif(false);
+        }
       }
     };
 
@@ -189,7 +195,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
           {gifStatus === 'playing' && (
             <img
               src={gatchaGif}
-              className="duration-3000 absolute z-[65] size-full object-contain transition-opacity ease-in-out max-w-[600px]"
+              className="duration-3000 absolute z-[65] size-full max-w-[600px] object-contain transition-opacity ease-in-out"
               style={{
                 animationIterationCount: 1,
                 pointerEvents: 'none',
