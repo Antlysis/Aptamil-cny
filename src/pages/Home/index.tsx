@@ -32,7 +32,11 @@ const Home: React.FC = () => {
   const handleGetRewardStock = async () => {
     const gotStock = await getRewardStock(rewardIdsList);
     if (gotStock) {
-      navigate('/playandredeem');
+      const outOfStock = (gotStock.data as { isValid: boolean }[]).every(
+        (item: { isValid?: boolean }) => !item.isValid
+      );
+
+      if (!outOfStock) return navigate('/playandredeem');
     }
   };
 
@@ -46,7 +50,13 @@ const Home: React.FC = () => {
 
     const checkStock = async () => {
       const gotStock = await getRewardStock(rewardIdsList);
-      setRewardsDisabled(!gotStock);
+      if (gotStock) {
+        const outOfStock = (gotStock.data as { isValid: boolean }[]).every(
+          (item: { isValid?: boolean }) => !item.isValid
+        );
+
+        setRewardsDisabled(outOfStock);
+      }
     };
 
     checkStock();
@@ -55,47 +65,44 @@ const Home: React.FC = () => {
 
   return (
     <div id="page" className="overflow-y-auto">
-      <div className="container mx-auto max-w-[600px] relative">
-        <div className="fixed flex justify-between w-full z-50">
+      <div className="container relative mx-auto max-w-[600px]">
+        <div className="fixed z-50 flex w-full justify-between">
           <Header />
         </div>
         <HotLineButton></HotLineButton>
         <div className="relative z-[2]">
-          <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
+          <img src={cnyTop} alt="gif" className="relative bottom-7 flex size-full" />
         </div>
 
-        <div className="relative -mt-[125px] overflow-hidden z-[3] pb-[73px]">
+        <div className="relative z-[3] -mt-[125px] overflow-hidden pb-[73px]">
           <img
             src={cnyBody}
             alt="main-bg"
-            className="absolute w-full min-h-screen top-0 left-0"
+            className="absolute left-0 top-0 min-h-screen w-full"
           />
-          <div className="pt-[130px] pb-[20px] flex flex-col items-center justify-between relative z-[2]">
-            <div className="grid flex-grid grid-cols-2 gap-2 h-[170px] w-[90%] mx-auto">
+          <div className="relative z-[2] flex flex-col items-center justify-between pb-[20px] pt-[130px]">
+            <div className="flex-grid mx-auto grid h-[170px] w-[90%] grid-cols-2 gap-2">
               <div
-                className="relative h-full w-full"
+                className="relative size-full"
                 onClick={() => navigate('/playandredeem')}
               >
                 <img
                   src={playRedeem}
-                  className="h-full w-auto mx-auto object-contain absolute inset-0"
+                  className="absolute inset-0 mx-auto h-full w-auto object-contain"
                 ></img>
               </div>
-              <div
-                className="relative h-full w-full"
-                onClick={() => navigate('/minigame')}
-              >
+              <div className="relative size-full" onClick={() => navigate('/minigame')}>
                 <img
                   src={matchWin}
-                  className="h-full w-auto mx-auto object-contain absolute inset-0"
+                  className="absolute inset-0 mx-auto h-full w-auto object-contain"
                 ></img>
               </div>
             </div>
           </div>
           <div className="footer-div">
-            <div className="grid flex-grid grid-cols-2 gap-2 w-[90%] mx-auto">
+            <div className="flex-grid mx-auto grid w-[90%] grid-cols-2 gap-2">
               <div className="relative">
-                <div className="z-40 w-full mx-auto text-center top-[140px]">
+                <div className="top-[140px] z-40 mx-auto w-full text-center">
                   <ButtonComponent
                     buttonText="GUARANTEED REWARDS"
                     buttonType="button"
@@ -106,7 +113,7 @@ const Home: React.FC = () => {
                 </div>
               </div>
               <div className="relative">
-                <div className="z-40 w-full mx-auto text-center top-[140px]">
+                <div className="top-[140px] z-40 mx-auto w-full text-center">
                   <ButtonComponent
                     buttonText="GRAND PRIZES"
                     buttonType="button"
@@ -116,7 +123,7 @@ const Home: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="relative z-40 w-full mx-auto text-center my-3">
+            <div className="relative z-40 mx-auto my-3 w-full text-center">
               <ButtonComponent
                 buttonText="UPLOAD RECEIPT"
                 buttonType="button"
@@ -124,9 +131,9 @@ const Home: React.FC = () => {
                 navigateTo="/upload"
               />
             </div>
-            <div className="grid flex-grid grid-cols-2 gap-2 w-[90%] mx-auto">
+            <div className="flex-grid mx-auto grid w-[90%] grid-cols-2 gap-2">
               <div className="relative">
-                <div className="z-40 w-full mx-auto text-center top-[140px]">
+                <div className="top-[140px] z-40 mx-auto w-full text-center">
                   <ButtonComponent
                     buttonText="TRACK MY SUBMISSION"
                     buttonType="button"
@@ -134,14 +141,14 @@ const Home: React.FC = () => {
                     navigateTo={`${aptamilCampaign}/profile/history`}
                   />
                   <a href={TnCPDF} target="_blank" rel="noreferrer">
-                    <p className="text-white underline mt-2 text-sm gotham-light">
+                    <p className="gotham-light mt-2 text-sm text-white underline">
                       Terms & Conditions
                     </p>
                   </a>
                 </div>
               </div>
               <div className="relative">
-                <div className="z-40 w-full mx-auto text-center top-[140px]">
+                <div className="top-[140px] z-40 mx-auto w-full text-center">
                   <ButtonComponent
                     buttonText="HOW TO JOIN"
                     buttonType="button"
@@ -156,7 +163,7 @@ const Home: React.FC = () => {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <p className="text-white underline mt-2 text-sm gotham-light">
+                    <p className="gotham-light mt-2 text-sm text-white underline">
                       Privacy Policy
                     </p>
                   </a>
