@@ -59294,8 +59294,32 @@ void main(void) {
     () => 3,
     p => {
       const v0 = p._GetNode(0).GetVar();
-      return () =>
-        window.parent.postMessage({ action: 'gameCompleted', data: v0.GetValue() });
+      return () => {
+        try {
+          if (
+            typeof window !== 'undefined' ||
+            typeof localStorage !== 'undefined' ||
+            typeof document !== 'undefined'
+          ) {
+            window.parent.postMessage({ action: 'gameCompleted', data: v0.GetValue() });
+            localStorage.setItem('gameCompleted', v0.GetValue());
+            const gameCompleteDiv = document.querySelector('#game-complete');
+            gameCompleteDiv.style.display = 'block';
+            gameCompleteDiv.attributes['data-time'] = v0.GetValue();
+            return;
+          } else {
+            return and(
+              'http://sb.miniprogram.aptamilkid.thedgroup.com.my/contest/minigame/result?time=',
+              v0.GetValue()
+            );
+          }
+        } catch (error) {
+          return and(
+            'http://sb.miniprogram.aptamilkid.thedgroup.com.my/contest/minigame/result?time=',
+            v0.GetValue()
+          );
+        }
+      };
     },
   ];
 }
