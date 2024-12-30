@@ -207,7 +207,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
       <div className="absolute flex w-full justify-between">
         <Header previous={true} />
       </div>
-      <HotLineButton top="top-[78%]" />
+      <HotLineButton noHeader noFooter/>
       <div className="relative z-[2] flex justify-center pt-[50px]">
         <img src={gatchaGame} alt={gatchaGame} className="h-auto w-4/5 object-contain" />
         <div

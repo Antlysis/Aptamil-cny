@@ -1,7 +1,6 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   base: '/contest/',
@@ -9,5 +8,16 @@ export default defineConfig({
     minify: true,
     sourcemap: false,
     target: 'modules',
+    rollupOptions: {
+      onwarn(warning, warn) {
+        if (
+          warning.code === 'DYNAMIC_IMPORT_VARS' &&
+          warning.message.includes('c3runtime.js')
+        ) {
+          return;
+        }
+        warn(warning);
+      },
+    },
   },
 });

@@ -205,7 +205,7 @@ const MiniGame: React.FC = () => {
       <div className="absolute flex w-full justify-between">
         <Header previous={true} />
       </div>
-      <div className="relative z-[3] overflow-hidden pb-[73px]">
+      <div className="relative z-[3] overflow-hidden">
         <img
           src={gameBackground}
           alt="main-bg"
@@ -213,15 +213,15 @@ const MiniGame: React.FC = () => {
         />
         <div className="relative z-[2] mx-auto flex w-[90%] flex-col pt-[100px] ">
           <iframe
-            // src="../../../contest/game/index.html"
-            src="./game/index.html"
+            src="../../../contest/Card Flipping Game/index.html"
+            // src="./game/index.html"
             title="Game"
             className="h-[402px] w-full"
             ref={myIframe}
           ></iframe>
           <img src={howTo} alt="How To" className="pt-5" />
         </div>
-        <HotLineButton top="top-[80%]" />
+        <HotLineButton noHeader noFooter />
         <div className="footer-div">
           <div className="relative z-40 mx-auto my-3 w-full text-center">
             <ButtonComponent

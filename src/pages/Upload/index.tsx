@@ -129,12 +129,12 @@ const Upload = () => {
       <div className="absolute flex w-full justify-between">
         <Header previous={true} />
       </div>
-      <HotLineButton></HotLineButton>
+      <HotLineButton noHeader noFooter />
       <div className="relative z-[2]">
         <img src={cnyTop} alt="gif" className="relative bottom-7 flex size-full" />
       </div>
 
-      <div className="relative z-[3] -mt-[125px] overflow-hidden pb-[73px]">
+      <div className="relative z-[3] -mt-[130px] overflow-hidden mb-[73px]">
         <img
           src={cnyBody}
           alt="main-bg"

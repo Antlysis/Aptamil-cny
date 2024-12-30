@@ -49,7 +49,7 @@ const Register: React.FC = () => {
         <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
       </div>
 
-      <div className="relative -mt-[125px] overflow-hidden z-[3]">
+      <div className="relative -mt-[130px] overflow-hidden z-[3]">
         <img
           src={cnyBody}
           alt="main-bg"
