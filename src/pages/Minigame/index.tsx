@@ -45,7 +45,7 @@ const MinigameResult: React.FC = () => {
       <div className="absolute flex justify-between w-full">
         <Header previous={true} />
       </div>
-      <div className="relative overflow-hidden z-[3] pb-[73px]">
+      <div className="relative overflow-hidden z-[3]">
         <img
           src={gameBackground}
           alt="main-bg"

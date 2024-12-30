@@ -128,12 +128,12 @@ const Verify: React.FC = () => {
       <div className="fixed flex justify-between w-full z-50">
         <Header />
       </div>
-      <HotLineButton></HotLineButton>
+      <HotLineButton noHeader />
       <div className="relative z-[2]">
         <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
       </div>
 
-      <div className="relative -mt-[125px] overflow-hidden z-[3]">
+      <div className="relative -mt-[130px] overflow-hidden z-[3]">
         <img
           src={cnyBody}
           alt="main-bg"

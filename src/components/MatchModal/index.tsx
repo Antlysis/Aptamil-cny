@@ -38,7 +38,7 @@ function MatchModal({ time, onClose }: ModalProps) {
           </p>
 
           <div className="pb-4 text-center text-xs px-3">
-            <p>
+            <p className="leading-none">
               *Sphingomyelin, Omega 3, 6, 9, Vitamin B12, Tryptophan, DHA are found
               in the brain
             </p>

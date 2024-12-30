@@ -1,4 +1,4 @@
-import React, { TouchEvent, useState } from 'react';
+import React, { TouchEvent, MouseEvent, useState } from 'react';
 
 interface SlideContent {
   image: string;
@@ -16,11 +16,19 @@ function LoginModal({ slides, onClose }: ModalProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
+  const [mouseStart, setMouseStart] = useState(0);
+  const [mouseEnd, setMouseEnd] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
 
   const nextSlide = () => {
     setCurrentSlide(prev => (prev + 1) % slides.length);
   };
 
+  const previousSlide = () => {
+    setCurrentSlide(prev => (prev - 1 + slides.length) % slides.length);
+  };
+
+  // Touch event handlers
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     setTouchStart(e.targetTouches[0].clientX);
   };
@@ -37,8 +45,39 @@ function LoginModal({ slides, onClose }: ModalProps) {
 
     if (touchStart - touchEnd < -75) {
       // Swipe right
-      setCurrentSlide(prev => (prev - 1 + slides.length) % slides.length);
+      previousSlide();
     }
+  };
+
+  // Mouse event handlers
+  const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+    setIsDragging(true);
+    setMouseStart(e.clientX);
+  };
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (isDragging) {
+      setMouseEnd(e.clientX);
+    }
+  };
+
+  const handleMouseUp = () => {
+    if (isDragging) {
+      if (mouseStart - mouseEnd > 75) {
+        // Swipe left
+        nextSlide();
+      }
+
+      if (mouseStart - mouseEnd < -75) {
+        // Swipe right
+        previousSlide();
+      }
+      setIsDragging(false);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
   };
 
   return (
@@ -47,6 +86,11 @@ function LoginModal({ slides, onClose }: ModalProps) {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseLeave}
+      style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
     >
       <div className="flex items-center justify-center min-h-screen z-[90]">
         <div className="login-slider relative flex flex-col p-[4rem] box-border z-[100]">
@@ -55,9 +99,10 @@ function LoginModal({ slides, onClose }: ModalProps) {
               src={slides[currentSlide].image}
               alt={`Slide ${currentSlide + 1}`}
               className="h-full object-contain"
+              draggable="false"
             />
           </div>
-          <p className="text-base text-center leading-tight mt-2 w-[85%]">
+          <p className="text-base text-center leading-none mt-2 w-[85%]">
             {slides[currentSlide].text}
           </p>
 
