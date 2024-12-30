@@ -19,14 +19,14 @@ function MatchModal({ time, onClose }: ModalProps) {
         <div className="match-background relative z-[100] box-border flex flex-col px-12 py-16 max-w-[600px]">
           <div className="mt-12 flex w-4/5 flex-col items-center justify-center">
             <img src={YouWin} alt="You Win" />
-            <p className="mb-0.5 mt-3 text-base font-bold text-[#A11A20]">TIME</p>
+            <p className="mb-0.5 mt-2 text-base gotham-bold text-[#A11A20]">TIME</p>
             <div className="flex flex-col items-center justify-center">
               <img src={TimeBg}></img>
-              <p className="absolute text-[32px] font-bold text-[#A11A20]">{time}</p>
+              <p className="absolute text-[32px] text-[#A11A20] gotham-bold">{time}</p>
             </div>
             <img src={WinAptamil} className="mt-4 w-4/5"></img>
           </div>
-          <p className="my-4 w-[90%] text-center text-sm leading-4">
+          <p className="my-3 w-[90%] text-center text-sm leading-4">
             Aptamil<sup>TM</sup> KID products are formulated with <strong>Synbio</strong>,
             a combination of{' '}
             <strong>
@@ -37,7 +37,7 @@ function MatchModal({ time, onClose }: ModalProps) {
             development
           </p>
 
-          <div className="pb-4 text-center text-xs px-3">
+          <div className="pb-3 text-center text-xs px-3">
             <p className="leading-none">
               *Sphingomyelin, Omega 3, 6, 9, Vitamin B12, Tryptophan, DHA are found
               in the brain
