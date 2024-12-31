@@ -213,8 +213,8 @@ const MiniGame: React.FC = () => {
         />
         <div className="relative z-[2] mx-auto flex w-[90%] flex-col pt-[100px] ">
           <iframe
-            src="../../../contest/Card Flipping Game/index.html"
-            // src="./game/index.html"
+            // src="../../../contest/Card Flipping Game/index.html"
+            src="./game/index.html"
             title="Game"
             className="h-[402px] w-full"
             ref={myIframe}

@@ -74,7 +74,7 @@ const Home: React.FC = () => {
           <img src={cnyTop} alt="gif" className="relative bottom-7 flex size-full" />
         </div>
 
-        <div className="relative -mt-[130px] overflow-hidden z-[3] mb-[73px]">
+        <div className="relative z-[3] -mt-[130px] mb-[73px] overflow-hidden">
           <img
             src={cnyBody}
             alt="main-bg"
@@ -107,7 +107,6 @@ const Home: React.FC = () => {
                     buttonText="GUARANTEED REWARDS"
                     buttonType="button"
                     buttonClass="blue-button"
-                    disabled={isRewardsDisabled}
                     buttonFunction={handleGetRewardStock}
                   />
                 </div>
