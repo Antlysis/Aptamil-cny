@@ -140,7 +140,7 @@ const Verify: React.FC = () => {
           className="absolute w-full min-h-screen top-0 left-0"
         />
 
-        <div className="pt-[110px] flex flex-col items-center justify-between relative w-[90%] mx-auto">
+        <div className="pt-[12vh] flex flex-col items-center justify-between relative w-[90%] mx-auto">
           <p className="heading-1 py-2.5 px-[50px]">OTP Verication</p>
           <p className="border-b-[3px] border-[#FFDB20] w-[192px] mx-auto"></p>
           <p className="heading-2 p-4 text-center">

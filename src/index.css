@@ -276,7 +276,7 @@ body {
 .handle::before {
   content: '';
   position: absolute;
-  height: 100%;
+  height: 15px;
   width: var(--handle--position);
   background: linear-gradient(
     94.93deg,

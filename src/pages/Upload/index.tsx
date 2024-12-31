@@ -126,7 +126,7 @@ const Upload = () => {
 
   return (
     <div id="page" className="overflow-y-auto">
-      <div className="absolute flex w-full justify-between">
+      <div className="absolute flex w-full justify-between max-w-[600px]">
         <Header previous={true} />
       </div>
       <HotLineButton noHeader noFooter />
@@ -141,7 +141,7 @@ const Upload = () => {
           className="absolute left-0 top-0 min-h-screen w-full"
         />
 
-        <div className="relative mx-auto flex w-4/5 flex-col items-center justify-between pt-[110px]">
+        <div className="relative mx-auto flex w-4/5 flex-col items-center justify-between pt-[12vh]">
           <p className="pt-3 text-[26px] font-bold text-white">Upload Receipt</p>
           <p className="heading-2 text-center">Upload a photo of your receipt</p>
 
