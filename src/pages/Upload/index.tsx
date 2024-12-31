@@ -178,7 +178,7 @@ const Upload = () => {
                       className="m-auto max-h-full max-w-full"
                     />
                   </div>
-                  <div className="flex w-full flex-1 flex-col items-start justify-center">
+                  <div className="flex flex-1 flex-col items-start justify-center w-[65vw]">
                     <p className="w-full text-left font-bold">{imageData.name}</p>
                     <p className="w-full text-left font-light text-gray-400">
                       {imageData.size}
