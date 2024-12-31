@@ -185,45 +185,41 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   return (
     <div id="gatchapage" className="overflow-y-auto" onClick={handleScreenClick}>
       {showGatchaGif && (
-        <div className="absolute z-[60] flex size-full items-center justify-center">
-          <img
-            src={gameBackground}
-            alt="Game Background"
-            className="absolute z-[55] size-full object-cover"
-          />
-
-          {gifStatus === 'playing' && (
+        <div className="fixed z-[60] flex size-full items-center justify-center max-w-[600px]">
+          <div className="relative mx-auto h-full w-full max-w-[600px]">
             <img
-              src={gatchaGif}
-              className="duration-3000 absolute z-[65] size-full max-w-[600px] object-contain transition-opacity ease-in-out"
-              style={{
-                animationIterationCount: 1,
-                pointerEvents: 'none',
-              }}
+              src={gameBackground}
+              alt="Game Background"
+              className="absolute z-[55] h-full w-full max-w-[600px]"
             />
-          )}
+
+            {gifStatus === 'playing' && (
+              <img
+                src={gatchaGif}
+                className="duration-3000 absolute z-[65] size-full max-w-[600px] transition-opacity ease-in-out"
+                style={{
+                  animationIterationCount: 1,
+                  pointerEvents: 'none',
+                }}
+              />
+            )}
+          </div>
         </div>
       )}
-      <div className="absolute flex w-full justify-between">
+      <div className="absolute flex w-full justify-between max-w-[600px]">
         <Header previous={true} />
       </div>
-      <HotLineButton top="top-[78%]" />
+      <HotLineButton noHeader noFooter />
       <div className="relative z-[2] flex justify-center pt-[50px]">
         <img src={gatchaGame} alt={gatchaGame} className="h-auto w-4/5 object-contain" />
         <div
-          className="absolute bottom-[10%] h-[100px] w-full"
+          className="absolute bottom-[6%] md:bottom-[10%] w-full"
           ref={sliderRef}
           onMouseDown={handleSliderAreaInteraction}
           onTouchStart={handleSliderAreaInteraction}
         >
-          <div className="relative mx-auto flex h-[130px] w-[90%] items-center justify-center">
-            {showSlideGif && (
-              <img
-                src={slideGif}
-                className="pointer-events-none absolute top-0 z-[5] h-[90%] w-[96%]"
-              />
-            )}
-            <div className="absolute top-[30%] z-[4] w-3/5">
+          <div className="relative mx-auto flex w-[90%] items-center justify-center h-[130px]">
+            <div className="absolute z-[4] w-3/5 m-auto bottom-[60%] md:bottom-[40%]">
               <DraggableSlider
                 handleTrigger={handleSliderComplete}
                 canPlay={isValid && currentTokenBalance > 0 && !isClickDisabled}
@@ -231,6 +227,12 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
                 handleUp2={handlePointerUp}
               />
             </div>
+            {showSlideGif && (
+              <img
+                src={slideGif}
+                className="pointer-events-none absolute z-[5] w-[96%] h-auto bottom-[6%] md:-bottom-[25%]"
+              />
+            )}
           </div>
         </div>
       </div>

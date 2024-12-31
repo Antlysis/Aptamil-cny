@@ -69,18 +69,18 @@ const Home: React.FC = () => {
         <div className="fixed z-50 flex w-full justify-between">
           <Header />
         </div>
-        <HotLineButton></HotLineButton>
+        <HotLineButton noHeader noFooter />
         <div className="relative z-[2]">
           <img src={cnyTop} alt="gif" className="relative bottom-7 flex size-full" />
         </div>
 
-        <div className="relative z-[3] -mt-[125px] overflow-hidden pb-[73px]">
+        <div className="relative -mt-[130px] overflow-hidden z-[3] mb-[73px]">
           <img
             src={cnyBody}
             alt="main-bg"
             className="absolute left-0 top-0 min-h-screen w-full"
           />
-          <div className="relative z-[2] flex flex-col items-center justify-between pb-[20px] pt-[130px]">
+          <div className="relative z-[2] flex flex-col items-center justify-between pb-[20px] pt-[13vh]">
             <div className="flex-grid mx-auto grid h-[170px] w-[90%] grid-cols-2 gap-2">
               <div
                 className="relative size-full"

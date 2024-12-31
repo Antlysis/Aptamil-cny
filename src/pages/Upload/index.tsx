@@ -126,22 +126,22 @@ const Upload = () => {
 
   return (
     <div id="page" className="overflow-y-auto">
-      <div className="absolute flex w-full justify-between">
+      <div className="absolute flex w-full justify-between max-w-[600px]">
         <Header previous={true} />
       </div>
-      <HotLineButton></HotLineButton>
+      <HotLineButton noHeader noFooter />
       <div className="relative z-[2]">
         <img src={cnyTop} alt="gif" className="relative bottom-7 flex size-full" />
       </div>
 
-      <div className="relative z-[3] -mt-[125px] overflow-hidden pb-[73px]">
+      <div className="relative z-[3] -mt-[130px] overflow-hidden mb-[73px]">
         <img
           src={cnyBody}
           alt="main-bg"
           className="absolute left-0 top-0 min-h-screen w-full"
         />
 
-        <div className="relative mx-auto flex w-4/5 flex-col items-center justify-between pt-[110px]">
+        <div className="relative mx-auto flex w-4/5 flex-col items-center justify-between pt-[12vh]">
           <p className="pt-3 text-[26px] font-bold text-white">Upload Receipt</p>
           <p className="heading-2 text-center">Upload a photo of your receipt</p>
 

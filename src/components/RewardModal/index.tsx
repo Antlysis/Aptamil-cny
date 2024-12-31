@@ -31,7 +31,7 @@ function RewardModal({ reward, isOpen, onClose }: RewardModalProps) {
   const aptamilCampaign = import.meta.env.VITE_APP_APTAMIL;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 pb-[73px]">
+    <div className="fixed inset-0 flex items-center justify-center z-50 mb-[73px]">
       <div className="fixed inset-0 bg-black bg-opacity-50" onClick={onClose}></div>
       <div className="relative w-full max-w-lg">
         <img
@@ -40,7 +40,7 @@ function RewardModal({ reward, isOpen, onClose }: RewardModalProps) {
           className="w-full h-auto"
         ></img>
         <div
-          className="absolute rounded-3xl w-[12vw] h-[12vw] top-[1vw] right-[5vw] z-60"
+          className="absolute right-[5%] top-[0.5%] size-[52px] rounded-[50%] z-60 cursor-pointer"
           onClick={onClose}
         ></div>
         <img

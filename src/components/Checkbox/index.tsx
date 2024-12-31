@@ -28,13 +28,13 @@ const Checkbox: React.FC<CheckboxProps> = ({
   };
 
   return (
-    <div className="flex mt-4">
+    <div className="flex mt-4 items-start">
       <input
         type="checkbox"
         checked={isChecked}
         onChange={handleCheckboxChange}
         disabled={disabled}
-        className={`mr-2 scale-[1.2] h-6 cursor-pointer`}
+        className={`mr-2 h-[24px] cursor-pointer bg-gray-500 scale-150`}
       />
       <label 
         className={`select-none text-white text-xs`}

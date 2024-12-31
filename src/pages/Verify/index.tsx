@@ -128,19 +128,19 @@ const Verify: React.FC = () => {
       <div className="fixed flex justify-between w-full z-50">
         <Header />
       </div>
-      <HotLineButton></HotLineButton>
+      <HotLineButton noHeader />
       <div className="relative z-[2]">
         <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
       </div>
 
-      <div className="relative -mt-[125px] overflow-hidden z-[3]">
+      <div className="relative -mt-[130px] overflow-hidden z-[3]">
         <img
           src={cnyBody}
           alt="main-bg"
           className="absolute w-full min-h-screen top-0 left-0"
         />
 
-        <div className="pt-[110px] flex flex-col items-center justify-between relative w-[90%] mx-auto">
+        <div className="pt-[12vh] flex flex-col items-center justify-between relative w-[90%] mx-auto">
           <p className="heading-1 py-2.5 px-[50px]">OTP Verication</p>
           <p className="border-b-[3px] border-[#FFDB20] w-[192px] mx-auto"></p>
           <p className="heading-2 p-4 text-center">

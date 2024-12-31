@@ -41,19 +41,19 @@ const Join: React.FC = () => {
       <div className="fixed flex justify-between w-full z-50">
         <Header />
       </div>
-      <HotLineButton></HotLineButton>
+      <HotLineButton noHeader noFooter />
       <div className="relative z-[2]">
         <img src={cnyTop} alt="gif" className="w-full h-full flex relative bottom-7" />
       </div>
 
-      <div className="relative -mt-[125px] overflow-hidden z-[3] pb-[73px]">
+      <div className="relative -mt-[130px] overflow-hidden z-[3] mb-[73px]">
         <img
           src={cnyBody}
           alt="main-bg"
           className="absolute w-full min-h-screen top-0 left-0"
         />
 
-        <div className="pt-[110px] flex flex-col items-center justify-between relative w-[80%] mx-auto">
+        <div className="pt-[12vh] flex flex-col items-center justify-between relative w-[80%] mx-auto">
           <p className="heading-3 gotham-bold">HOW TO JOIN</p>
           <img src={howToJoin}></img>
           <p className="heading-3 gotham-bold">PRIZES</p>

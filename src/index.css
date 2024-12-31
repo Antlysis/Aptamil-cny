@@ -68,20 +68,18 @@
 html,
 body {
   height: 100%;
-  overflow-x: hidden;
+  margin: 0;
 }
 
 #page {
   background-image: url('../assets/images/cny-red.webp');
   background-size: 100%;
-  min-height: 100vh;
 }
 
 #gatchapage {
   background-image: url('./assets/images/game-background.webp');
   background-size: cover;
   background-position: top;
-  height: 100vh;
   width: 100%;
 }
 
@@ -96,17 +94,15 @@ body {
 }
 
 .footer-gatcha {
-  background-image: url('./assets/images/cny-footer.png');
+  background-image: url('./assets/images/footer-gatcha.png');
   background-repeat: no-repeat;
-  background-size: 108% auto;
-  background-position: right;
+  background-size: 100% 100%;
   width: 100%;
-  height: 200px;
+  height: 250px;
   z-index: 40;
   position: relative;
   display: flex;
   justify-content: center;
-  top: -40px;
 }
 
 .login-bottom {
@@ -280,7 +276,7 @@ body {
 .handle::before {
   content: '';
   position: absolute;
-  height: 100%;
+  height: 15px;
   width: var(--handle--position);
   background: linear-gradient(
     94.93deg,
@@ -317,14 +313,12 @@ body {
   width: 100%;
 }
 
-@media screen and (max-height: 700px) {
-  .login-bottom {
-    top: 38vh;
-  }
-
-  .authform-bottom {
-    margin-top: 4vh;
-  }
+.special-class {
+  margin-bottom: 73px;
+  margin-top: 4rem;
+  box-sizing: border-box;
+  height: calc(100vh - 73px - 4rem);
+  top: 0;
 }
 
 @keyframes button-loading-spinner {
