@@ -40,7 +40,7 @@ function RewardModal({ reward, isOpen, onClose }: RewardModalProps) {
           className="w-full h-auto"
         ></img>
         <div
-          className="absolute rounded-3xl w-[12vw] h-[12vw] top-[1vw] right-[5vw] z-60"
+          className="absolute right-[5%] top-[0.5%] size-[52px] rounded-[50%] z-60 cursor-pointer"
           onClick={onClose}
         ></div>
         <img

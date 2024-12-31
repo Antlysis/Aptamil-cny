@@ -49,7 +49,7 @@ const MinigameResult: React.FC = () => {
         <img
           src={gameBackground}
           alt="main-bg"
-          className="absolute w-full min-h-screen top-0 left-0"
+          className="absolute w-full min-h-screen top-0 left-0 max-w-[600px]"
         />
         <div className="pt-[100px] w-[90%] mx-auto flex flex-col relative z-[2] ">
           <img src={MatchWin} alt="Match Win" onClick={handleOpenModal} />
