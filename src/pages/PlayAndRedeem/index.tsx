@@ -13,7 +13,7 @@ import Header from '../../components/Header';
 import HotLineButton from '../../components/HotlineButton';
 import Modal from '../../components/Modal';
 import RewardModal from '../../components/RewardModal';
-import { getRewardStock } from '../../services';
+// import { getRewardStock } from '../../services';
 import { checkValidity, gameReward } from '../../services/index';
 import { useAppSelector } from '../../store/hooks';
 import { getUserDetails } from '../../store/userSlice';
@@ -35,12 +35,12 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   const userDetails = useAppSelector(getUserDetails);
   const tokenBalance = userDetails?.data?.personalInfo?.totalTokenBalance || 0;
 
-  const rewardIdsList = [
-    import.meta.env.VITE_APP_GAMES_TNG_REWARD_688,
-    import.meta.env.VITE_APP_GAMES_TNG_REWARD_1888,
-    import.meta.env.VITE_APP_GAMES_TNG_REWARD_3888,
-    import.meta.env.VITE_APP_GAMES_TNG_REWARD_8888,
-  ];
+  // const rewardIdsList = [
+  //   import.meta.env.VITE_APP_GAMES_TNG_REWARD_688,
+  //   import.meta.env.VITE_APP_GAMES_TNG_REWARD_1888,
+  //   import.meta.env.VITE_APP_GAMES_TNG_REWARD_3888,
+  //   import.meta.env.VITE_APP_GAMES_TNG_REWARD_8888,
+  // ];
 
   useEffect(() => {
     setCurrentTokenBalance(tokenBalance);
@@ -60,19 +60,19 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   }, [isOpen, isModalClosing, currentTokenBalance]);
 
   useEffect(() => {
-    const checkStock = async () => {
-      const gotStock = await getRewardStock(rewardIdsList);
-      if (gotStock) {
-        const outOfStock = (gotStock.data as { isValid: boolean }[]).every(
-          (item: { isValid?: boolean }) => !item.isValid
-        );
+    // const checkStock = async () => {
+    //   const gotStock = await getRewardStock(rewardIdsList);
+    //   if (gotStock) {
+    //     const outOfStock = (gotStock.data as { isValid: boolean }[]).every(
+    //       (item: { isValid?: boolean }) => !item.isValid
+    //     );
 
-        if (outOfStock) {
-          setIsNoTokenModalOpen(true);
-          setShowSlideGif(false);
-        }
-      }
-    };
+    //     if (outOfStock) {
+    //       setIsNoTokenModalOpen(true);
+    //       setShowSlideGif(false);
+    //     }
+    //   }
+    // };
 
     const fetchValidity = async () => {
       try {
@@ -85,7 +85,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
       }
     };
 
-    checkStock();
+    // checkStock();
     fetchValidity();
   }, []);
 
@@ -185,12 +185,12 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   return (
     <div id="gatchapage" className="overflow-y-auto" onClick={handleScreenClick}>
       {showGatchaGif && (
-        <div className="fixed z-[60] flex size-full items-center justify-center max-w-[600px]">
-          <div className="relative mx-auto h-full w-full max-w-[600px]">
+        <div className="fixed z-[60] flex size-full max-w-[600px] items-center justify-center">
+          <div className="relative mx-auto size-full max-w-[600px]">
             <img
               src={gameBackground}
               alt="Game Background"
-              className="absolute z-[55] h-full w-full max-w-[600px]"
+              className="absolute z-[55] size-full max-w-[600px]"
             />
 
             {gifStatus === 'playing' && (
@@ -206,20 +206,20 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
           </div>
         </div>
       )}
-      <div className="absolute flex w-full justify-between max-w-[600px]">
+      <div className="absolute flex w-full max-w-[600px] justify-between">
         <Header previous={true} />
       </div>
       <HotLineButton noHeader noFooter />
       <div className="relative z-[2] flex justify-center pt-[50px]">
         <img src={gatchaGame} alt={gatchaGame} className="h-auto w-4/5 object-contain" />
         <div
-          className="absolute bottom-[6%] md:bottom-[10%] w-full"
+          className="absolute bottom-[6%] w-full md:bottom-[10%]"
           ref={sliderRef}
           onMouseDown={handleSliderAreaInteraction}
           onTouchStart={handleSliderAreaInteraction}
         >
-          <div className="relative mx-auto flex w-[90%] items-center justify-center h-[130px]">
-            <div className="absolute z-[4] w-3/5 m-auto bottom-[60%] md:bottom-[40%]">
+          <div className="relative mx-auto flex h-[130px] w-[90%] items-center justify-center">
+            <div className="absolute bottom-[60%] z-[4] m-auto w-3/5 md:bottom-[40%]">
               <DraggableSlider
                 handleTrigger={handleSliderComplete}
                 canPlay={isValid && currentTokenBalance > 0 && !isClickDisabled}
@@ -230,7 +230,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
             {showSlideGif && (
               <img
                 src={slideGif}
-                className="pointer-events-none absolute z-[5] w-[96%] h-auto bottom-[6%] md:-bottom-[25%]"
+                className="pointer-events-none absolute bottom-[6%] z-[5] h-auto w-[96%] md:-bottom-1/4"
               />
             )}
           </div>
