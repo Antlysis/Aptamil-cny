@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ import ButtonComponent from '../../components/ButtonComponent';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import HotLineButton from '../../components/HotlineButton';
-import { getRewardStock } from '../../services';
+// import { getRewardStock } from '../../services';
 import { getUserDetailsAPI } from '../../services/authService';
 import { useAppDispatch } from '../../store/hooks';
 import { setUserDetails } from '../../store/userSlice';
@@ -20,25 +20,25 @@ const Home: React.FC = () => {
   const aptamilCampaign = import.meta.env.VITE_APP_APTAMIL;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [isRewardsDisabled, setRewardsDisabled] = useState(true);
+  // const [isRewardsDisabled, setRewardsDisabled] = useState(true);
 
-  const rewardIdsList = [
-    import.meta.env.VITE_APP_GAMES_TNG_REWARD_688,
-    import.meta.env.VITE_APP_GAMES_TNG_REWARD_1888,
-    import.meta.env.VITE_APP_GAMES_TNG_REWARD_3888,
-    import.meta.env.VITE_APP_GAMES_TNG_REWARD_8888,
-  ];
+  // const rewardIdsList = [
+  //   import.meta.env.VITE_APP_GAMES_TNG_REWARD_688,
+  //   import.meta.env.VITE_APP_GAMES_TNG_REWARD_1888,
+  //   import.meta.env.VITE_APP_GAMES_TNG_REWARD_3888,
+  //   import.meta.env.VITE_APP_GAMES_TNG_REWARD_8888,
+  // ];
 
-  const handleGetRewardStock = async () => {
-    const gotStock = await getRewardStock(rewardIdsList);
-    if (gotStock) {
-      const outOfStock = (gotStock.data as { isValid: boolean }[]).every(
-        (item: { isValid?: boolean }) => !item.isValid
-      );
+  // const handleGetRewardStock = async () => {
+  //   const gotStock = await getRewardStock(rewardIdsList);
+  //   if (gotStock) {
+  //     const outOfStock = (gotStock.data as { isValid: boolean }[]).every(
+  //       (item: { isValid?: boolean }) => !item.isValid
+  //     );
 
-      if (!outOfStock) return navigate('/playandredeem');
-    }
-  };
+  //     if (!outOfStock) return navigate('/playandredeem');
+  //   }
+  // };
 
   useEffect(() => {
     const getUserDetails = async () => {
@@ -48,18 +48,18 @@ const Home: React.FC = () => {
       }
     };
 
-    const checkStock = async () => {
-      const gotStock = await getRewardStock(rewardIdsList);
-      if (gotStock) {
-        const outOfStock = (gotStock.data as { isValid: boolean }[]).every(
-          (item: { isValid?: boolean }) => !item.isValid
-        );
+    // const checkStock = async () => {
+    //   const gotStock = await getRewardStock(rewardIdsList);
+    //   if (gotStock) {
+    //     const outOfStock = (gotStock.data as { isValid: boolean }[]).every(
+    //       (item: { isValid?: boolean }) => !item.isValid
+    //     );
 
-        setRewardsDisabled(outOfStock);
-      }
-    };
+    //     setRewardsDisabled(outOfStock);
+    //   }
+    // };
 
-    checkStock();
+    // checkStock();
     getUserDetails();
   }, []);
 
@@ -107,7 +107,7 @@ const Home: React.FC = () => {
                     buttonText="GUARANTEED REWARDS"
                     buttonType="button"
                     buttonClass="blue-button"
-                    buttonFunction={handleGetRewardStock}
+                    buttonFunction={() => navigate('/playandredeem')}
                   />
                 </div>
               </div>
