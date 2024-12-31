@@ -185,7 +185,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   return (
     <div id="gatchapage" className="overflow-y-auto" onClick={handleScreenClick}>
       {showGatchaGif && (
-        <div className="absolute z-[60] flex size-full items-center justify-center max-w-[600px]">
+        <div className="fixed z-[60] flex size-full items-center justify-center max-w-[600px]">
           <div className="relative mx-auto h-full w-full max-w-[600px]">
             <img
               src={gameBackground}
