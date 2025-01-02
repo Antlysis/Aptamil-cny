@@ -53,7 +53,7 @@ const Join: React.FC = () => {
           className="absolute w-full min-h-screen top-0 left-0"
         />
 
-        <div className="pt-[12vh] flex flex-col items-center justify-between relative w-[80%] mx-auto">
+        <div className="pt-[13vh] flex flex-col items-center justify-between relative w-[80%] mx-auto">
           <p className="heading-3 gotham-bold">HOW TO JOIN</p>
           <img src={howToJoin}></img>
           <p className="heading-3 gotham-bold">PRIZES</p>
