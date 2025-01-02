@@ -98,12 +98,15 @@ const DraggableSlider = ({
   };
 
   return (
-    <div ref={parent} className="handle relative z-10 flex h-[2vw] w-full items-center">
+    <div
+      ref={parent}
+      className="handle relative z-10 flex h-[15vh] w-auto items-center max-h-[1000px]:w-[20vw]"
+    >
       <img src={sliderImg} className="absolute z-[-1]"></img>
       <div
         ref={handle}
         onPointerDown={canPlay ? handlePointerDown : () => {}}
-        className={`relative size-[1.5rem] touch-none rounded-[50%] cursor-pointer ${canPlay ? 'bg-[#7D1A21]' : 'bg-gray-500'}`}
+        className={`relative size-[1.5rem] md:size-[2rem] touch-none rounded-[50%] cursor-pointer ${canPlay ? 'bg-[#7D1A21]' : 'bg-gray-500'}`}
       ></div>
     </div>
   );

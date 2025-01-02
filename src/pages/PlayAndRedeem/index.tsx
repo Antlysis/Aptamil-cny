@@ -211,7 +211,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
       </div>
       <HotLineButton noHeader noFooter />
       <div className="relative z-[2] flex justify-center pt-[50px]">
-        <img src={gatchaGame} alt={gatchaGame} className="h-auto w-4/5 object-contain" />
+        <img src={gatchaGame} alt={gatchaGame} className="h-[70vh] w-auto object-contain" />
         <div
           className="absolute bottom-[6%] w-full md:bottom-[10%]"
           ref={sliderRef}

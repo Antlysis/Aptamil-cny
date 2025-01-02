@@ -1,4 +1,4 @@
-import React, { TouchEvent, MouseEvent, useState } from 'react';
+import React, { MouseEvent, TouchEvent, useState } from 'react';
 
 interface SlideContent {
   image: string;
@@ -82,7 +82,7 @@ function LoginModal({ slides, onClose }: ModalProps) {
 
   return (
     <div
-      className="absolute inset-0 overflow-y-auto bg-[rgba(0,0,0,0.5)] z-[80]"
+      className="absolute inset-0 overflow-y-auto bg-[rgba(0,0,0,0.5)] z-[80] h-full"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}

@@ -321,6 +321,18 @@ body {
   top: 0;
 }
 
+@media (min-width: 500px) and (min-height: 900px) {
+  .web-slider {
+    width: 50%;
+  }
+}
+
+@media (min-height: 1000px) {
+  .web-slider {
+    width: 60%;
+  }
+}
+
 @keyframes button-loading-spinner {
   from {
     transform: rotate(0turn);

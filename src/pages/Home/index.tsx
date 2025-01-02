@@ -80,7 +80,7 @@ const Home: React.FC = () => {
             alt="main-bg"
             className="absolute left-0 top-0 min-h-screen w-full"
           />
-          <div className="relative z-[2] flex flex-col items-center justify-between pb-[20px] pt-[13vh]">
+          <div className="relative z-[2] flex flex-col items-center justify-between pb-[20px] pt-[14vh]">
             <div className="flex-grid mx-auto grid h-[170px] w-[90%] grid-cols-2 gap-2">
               <div
                 className="relative size-full"
@@ -88,13 +88,13 @@ const Home: React.FC = () => {
               >
                 <img
                   src={playRedeem}
-                  className="absolute inset-0 mx-auto h-full w-auto object-contain"
+                  className="absolute inset-0 mx-auto h-full w-auto object-contain cursor-pointer"
                 ></img>
               </div>
               <div className="relative size-full" onClick={() => navigate('/minigame')}>
                 <img
                   src={matchWin}
-                  className="absolute inset-0 mx-auto h-full w-auto object-contain"
+                  className="absolute inset-0 mx-auto h-full w-auto object-contain cursor-pointer"
                 ></img>
               </div>
             </div>
