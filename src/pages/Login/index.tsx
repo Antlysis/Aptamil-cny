@@ -23,7 +23,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div id="page" className="overflow-y-auto relative">
+    <div id="page" className="relative">
       {isModalOpen && (
         <LoginModal
           slides={[
