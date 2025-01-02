@@ -85,7 +85,7 @@ function ButtonComponent({
     <>
       <Button
         type={buttonType}
-        className={`${buttonClass || ''} ${isButtonDisabled ? 'disabled-button' : ''} ${isRewardDisabled ? 'rewards-disabled' : ''}`}
+        className={`${buttonClass || ''} ${isButtonDisabled ? 'disabled-button' : ''} ${isRewardDisabled ? 'rewards-disabled' : ''} flex items-center justify-center gap-2 m-auto`}
         disabled={isButtonDisabled || isRewardDisabled}
         onClick={handleButtonClick}
       >
