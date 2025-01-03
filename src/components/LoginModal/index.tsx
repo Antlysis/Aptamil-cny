@@ -117,7 +117,7 @@ function LoginModal({ slides, onClose }: ModalProps) {
                 e.stopPropagation(); // Prevent triggering drag events
                 previousSlide();
               }}
-              className="absolute left-10 arrow-left w-full top-1/2 -translate-y-1/2 p-2 hover:opacity-80 transition-opacity"
+              className="absolute left-10 arrow-left top-1/2 -translate-y-1/2 p-2 hover:opacity-80 transition-opacity"
               aria-label="Previous slide"
             >
               <img
@@ -135,7 +135,7 @@ function LoginModal({ slides, onClose }: ModalProps) {
                 e.stopPropagation(); // Prevent triggering drag events
                 nextSlide();
               }}
-              className="absolute right-10 arrow-right w-full top-1/2 -translate-y-1/2 p-2 hover:opacity-80 transition-opacity"
+              className="absolute right-10 arrow-right top-1/2 -translate-y-1/2 p-2 hover:opacity-80 transition-opacity"
               aria-label="Next slide"
             >
               <img
