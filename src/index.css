@@ -333,6 +333,44 @@ body {
   }
 }
 
+@media (min-height: 600px) {
+  .modal-container {
+    padding: 4rem;
+    width: 85%;
+  }
+
+  .arrow-right {
+    right: 9.5rem;
+  }
+
+  .arrow-left {
+    left: 9.5rem;
+  }
+
+  .slider-size {
+    height: 50%;
+  }
+}
+
+@media (min-height: 800px) {
+  .modal-container {
+    padding: 0;
+    width: 85%;
+  }
+
+  .arrow-right {
+    right: 6rem;
+  }
+
+  .arrow-left {
+    left: 6rem;
+  }
+
+  .slider-size {
+    height: 60%;
+  }
+}
+
 @keyframes button-loading-spinner {
   from {
     transform: rotate(0turn);
