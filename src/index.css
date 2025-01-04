@@ -352,7 +352,7 @@ body {
   }
 }
 
-@media (min-height: 800px) {
+@media (min-height: 800px) and (min-width: 500px) {
   .modal-container {
     padding: 0;
     width: 85%;
