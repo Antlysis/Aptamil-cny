@@ -110,7 +110,7 @@ function LoginModal({ slides, onClose }: ModalProps) {
       style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
     >
       <div className="login-slider relative flex flex-col p-16 box-border z-[100]">
-        <div className="w-[85%] flex flex-col justify-center p-16 modal-container">
+        <div className="w-full flex flex-col justify-center p-4 modal-container">
           {currentSlide > 0 && (
             <button
               onClick={e => {
