@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -20,6 +20,13 @@ const MiniGame: React.FC = () => {
   const dispatch = useAppDispatch();
   const myIframe = useRef<HTMLIFrameElement>(null);
   const aptamilCampaign = import.meta.env.VITE_APP_APTAMIL;
+  const [customerTimer, setTimer] = useState(0);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setTimer(customerTimer + 1), 1000);
+
+    return () => clearTimeout(timeout);
+  }, [customerTimer]);
 
   useEffect(() => {
     let processing = false;
@@ -65,7 +72,7 @@ const MiniGame: React.FC = () => {
       if (!processing && event.key === 'gameCompleted') {
         processing = true;
         console.log('processed from storage event');
-        const timer = parseInt(event.newValue || '0');
+        const timer = parseInt(event.newValue || '0') || customerTimer;
         try {
           const existingMinigame =
             userDetails?.data?.personalInfo?.extendedFields?.minigame || [];
@@ -98,63 +105,244 @@ const MiniGame: React.FC = () => {
       }
     };
 
-    const checkInterval = setInterval(async () => {
+    // const checkInterval = setInterval(async () => {
+    //   if (!processing) {
+    //     const iframe = myIframe.current;
+    //     if (iframe) {
+    //       try {
+    //         const iframeDoc =
+    //           iframe.contentDocument ||
+    //           (iframe.contentWindow && iframe.contentWindow.document
+    //             ? iframe.contentWindow.document
+    //             : null);
+    //         if (iframeDoc) {
+    //           const gameCompleteDiv = iframeDoc.querySelector('#game-complete');
+
+    //           if (gameCompleteDiv) {
+    //             const divDisplay = (gameCompleteDiv as HTMLElement).style.display;
+
+    //             if (divDisplay === 'block') {
+    //               clearInterval(checkInterval);
+    //               processing = true;
+    //               console.log('processed from interval');
+    //               const timer =
+    //                 parseInt(
+    //                   (gameCompleteDiv as HTMLElement).getAttribute('data-time') || '0'
+    //                 ) || customerTimer;
+
+    //               try {
+    //                 const existingMinigame =
+    //                   userDetails?.data?.personalInfo?.extendedFields?.minigame || [];
+
+    //                 const updatedMinigame = [
+    //                   ...existingMinigame,
+    //                   {
+    //                     date: new Date().toLocaleString('en-GB'),
+    //                     timer,
+    //                   },
+    //                 ];
+
+    //                 const updateData = {
+    //                   values: {
+    //                     extendedFields: {
+    //                       minigame: updatedMinigame,
+    //                     },
+    //                   },
+    //                 };
+
+    //                 await updateProfileOutput(updateData);
+    //                 const res = await getUserDetailsAPI();
+    //                 if (res) {
+    //                   dispatch(setUserDetails(res?.data));
+    //                 }
+    //                 navigate(`/minigame/result?time=${timer}`);
+    //               } catch (error) {
+    //                 navigate(`/minigame/result?time=${timer}`);
+    //               }
+    //             }
+    //           } else {
+    //             const iframeUrl = iframe.contentWindow?.location.href;
+    //             if (iframeUrl?.includes('/minigame/result?time=')) {
+    //               clearInterval(checkInterval);
+    //               processing = true;
+
+    //               const timer = parseInt(iframeUrl.split('=')[1] || '0') || customerTimer;
+
+    //               try {
+    //                 const existingMinigame =
+    //                   userDetails?.data?.personalInfo?.extendedFields?.minigame || [];
+
+    //                 const updatedMinigame = [
+    //                   ...existingMinigame,
+    //                   {
+    //                     date: new Date().toLocaleString('en-GB'),
+    //                     timer,
+    //                   },
+    //                 ];
+
+    //                 const updateData = {
+    //                   values: {
+    //                     extendedFields: {
+    //                       minigame: updatedMinigame,
+    //                     },
+    //                   },
+    //                 };
+
+    //                 await updateProfileOutput(updateData);
+    //                 const res = await getUserDetailsAPI();
+    //                 if (res) {
+    //                   dispatch(setUserDetails(res?.data));
+    //                 }
+    //                 navigate(`/minigame/result?time=${timer}`);
+    //               } catch (error) {
+    //                 navigate(`/minigame/result?time=${timer}`);
+    //               }
+    //             }
+    //           }
+    //         }
+    //       } catch (error) {
+    //         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    //         const errorMessage = (error as any).toString();
+    //         if (errorMessage.includes('Failed to read a named property')) {
+    //           clearInterval(checkInterval);
+    //           const timer = customerTimer;
+    //           try {
+    //             const existingMinigame =
+    //               userDetails?.data?.personalInfo?.extendedFields?.minigame || [];
+
+    //             const updatedMinigame = [
+    //               ...existingMinigame,
+    //               {
+    //                 date: new Date().toLocaleString('en-GB'),
+    //                 timer,
+    //               },
+    //             ];
+
+    //             const updateData = {
+    //               values: {
+    //                 extendedFields: {
+    //                   minigame: updatedMinigame,
+    //                 },
+    //               },
+    //             };
+
+    //             await updateProfileOutput(updateData);
+    //             const res = await getUserDetailsAPI();
+    //             if (res) {
+    //               dispatch(setUserDetails(res?.data));
+    //             }
+    //             navigate(`/minigame/result?time=${timer}`);
+    //           } catch (error) {
+    //             navigate(`/minigame/result?time=${timer}`);
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // }, 10);
+
+    (async () => {
       if (!processing) {
         const iframe = myIframe.current;
         if (iframe) {
-          const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+          try {
+            const iframeDoc =
+              iframe.contentDocument ||
+              (iframe.contentWindow && iframe.contentWindow.document
+                ? iframe.contentWindow.document
+                : null);
+            if (iframeDoc) {
+              const gameCompleteDiv = iframeDoc.querySelector('#game-complete');
 
-          const gameCompleteDiv = iframeDoc?.querySelector('#game-complete');
+              if (gameCompleteDiv) {
+                const divDisplay = (gameCompleteDiv as HTMLElement).style.display;
 
-          if (gameCompleteDiv) {
-            const divDisplay = (gameCompleteDiv as HTMLElement).style.display;
+                if (divDisplay === 'block') {
+                  // clearInterval(checkInterval);
+                  processing = true;
+                  console.log('processed from interval');
+                  const timer =
+                    parseInt(
+                      (gameCompleteDiv as HTMLElement).getAttribute('data-time') || '0'
+                    ) || customerTimer;
 
-            if (divDisplay === 'block') {
-              clearInterval(checkInterval);
-              processing = true;
-              console.log('processed from interval');
-              const timer = parseInt(
-                (gameCompleteDiv as HTMLElement).getAttribute('data-time') || '0'
-              );
+                  try {
+                    const existingMinigame =
+                      userDetails?.data?.personalInfo?.extendedFields?.minigame || [];
 
-              try {
-                const existingMinigame =
-                  userDetails?.data?.personalInfo?.extendedFields?.minigame || [];
+                    const updatedMinigame = [
+                      ...existingMinigame,
+                      {
+                        date: new Date().toLocaleString('en-GB'),
+                        timer,
+                      },
+                    ];
 
-                const updatedMinigame = [
-                  ...existingMinigame,
-                  {
-                    date: new Date().toLocaleString('en-GB'),
-                    timer,
-                  },
-                ];
+                    const updateData = {
+                      values: {
+                        extendedFields: {
+                          minigame: updatedMinigame,
+                        },
+                      },
+                    };
 
-                const updateData = {
-                  values: {
-                    extendedFields: {
-                      minigame: updatedMinigame,
-                    },
-                  },
-                };
-
-                await updateProfileOutput(updateData);
-                const res = await getUserDetailsAPI();
-                if (res) {
-                  dispatch(setUserDetails(res?.data));
+                    await updateProfileOutput(updateData);
+                    const res = await getUserDetailsAPI();
+                    if (res) {
+                      dispatch(setUserDetails(res?.data));
+                    }
+                    navigate(`/minigame/result?time=${timer}`);
+                  } catch (error) {
+                    navigate(`/minigame/result?time=${timer}`);
+                  }
                 }
-                navigate(`/minigame/result?time=${timer}`);
-              } catch (error) {
-                navigate(`/minigame/result?time=${timer}`);
+              } else {
+                const iframeUrl = iframe.contentWindow?.location.href;
+                if (iframeUrl?.includes('/minigame/result?time=')) {
+                  // clearInterval(checkInterval);
+                  processing = true;
+
+                  const timer = parseInt(iframeUrl.split('=')[1] || '0') || customerTimer;
+
+                  try {
+                    const existingMinigame =
+                      userDetails?.data?.personalInfo?.extendedFields?.minigame || [];
+
+                    const updatedMinigame = [
+                      ...existingMinigame,
+                      {
+                        date: new Date().toLocaleString('en-GB'),
+                        timer,
+                      },
+                    ];
+
+                    const updateData = {
+                      values: {
+                        extendedFields: {
+                          minigame: updatedMinigame,
+                        },
+                      },
+                    };
+
+                    await updateProfileOutput(updateData);
+                    const res = await getUserDetailsAPI();
+                    if (res) {
+                      dispatch(setUserDetails(res?.data));
+                    }
+                    navigate(`/minigame/result?time=${timer}`);
+                  } catch (error) {
+                    navigate(`/minigame/result?time=${timer}`);
+                  }
+                }
               }
             }
-          } else {
-            const iframeUrl = iframe.contentWindow?.location.href;
-            if (iframeUrl?.includes('/minigame/result?time=')) {
-              clearInterval(checkInterval);
+          } catch (error) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const errorMessage = (error as any).toString();
+            if (errorMessage.includes('Failed to read a named property')) {
+              // clearInterval(checkInterval);
               processing = true;
-
-              const timer = parseInt(iframeUrl.split('=')[1] || '0');
-
+              const timer = customerTimer;
               try {
                 const existingMinigame =
                   userDetails?.data?.personalInfo?.extendedFields?.minigame || [];
@@ -188,17 +376,30 @@ const MiniGame: React.FC = () => {
           }
         }
       }
-    }, 10);
-
+    })();
+    window.removeEventListener('message', handleGameMessage);
+    window.removeEventListener('storage', storageEventListener);
     window.addEventListener('message', handleGameMessage);
     window.addEventListener('storage', storageEventListener);
     return () => {
       window.removeEventListener('message', handleGameMessage);
       window.removeEventListener('storage', storageEventListener);
 
-      clearInterval(checkInterval);
+      // clearInterval(checkInterval);
     };
-  }, []);
+  }, [customerTimer]);
+
+  const memoIframe = useMemo(
+    () => (
+      <iframe
+        src="./game/index.html"
+        title="Game"
+        className="h-[402px] w-full"
+        ref={myIframe}
+      ></iframe>
+    ),
+    []
+  );
 
   return (
     <div id="page" className="overflow-y-auto">
@@ -212,13 +413,14 @@ const MiniGame: React.FC = () => {
           className="absolute left-0 top-0 min-h-screen w-full"
         />
         <div className="relative z-[2] mx-auto flex w-[90%] flex-col pt-[100px] ">
-          <iframe
+          {memoIframe}
+          {/* <iframe
             // src="../../../contest/Card Flipping Game/index.html"
             src="./game/index.html"
             title="Game"
             className="h-[402px] w-full"
             ref={myIframe}
-          ></iframe>
+          ></iframe> */}
           <img src={howTo} alt="How To" className="pt-5" />
         </div>
         <HotLineButton noHeader noFooter />
