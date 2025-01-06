@@ -59301,21 +59301,32 @@ void main(void) {
             typeof localStorage !== 'undefined' ||
             typeof document !== 'undefined'
           ) {
-            window.parent.postMessage({ action: 'gameCompleted', data: v0.GetValue() });
-            localStorage.setItem('gameCompleted', v0.GetValue());
-            const gameCompleteDiv = document.querySelector('#game-complete');
-            gameCompleteDiv.style.display = 'block';
-            gameCompleteDiv.attributes['data-time'] = v0.GetValue();
-            return;
+            if (typeof window !== 'undefined')
+              window.parent.postMessage({ action: 'gameCompleted', data: v0.GetValue() });
+            if (typeof localStorage !== 'undefined')
+              localStorage.setItem('gameCompleted', v0.GetValue());
+            if (typeof document !== 'undefined') {
+              const gameCompleteDiv = document.querySelector('#game-complete');
+              gameCompleteDiv.style.display = 'block';
+              gameCompleteDiv.attributes['data-time'] = v0.GetValue();
+
+              document.head.title = 'COMPLETED';
+            }
+
+            return and(
+              'https://sb.miniprogram.aptamilkid.thedgroup.com.my/contest/minigame/result?time=',
+              v0.GetValue()
+            );
           } else {
             return and(
-              'http://sb.miniprogram.aptamilkid.thedgroup.com.my/contest/minigame/result?time=',
+              'https://sb.miniprogram.aptamilkid.thedgroup.com.my/contest/minigame/result?time=',
               v0.GetValue()
             );
           }
         } catch (error) {
+          console.error(error);
           return and(
-            'http://sb.miniprogram.aptamilkid.thedgroup.com.my/contest/minigame/result?time=',
+            'https://sb.miniprogram.aptamilkid.thedgroup.com.my/contest/minigame/result?time=',
             v0.GetValue()
           );
         }
