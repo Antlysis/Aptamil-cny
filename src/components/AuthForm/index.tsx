@@ -130,6 +130,7 @@ function AuthForm({
         const sendData = {
           phone: '60' + data.phone,
           type: 'PHONE',
+          campaignId: import.meta.env.VITE_APP_CAMPAIGN_ID,
         };
         if (buttonFunction) {
           await buttonFunction();
