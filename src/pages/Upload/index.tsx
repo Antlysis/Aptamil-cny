@@ -3,6 +3,7 @@ import { useState } from 'react';
 import cnyTop from '../../assets/gif/cny-animation.gif';
 import pdfIcon from '../../assets/images/PDFicon.png';
 import cnyBody from '../../assets/images/cny-body.webp';
+import infoIcon from '../../assets/images/info-icon.png';
 import successLogo from '../../assets/images/svg/successLogo.svg';
 import trashLogo from '../../assets/images/svg/trashLogo.svg';
 import uploadLogo from '../../assets/images/svg/uploadLogo.svg';
@@ -11,6 +12,7 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import HotLineButton from '../../components/HotlineButton';
 import Modal from '../../components/Modal';
+import ReceiptSample from '../../components/ReceiptSampleModal';
 import { createEntry, uploadImage } from '../../services/index';
 
 interface ImageData {
@@ -26,6 +28,7 @@ const Upload = () => {
   const [imageData, setImageData] = useState<ImageData | null>(null);
   // const [isValid, setIsValid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSampleOpen, setIsSampleOpen] = useState(false);
 
   const campaignId = import.meta.env.VITE_APP_CAMPAIGN_ID;
   const rewardId = import.meta.env.VITE_APP_REWARD_ID;
@@ -147,22 +150,34 @@ const Upload = () => {
 
           <form className="w-full text-center" onSubmit={handleSubmit}>
             <div
-              className="inset-0 mt-4 h-[170px] cursor-pointer content-center rounded-[10px] border-2 border-dashed text-center"
+              className="relative mt-4 h-[170px] rounded-[10px] border-2 border-dashed"
               style={{ backgroundColor: '#7D1A21' }}
             >
+              <div className="absolute top-2 right-2 z-20">
+                <img
+                  src={infoIcon}
+                  className="w-5 h-5 cursor-pointer"
+                  alt="info"
+                  onClick={() => setIsSampleOpen(true)}
+                />
+              </div>
+
               <input
                 type="file"
-                className="absolute inset-0 mt-[200px] h-[150px] opacity-0"
+                className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
                 onChange={handleUpload}
                 accept="image/jpeg,image/jpg,image/png,application/pdf"
               />
-              <img src={uploadLogo} className="mx-auto" alt="Upload" />
-              <p className="mx-auto my-2 text-base font-bold text-white underline">
-                Click to Upload
-              </p>
-              <p className="mx-auto text-xs text-white gotham-book">
-                *Supported formats: PDF, JPEG, JPG, PNG only
-              </p>
+
+              <div className="relative h-full flex flex-col justify-center">
+                <img src={uploadLogo} className="mx-auto" alt="Upload" />
+                <p className="mx-auto my-2 text-base font-bold text-white underline">
+                  Click to Upload
+                </p>
+                <p className="mx-auto text-xs text-white gotham-book">
+                  *Supported formats: PDF, JPEG, JPG, PNG only
+                </p>
+              </div>
             </div>
             <div className="upload details">
               {file && imageData ? (
@@ -221,6 +236,7 @@ const Upload = () => {
           />
         )}
       </div>
+      <ReceiptSample open={isSampleOpen} onClose={() => setIsSampleOpen(false)} />
     </div>
   );
 };
