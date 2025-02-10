@@ -127,7 +127,7 @@ const ReceiptSample: React.FC<ReceiptSampleProps> = ({ open, onClose }) => {
   return (
     <div className="fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-50">
       <div className="flex items-center justify-center min-h-screen">
-        <div className="w-[90%] max-w-[800px] bg-white rounded-lg p-8 shadow-lg relative">
+        <div className="w-[90%] max-w-[560px] bg-white rounded-lg p-8 shadow-lg relative">
           <div className="absolute top-4 right-4">
             <img
               src={close}

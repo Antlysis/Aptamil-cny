@@ -28,7 +28,7 @@ const Upload = () => {
   const [imageData, setImageData] = useState<ImageData | null>(null);
   // const [isValid, setIsValid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSampleOpen, setIsSampleOpen] = useState(false);
+  const [isSampleOpen, setIsSampleOpen] = useState(true);
 
   const campaignId = import.meta.env.VITE_APP_CAMPAIGN_ID;
   const rewardId = import.meta.env.VITE_APP_REWARD_ID;
