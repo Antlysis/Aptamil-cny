@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import slideGif from '../../assets/gif/gatcha-slide.gif';
 import gatchaGif from '../../assets/gif/gatcha.gif';
 import capsule0 from '../../assets/images/capsule-0.png';
@@ -13,12 +15,13 @@ import Header from '../../components/Header';
 import HotLineButton from '../../components/HotlineButton';
 import Modal from '../../components/Modal';
 import RewardModal from '../../components/RewardModal';
-// import { getRewardStock } from '../../services';
+import { getRewardStock } from '../../services';
 import { checkValidity, gameReward } from '../../services/index';
 import { useAppSelector } from '../../store/hooks';
 import { getUserDetails } from '../../store/userSlice';
 
 const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
+  const navigate = useNavigate();
   const [isValid, setIsValid] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isModalClosing, setIsModalClosing] = useState(false);
@@ -29,18 +32,19 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   const [showGatchaGif, setShowGatchaGif] = useState(false);
   const [gifStatus, setGifStatus] = useState<'playing' | 'stopped'>('stopped');
   const [isClickDisabled, setIsClickDisabled] = useState(false);
+  const [oos, setOos] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const campaignId = import.meta.env.VITE_APP_GAMES_CAMPAIGN_ID;
   const userDetails = useAppSelector(getUserDetails);
   const tokenBalance = userDetails?.data?.personalInfo?.totalTokenBalance || 0;
 
-  // const rewardIdsList = [
-  //   import.meta.env.VITE_APP_GAMES_TNG_REWARD_688,
-  //   import.meta.env.VITE_APP_GAMES_TNG_REWARD_1888,
-  //   import.meta.env.VITE_APP_GAMES_TNG_REWARD_3888,
-  //   import.meta.env.VITE_APP_GAMES_TNG_REWARD_8888,
-  // ];
+  const rewardIdsList = [
+    import.meta.env.VITE_APP_GAMES_TNG_REWARD_688,
+    import.meta.env.VITE_APP_GAMES_TNG_REWARD_1888,
+    import.meta.env.VITE_APP_GAMES_TNG_REWARD_3888,
+    import.meta.env.VITE_APP_GAMES_TNG_REWARD_8888,
+  ];
 
   useEffect(() => {
     setCurrentTokenBalance(tokenBalance);
@@ -60,19 +64,19 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
   }, [isOpen, isModalClosing, currentTokenBalance]);
 
   useEffect(() => {
-    // const checkStock = async () => {
-    //   const gotStock = await getRewardStock(rewardIdsList);
-    //   if (gotStock) {
-    //     const outOfStock = (gotStock.data as { isValid: boolean }[]).every(
-    //       (item: { isValid?: boolean }) => !item.isValid
-    //     );
+    const checkStock = async () => {
+      const gotStock = await getRewardStock(rewardIdsList);
+      if (gotStock) {
+        const outOfStock = (gotStock.data as { isValid: boolean }[]).every(
+          (item: { isValid?: boolean }) => !item.isValid
+        );
 
-    //     if (outOfStock) {
-    //       setIsNoTokenModalOpen(true);
-    //       setShowSlideGif(false);
-    //     }
-    //   }
-    // };
+        if (outOfStock) {
+          setOos(true);
+          setShowSlideGif(false);
+        }
+      }
+    };
 
     const fetchValidity = async () => {
       try {
@@ -85,7 +89,7 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
       }
     };
 
-    // checkStock();
+    checkStock();
     fetchValidity();
   }, []);
 
@@ -211,7 +215,11 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
       </div>
       <HotLineButton noHeader noFooter />
       <div className="relative z-[2] flex justify-center pt-[50px]">
-        <img src={gatchaGame} alt={gatchaGame} className="h-[70vh] w-auto object-contain" />
+        <img
+          src={gatchaGame}
+          alt={gatchaGame}
+          className="h-[70vh] w-auto object-contain"
+        />
         <div
           className="absolute bottom-[6%] w-full md:bottom-[10%]"
           ref={sliderRef}
@@ -266,6 +274,18 @@ const PlayAndRedeem = ({ onComplete }: { onComplete?: () => void }) => {
           buttonClass="bg-[#001489] hover:bg-blue-700"
           onClose={handleCloseNoTokenModal}
           navigateTo="/upload"
+        />
+      )}
+
+      {oos && (
+        <Modal
+          logo={checkmark}
+          title="Sorry.."
+          body="All vouchers have been fully redeemed. Not to worry, you can still play the mini game and stand a chance to win our grand prizes!"
+          buttonText="PLAY NOW"
+          buttonClass="bg-[#001489] hover:bg-blue-700"
+          onClose={() => navigate('/minigame')}
+          // navigateTo="/upload"
         />
       )}
     </div>

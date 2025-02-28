@@ -8,11 +8,11 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Home from '../pages/Home';
 import Join from '../pages/Join';
 import Login from '../pages/Login';
-import MinigameResult from '../pages/Minigame/index';
-import MiniGame from '../pages/Minigame/minigame';
-import PlayAndRedeem from '../pages/PlayAndRedeem';
+// import MinigameResult from '../pages/Minigame/index';
+// import MiniGame from '../pages/Minigame/minigame';
+// import PlayAndRedeem from '../pages/PlayAndRedeem';
 import Register from '../pages/Register';
-import Upload from '../pages/Upload';
+// import Upload from '../pages/Upload';
 import Verify from '../pages/Verify';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { getIsAuthenticated, userLogin } from '../store/userSlice';
@@ -41,10 +41,10 @@ const Router: React.FC = () => {
         <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
           <Route path={'/join'} element={<Join />} />
           <Route path={'/home'} element={<Home />} />
-          <Route path={'/upload'} element={<Upload />} />
+          {/* <Route path={'/upload'} element={<Upload />} />
           <Route path={'/playandredeem'} element={<PlayAndRedeem />} />
           <Route path={'/minigame'} element={<MiniGame />} />
-          <Route path={'/minigame/result'} element={<MinigameResult />} />
+          <Route path={'/minigame/result'} element={<MinigameResult />} /> */}
         </Route>
 
         <Route path="*" element={<Navigate to="/login" />} />
